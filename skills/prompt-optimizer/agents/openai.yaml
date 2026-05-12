@@ -1,0 +1,4 @@
+interface:
+  display_name: "Prompt Optimizer"
+  short_description: "重构模糊需求，生成结构化高质量提示词"
+  default_prompt: "Use $prompt-optimizer to turn my rough task idea into a structured, reusable prompt."
