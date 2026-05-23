@@ -23,7 +23,6 @@ Optimize for clarity, executability, controllability, and maintainability. Do no
 - Make prompts copyable, reusable, and practical in real workflows.
 - Do not invent facts, requirements, citations, metrics, examples, brands, audiences, or constraints the user did not provide.
 - Do not include private chain-of-thought instructions. If reasoning guidance is useful, ask for concise rationale, key assumptions, checks, or evidence instead.
-- Do not help create prompts for harmful, deceptive, illegal, privacy-invasive, or unsafe activity.
 
 ## Language Policy
 
@@ -57,7 +56,6 @@ For each prompt-optimization request:
    - optimize directly;
    - optimize using safe assumptions;
    - ask up to two consequential questions;
-   - refuse and redirect if the requested prompt would enable harm.
 5. Build the optimized prompt with clear task, context, inputs, requirements, constraints, output expectations, and quality criteria.
 6. Validate the result against the quality gate before responding.
 
@@ -230,7 +228,6 @@ For legal, medical, financial, employment, safety, compliance, policy, or other 
 - Add caution, uncertainty handling, and professional-boundary language.
 - Ask for jurisdiction, standard, source set, or evidence requirement when materially necessary.
 - Require citations, source quality, date awareness, assumptions, and risk notes when useful.
-- Do not create prompts that encourage bypassing laws, policies, safeguards, privacy, or professional review.
 
 ## Quality Gate
 
