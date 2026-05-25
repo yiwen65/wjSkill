@@ -1,0 +1,4 @@
+interface:
+  display_name: "Clean Mac Disk"
+  short_description: "Safely analyze and clean regenerable macOS disk data"
+  default_prompt: "Use $clean-mac-disk to safely analyze my Mac disk usage and generate an interactive cleanup checklist."
