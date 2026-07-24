@@ -1,0 +1,47 @@
+{
+  "skill_name": "prompt-refiner",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "优化下面这段编码 Agent 系统提示词，只输出优化后的完整提示词：你是一个编程助手。你必须总是在修改任何文件前询问用户批准，但你也必须主动完成所有修复不要停下来。一定要简洁。一定不要啰嗦。每次调用工具都向用户解释。尽可能少调用工具。正确性最重要。修改完成后运行测试。永远不要执行命令，除非为了运行测试。用户要求修复 bug 时，查看代码、找出原因、修改代码并验证；如果缺少信息就一直搜索直到找到。",
+      "expected_output": "A Chinese, copyable agent prompt that resolves approval and command contradictions, defines authorization by request type, preserves correctness and validation, and adds bounded stop and fallback rules without unnecessary repetition.",
+      "files": [],
+      "expectations": [
+        "The response contains only a complete copyable optimized prompt, without diagnosis or change commentary outside it.",
+        "The prompt resolves the conflict between asking before every file edit and proactively completing fixes by defining conditional authorization or approval boundaries.",
+        "The prompt allows commands needed for inspection, diagnosis, and validation instead of preserving the contradictory blanket command prohibition.",
+        "The prompt preserves correctness and relevant validation as completion requirements.",
+        "The prompt replaces unbounded searching with a bounded missing-evidence, fallback, blocker, or stop rule.",
+        "The prompt removes redundant brevity and per-tool narration instructions without losing useful collaboration behavior."
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Rewrite this into a reusable research prompt. Final prompt only. I need an analysis of competitors for our B2B fleet management product. Search the web a lot, be comprehensive, don't waste time, cite everything, make it short, include pricing, product features, customers, market position, and recommendations. Don't guess. We care about the US market in 2026 and the audience is our product leadership team.",
+      "expected_output": "An English research prompt that preserves market, date, audience, comparison dimensions, and citation needs while replacing conflicting breadth, brevity, and search instructions with evidence thresholds, retrieval budgets, output priorities, and missing-evidence behavior.",
+      "files": [],
+      "expectations": [
+        "The response contains only a complete reusable English research prompt, without diagnosis or change commentary outside it.",
+        "The prompt preserves the B2B fleet-management context, United States market, 2026 time frame, and product-leadership audience.",
+        "The prompt requires pricing, product features, customers, market position, and actionable recommendations.",
+        "The prompt resolves comprehensiveness versus brevity by defining output priorities, structure, scope, or evidence thresholds rather than preserving conflicting slogans.",
+        "The prompt defines source quality, freshness, and claim-level citation behavior and distinguishes supported facts from inference.",
+        "The prompt uses a bounded retrieval or stopping rule and reports missing evidence instead of guessing."
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "把下面的数据抽取提示词改得更可靠，输出最终提示词即可。模型需要从客服工单中提取 JSON：字段必须是 ticket_id、customer_name、problem、urgency、requested_action。urgency 只能是 low、medium、high。如果没写 customer_name 就填 null，其他字段缺失就不要瞎编。输出不能带 markdown。原提示词：阅读工单，理解客户问题，尽可能补全信息，输出一个清晰 JSON，并解释你的判断。",
+      "expected_output": "A single concise Chinese clarification question that identifies the incompatibility between an enum-only required urgency field and the prohibition on inventing a value when urgency evidence is absent, then offers concrete resolution choices instead of silently changing the schema or inventing a default.",
+      "files": [],
+      "expectations": [
+        "The response asks exactly one concise clarification question instead of presenting a finalized extraction prompt.",
+        "The question explicitly identifies that urgency may be absent while the requested schema both forbids null and forbids inventing a value.",
+        "The question offers concrete choices such as allowing null, guaranteeing urgency in every input, or authorizing a defined fallback policy.",
+        "The response does not silently add null to the urgency enum, default urgency to low, or introduce an unrequested error schema.",
+        "The response preserves the user's exact field and enum constraints while asking which one may change.",
+        "The response contains no unrelated diagnosis, rewritten prompt, or verbose explanation beyond what is needed to make the decision."
+      ]
+    }
+  ]
+}
