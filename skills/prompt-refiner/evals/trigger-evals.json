@@ -1,0 +1,102 @@
+[
+  {
+    "id": 1,
+    "query": "把这段给 Claude Code 的系统提示词优化一下，主要解决审批规则和自动修复互相冲突的问题，最后只给我新版提示词。",
+    "should_trigger": true
+  },
+  {
+    "id": 2,
+    "query": "I have a messy AGENTS.md with the same testing rule repeated in four places. Rewrite it into a lean task contract without changing our release permissions.",
+    "should_trigger": true
+  },
+  {
+    "id": 3,
+    "query": "Can you turn these rough notes into a reusable prompt for researching 2026 US logistics competitors? Keep citations and a clear stop condition.",
+    "should_trigger": true
+  },
+  {
+    "id": 4,
+    "query": "优化这份 JSON 抽取提示词，检查 required、enum、null 和缺失值策略有没有矛盾；不要执行抽取任务。",
+    "should_trigger": true
+  },
+  {
+    "id": 5,
+    "query": "Rewrite this tool description so an agent knows when to call it, which return fields are authoritative, and what to do with an empty result.",
+    "should_trigger": true
+  },
+  {
+    "id": 6,
+    "query": "我写了一份很长的开发者指令，想压缩成适合前沿模型的精简版本，但安全边界、输出格式和验收标准必须保留。",
+    "should_trigger": true
+  },
+  {
+    "id": 7,
+    "query": "Make this workflow prompt reusable by replacing customer-specific values with placeholders. Output the final template only.",
+    "should_trigger": true
+  },
+  {
+    "id": 8,
+    "query": "Diagnose why this agent prompt is unstable, then return a corrected prompt: sometimes it asks before every read and sometimes it deploys without approval. I want the prompt fixed, not a deployment.",
+    "should_trigger": true
+  },
+  {
+    "id": 9,
+    "query": "Here is an old GPT prompt stack with system, developer, tool and output instructions. Consolidate contradictions and give me one improved stack.",
+    "should_trigger": true
+  },
+  {
+    "id": 10,
+    "query": "请把这句普通请求改成更可靠的 AI 提示词：阅读我粘贴的事故摘要，区分事实、假设和缺失证据。模型没有任何工具。",
+    "should_trigger": true
+  },
+  {
+    "id": 11,
+    "query": "Use the instructions below to research our fleet-management competitors now and deliver the completed report with citations.",
+    "should_trigger": false
+  },
+  {
+    "id": 12,
+    "query": "Please rewrite this customer email so it sounds warmer but still professional. Keep the refund amount and deadline unchanged.",
+    "should_trigger": false
+  },
+  {
+    "id": 13,
+    "query": "Review our AGENTS.md and tell me whether the repository rules are being followed in the current pull request. Do not rewrite the file.",
+    "should_trigger": false
+  },
+  {
+    "id": 14,
+    "query": "Fix the bug described in this prompt: the checkout button stays disabled after a valid card is entered. Inspect the repo, implement the fix, and test it.",
+    "should_trigger": false
+  },
+  {
+    "id": 15,
+    "query": "Summarize this article about prompt engineering and list the three most useful ideas for our team.",
+    "should_trigger": false
+  },
+  {
+    "id": 16,
+    "query": "Create a new agent skill that converts Markdown release notes into a branded PDF and include tests for the generated document.",
+    "should_trigger": false
+  },
+  {
+    "id": 17,
+    "query": "I pasted a support ticket below. Extract ticket_id, customer_name and urgency as JSON using the schema I provided.",
+    "should_trigger": false
+  },
+  {
+    "id": 18,
+    "query": "Explain what this system prompt does and whether any instruction is unsafe. I only need an explanation; don't produce a rewritten prompt.",
+    "should_trigger": false
+  },
+  {
+    "id": 19,
+    "query": "Translate the following developer documentation into Chinese and preserve all code blocks and API names.",
+    "should_trigger": false
+  },
+  {
+    "id": 20,
+    "query": "Run the migration workflow exactly as written below. Stop before the production write and ask me for approval.",
+    "should_trigger": false
+  }
+]
