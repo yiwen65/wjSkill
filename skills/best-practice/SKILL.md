@@ -1,6 +1,6 @@
 ---
 name: best-practice
-description: Behavioral guidelines for implementing, reviewing, and refactoring code with calibrated assumptions, root-cause solutions, evidence-based design choices, surgical diffs, adversarial review, and targeted validation. Use when coding work risks hidden assumptions, overengineering, scope drift, unexamined best-practice claims, unrelated cleanup, or weak success criteria.
+description: Behavioral guidelines for implementing, reviewing, and refactoring code with calibrated assumptions, first-principles reasoning, causal root-cause analysis, evidence-based design choices, surgical diffs, adversarial review, and targeted validation. Use when coding work risks hidden assumptions, symptom patches, overengineering, scope drift, unexamined best-practice claims, unrelated cleanup, or weak success criteria.
 ---
 
 # Best Practice
@@ -24,11 +24,27 @@ work needs stronger evidence and clarification.
 - Match the requested mode: review and diagnosis are read-only unless the user
   also asks for implementation.
 
-## 2. Choose the least complex complete solution
+## 2. Reason from first principles and establish root cause
 
-- Prefer fixing the verified root cause over masking symptoms. Use a bounded
-  mitigation only when the root cause is outside the authorized scope, cannot be
-  changed safely, or is not yet supported by evidence; state that limitation.
+- Start from observable facts, required behavior, and hard constraints. Separate
+  them from inherited conventions, unverified assumptions, symptoms, and proposed
+  solutions.
+- For defects, trace the actual data, control, and state transitions from input to
+  failure. Build the smallest causal chain that explains the evidence instead of
+  stopping at the first failing line or visible symptom.
+- Challenge the causal model with counterexamples and plausible alternative
+  hypotheses. Seek the smallest additional evidence that would distinguish them;
+  do not label correlation or temporal proximity as causation.
+- Distinguish the root cause from contributing conditions and downstream effects.
+  State what evidence supports each link and what remains uncertain.
+- Derive the solution requirements from the verified causal model. Prefer an
+  intervention at the earliest authorized point that prevents recurrence. Use a
+  bounded mitigation only when the root cause is outside scope, cannot be changed
+  safely, or is not yet supported by evidence; state the limitation and residual
+  risk.
+
+## 3. Choose the least complex complete solution
+
 - Use the complexity required for correctness, robustness, and maintainability.
   Every additional layer should trace to a requirement, constraint, or verified
   failure mode.
@@ -43,7 +59,7 @@ work needs stronger evidence and clarification.
 - Push back when the request introduces avoidable complexity or when a simpler
   approach meets the same outcome.
 
-## 3. Challenge the solution with evidence
+## 4. Challenge the solution with evidence
 
 - For non-trivial, unfamiliar, cross-cutting, or high-risk work, inspect analogous
   code in the repository and relevant upstream implementations. When external
@@ -62,7 +78,7 @@ work needs stronger evidence and clarification.
   or marked unavailable and another focused search is unlikely to change the
   implementation choice.
 
-## 4. Keep the diff surgical
+## 5. Keep the diff surgical
 
 - Make every changed line traceable to the requested outcome, a necessary
   dependency, or its validation.
@@ -75,7 +91,7 @@ work needs stronger evidence and clarification.
 - Report relevant out-of-scope issues separately rather than folding them into
   the patch.
 
-## 5. Verify the outcome
+## 6. Verify the outcome
 
 - Define success in observable terms before implementation. For bug fixes,
   reproduce the failure when practical; for refactors, identify the behavior
