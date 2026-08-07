@@ -1,6 +1,6 @@
 ---
 name: wiki
-description: 'Manage the user''s Obsidian Markdown vault as a dual-track personal knowledge base: preserve low-friction human notes while safely capturing, classifying, moving, deduplicating, and linking notes, and incrementally compiling sourced reusable knowledge into the structured `_wiki` layer. Use for Obsidian/vault/wiki/PKM work such as “整理笔记”, “整理 Inbox”, “把资料沉淀到 wiki”, “摄入这篇文章”, “查询我的知识库”, “更新 index/log”, “检查断链/孤立页/重复内容”, or maintaining wikilinks, frontmatter, sources, confidence, contradictions, and note provenance.'
+description: 'Manage the user''s Obsidian Markdown vault as a dual-track personal knowledge base: preserve low-friction human notes while safely capturing, classifying, moving, deduplicating, and linking notes, and incrementally compiling sourced reusable knowledge into the structured `_wiki` layer. Use for Obsidian/vault/wiki/PKM work such as “整理笔记”, “整理 Inbox”, “把资料沉淀到 wiki”, “摄入这篇文章”, “摄入 X 推文或 Article”, “查询我的知识库”, “更新 index/log”, “检查断链/孤立页/重复内容”, or maintaining wikilinks, frontmatter, sources, confidence, contradictions, and note provenance.'
 ---
 
 # Wiki
@@ -32,12 +32,17 @@ Do not turn a read-only request such as “分析”, “审查”, or “给建
 - **Query:** Read the index, search broadly, synthesize from actual pages, and distinguish sourced facts from personal or unsourced notes. Persist only when requested or when the request explicitly asks to manage the wiki.
 - **Lint/repair:** Audit first, separate definite defects from heuristics, then make only authorized fixes.
 
+## Ingest X Sources Safely
+
+When the source is an `x.com`/`twitter.com` post or Article, read [references/x-ingest.md](references/x-ingest.md) before retrieval. Keep the original X URL as the canonical source and record the actual retrieval method, access date, and any fallback or completeness limitation in the raw record. Do not treat an empty short-post field as proof that an Article has no body.
+
 ## Protect Authorship and Provenance
 
 - Never rewrite a human note into polished AI prose merely to make it uniform.
 - Keep direct observations, personal reflections, plans, and tentative ideas recognizable as the user's material.
 - Do not fabricate a source, author, date, URL, quote, or confidence level.
 - Treat external source files and existing `_wiki/raw/` bodies as evidence. Do not silently alter them during synthesis.
+- Never put X cookies, `auth_token`, `ct0`, Bearer tokens, browser session data, or other credentials in the vault, source metadata, logs, shell history, or committed files.
 - When a human note has traceable context but no external source, cite the note path where the schema permits it and label the compiled claim conservatively. Otherwise use `status: needs-source` and `confidence: low`.
 - Record contradictions side by side with source and date. Do not flatten disagreement into a false consensus.
 - Paraphrase sources; retain only short excerpts needed for verification and preserve attribution.

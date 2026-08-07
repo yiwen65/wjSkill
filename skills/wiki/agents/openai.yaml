@@ -1,4 +1,4 @@
 interface:
   display_name: "Wiki"
   short_description: "Safely organize notes and maintain a sourced Obsidian wiki"
-  default_prompt: "Use $wiki to inventory my Obsidian vault and safely organize notes or compile reusable knowledge into _wiki."
+  default_prompt: "Use $wiki to safely ingest a source such as a public X Article, organize my Obsidian vault, and compile reusable knowledge into _wiki."
