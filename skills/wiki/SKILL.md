@@ -34,7 +34,7 @@ Do not turn a read-only request such as “分析”, “审查”, or “给建
 
 ## Ingest X Sources Safely
 
-When the source is an `x.com`/`twitter.com` post or Article, read [references/x-ingest.md](references/x-ingest.md) before retrieval. Keep the original X URL as the canonical source and record the actual retrieval method, access date, and any fallback or completeness limitation in the raw record. Do not treat an empty short-post field as proof that an Article has no body.
+When the source is an `x.com`/`twitter.com` post or Article, read [references/x-ingest.md](references/x-ingest.md) before retrieval. Keep the original X URL as the canonical source and record the actual retrieval method, access date, and any fallback or completeness limitation in the raw record. Do not treat an empty short-post field as proof that an Article has no body. Before semantic duplicate search, normalize and compare the exact X `post_id` and, for Articles, `article_id`; same author/title/topic with a different ID is not a duplicate.
 
 ## Protect Authorship and Provenance
 

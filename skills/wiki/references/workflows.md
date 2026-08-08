@@ -48,7 +48,7 @@ Never infer that an untracked note is disposable. Never treat a broad filename m
 2. Retain title, URL, author, publication date, capture date, original vault path, content hash, and attachment references when available. Never substitute ingestion date for an unknown publication date.
 3. For a URL, retrieve the page from the named source and distinguish publication date from access date. Store a paraphrased summary and short verification excerpts by default, not a full copyrighted page. Do not replace a user-supplied source with third-party web summaries.
 4. Read the source completely enough to identify thesis, claims, evidence, limitations, entities, concepts, comparisons, and durable questions.
-5. Read `_wiki/index.md` and search the vault for synonyms and aliases.
+5. Read `_wiki/index.md` and, for X sources, perform exact canonical identity matching by normalized `post_id`/`article_id` before searching synonyms and aliases. A same-author or semantically similar page with a different X ID is only a related source, never an automatic duplicate.
 6. Present or internally form an update map: canonical source, ingestion record if needed, existing pages to revise, justified new pages, contradictions, index entry, and log entry.
 7. Update existing synthesis before creating new pages. Use the matching `_wiki/_templates/` template for justified new pages.
 8. Cite the source from every page whose important claims depend on it. Do not imply that a page was fully verified when only one source supports it.
