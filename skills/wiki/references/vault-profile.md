@@ -70,9 +70,9 @@ Keep project-specific debugging in `02-Projects/`; extract only reusable conclus
 ### One canonical source copy
 
 - Keep a source already stored in `04-Sources/` or another human-note path in place. Do not copy its full body into `_wiki/raw/`.
-- Create a lightweight `_wiki/raw/` ingestion record only when formal pages need the schema's `raw/...` source reference. Record the original vault path, metadata, hash, a non-duplicative summary, and ingestion notes.
+- Create a non-duplicative `_wiki/raw/` ingestion record only when formal pages need the schema's `raw/...` source reference. Record the original vault path, metadata, hash, and a source-faithful deep analysis and structured summary; follow `references/raw-structure.md` rather than forcing a fixed body template.
 - For user-provided pasted text or an external local attachment not yet in the vault, preserve one canonical copy under the appropriate `_wiki/raw/` folder when ingesting directly into the wiki.
-- For a public web page, store URL, author/date when known, access date, a paraphrased summary, and only short verification excerpts. Do not archive a full copyrighted article by default.
+- For a public web page, store URL, author/date when known, access date, a source-faithful deep analysis and structured summary that follows the page's own heading/narrative order, and only short verification excerpts. Do not archive a full copyrighted article by default.
 - Never keep two independently editable full-text copies. If the original moves, update the ingestion record rather than duplicating it.
 - Treat Git ignore as version-control isolation, not encryption. Do not quote or surface `90-Private/` contents unless the user explicitly requests the exact private note.
 
@@ -101,10 +101,12 @@ sources:
   - raw/articles/example.md
 status: seed | active | draft | needs-source | verified | stale | archived
 confidence: low | medium | high
+page_role: canonical | source-bridge | seed | synthesis
+evidence_scope: source-local | cross-source | time-sensitive | user-note
 ---
 ```
 
-Current quality rules include at least two meaningful outgoing wikilinks, traceable important claims, no `confidence: high` with empty `sources`, index maintenance, and log maintenance. Pages over about 200 lines are candidates for splitting, not automatic splits.
+Current quality rules include at least two meaningful outgoing wikilinks, traceable important claims, no `confidence: high` with empty `sources`, page-role/evidence-scope alignment, index/review-queue maintenance, and structured log maintenance. Concept pages must follow `references/concept-quality.md`: preserve semantic invariants while choosing prose structure by concept role; chapter/source bridge pages are not automatically canonical concepts. Pages over about 200 lines are candidates for splitting, not automatic splits.
 
 ## Repository checks
 

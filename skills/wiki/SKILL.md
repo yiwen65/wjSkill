@@ -21,6 +21,10 @@ Read [references/vault-profile.md](references/vault-profile.md) for this vault's
 5. For formal wiki work, read `_wiki/SCHEMA.md`, `_wiki/index.md`, and recent `_wiki/log.md` entries.
 6. Inventory the requested scope, links, attachments, duplicate names, and candidate destinations before editing.
 7. Search both filenames and content before creating a page. Prefer improving an existing canonical page over creating a near-duplicate.
+8. Give raw source records and formal pages distinct basenames (for example, `topic-source.md` for raw and `topic.md` for formal); otherwise basename resolution makes wikilinks ambiguous. When setting a raw `sha256`, hash the exact body returned after the closing `\n---\n` frontmatter delimiter, then run `audit_vault.py` to confirm no `raw-hash-drift`.
+9. Before creating or substantially rewriting `_wiki/raw/`, read `references/raw-structure.md`. Keep the governance/frontmatter envelope stable, but make the raw body a source-faithful deep analysis and structured summary that follows the original material's structure. It must cover the source's substantive claims, reasoning, evidence, assumptions, and limitations when recoverable—not just a short abstract or metadata card; never impose a universal Markdown body template.
+10. Before creating or substantially rewriting `_wiki/concepts/`, or deciding whether a source unit deserves a concept/entity/comparison page, read `references/concept-quality.md`. Keep the semantic invariants stable, but choose the prose structure from the concept's actual role; do not turn every source chapter into a canonical concept.
+11. For formal-page maintenance, preserve or assign `page_role` and `evidence_scope` according to `_wiki/SCHEMA.md`; inspect the review queue in `_wiki/index.md` before treating `confidence: high` as a cross-source or production claim.
 
 Do not turn a read-only request such as “分析”, “审查”, or “给建议” into edits. When the user asks to create, manage, organize, ingest, compile, or fix, perform the scoped edits and validate them.
 
@@ -28,9 +32,28 @@ Do not turn a read-only request such as “分析”, “审查”, or “给建
 
 - **Capture:** Create a human note from the matching `_meta/templates/` template. Keep capture friction low; ordinary notes need no formal frontmatter.
 - **Organize:** Classify and move only clearly scoped human notes. Preserve ambiguous, mixed-purpose, empty, or unclear notes in place and report them.
-- **Ingest/compile:** Preserve the source, extract evidence, and update the relevant `_wiki` pages instead of merely creating a standalone summary.
+- **Ingest/compile:** Preserve the source, extract evidence, and update the relevant `_wiki` pages instead of merely creating a standalone summary. The raw record is a source-faithful deep analysis and structured summary, not a short abstract, metadata card, or fixed summary template.
 - **Query:** Read the index, search broadly, synthesize from actual pages, and distinguish sourced facts from personal or unsourced notes. Persist only when requested or when the request explicitly asks to manage the wiki.
 - **Lint/repair:** Audit first, separate definite defects from heuristics, then make only authorized fixes.
+
+## Raw Record Structure Requirement
+
+Before writing a raw record, load `references/raw-structure.md`. The body must mirror the original material's information architecture whenever recoverable: for a book/EPUB, follow its TOC and chapter/subsection hierarchy; for a paper, report, article, transcript, or slide deck, follow the source's own headings, clauses, timestamps, speakers, or slide order. Analyze and summarize each substantive source unit in place, preserve source order, and retain the reasoning, evidence, assumptions, and limitations needed to understand the material without reopening the source.
+
+Do not force raw records into a universal sequence such as `Summary → Key claims → Key facts → Limitations → Provenance`. Those labels may be used only when the source itself uses them or when a very small provenance note is genuinely needed and has no natural source location. Keep cross-source synthesis and knowledge-graph interpretation in formal `_wiki/` pages. Fixed frontmatter and body hashing remain mandatory; the prose structure is source-dependent.
+
+## Paper and Technical-Source Detail Requirement
+
+For papers, technical reports, standards, and implementation documents, do not produce an abstract-only or metadata-only ingest. Before writing the raw record or synthesis page:
+
+1. Read the source deeply enough to cover the problem definition, assumptions, method/system pipeline, important equations or objective functions, training or optimization procedure, datasets, evaluation protocol, baselines, quantitative results, ablations, runtime/resource conditions, limitations, and stated future work.
+2. Separate the paper's direct claims from the assistant's knowledge-graph interpretation. Every important number must retain its dataset, split/sequence, metric direction, viewpoint (training/novel/closed-loop), hardware, and other protocol boundaries.
+3. Explain why the method works and what each major module contributes; do not merely list module names. For algorithm papers, include the data flow and the role of key losses, thresholds, constraints, or update rules when present.
+4. Reconcile strengths with counterexamples and failure cases. Do not report only the best table or headline number, and do not generalize indoor, synthetic, benchmark, or rendering results to production autonomous driving without evidence.
+5. Use the raw record for detailed evidence arranged in the source's own structure and the formal page for a structured technical synthesis. Do not impose a fixed raw sequence on a paper, book, or other material. The formal page may be concise, but it must still contain the core mechanism, experimental interpretation, limitations, and at least two meaningful links. If the source cannot be read completely enough, record the retrieval/completeness limitation and lower confidence rather than filling gaps by inference.
+6. For every paper ingest, report which sections were actually reviewed and whether any claims remain uncertain or protocol-dependent.
+
+A paper ingest is incomplete if it only contains title/authors/year, a short abstract paraphrase, a few generic links, or unqualified benchmark numbers.
 
 ## Ingest X Sources Safely
 
@@ -52,13 +75,13 @@ When the source is an `x.com`/`twitter.com` post or Article, read [references/x-
 For every created or materially updated formal page:
 
 1. Use a lowercase kebab-case filename and the matching `_wiki/_templates/` page type.
-2. Maintain every frontmatter field required by `_wiki/SCHEMA.md`.
+2. Maintain every frontmatter field required by `_wiki/SCHEMA.md`, including `page_role` and `evidence_scope` for formal pages after this schema revision.
 3. Add only schema-approved tags.
 4. Make important claims traceable through `sources` and inline context where useful.
-5. Add at least two useful outgoing wikilinks; do not create empty placeholder pages solely to satisfy this count.
+5. Add at least two useful outgoing wikilinks; do not create empty placeholder pages solely to satisfy this count. Prefer relationship sentences or inline links over a bare `Related` list.
 6. Reconcile the new evidence with related pages, including contradictions and stale claims.
-7. Update `_wiki/index.md` once per batch.
-8. Append one concise, parseable entry to `_wiki/log.md` once per batch. Preserve the log's existing format.
+7. Update `_wiki/index.md` once per batch, including the review queue when page status or evidence scope changes.
+8. Append one structured, parseable entry to `_wiki/log.md` once per batch. Include source, action, created/updated/unchanged pages, uncertainties, and validation; preserve historical log entries.
 
 Prefer one-source-at-a-time ingestion unless the user requests a batch. A source should change every relevant existing synthesis page, but touch only pages justified by its evidence.
 
@@ -83,7 +106,7 @@ git -C "$WIKI_VAULT" diff --check -- path/to/changed-note.md
 git -C "$WIKI_VAULT" status --short
 ```
 
-For `_wiki` edits, also verify required frontmatter, non-empty or conservatively handled `sources`, outgoing links, index coverage, log entry, and exact broken-link results. Open changed notes in Obsidian when UI access is available and layout, embeds, or graph behavior matters.
+For `_wiki` edits, also verify required frontmatter, `page_role`, `evidence_scope`, non-empty or conservatively handled `sources`, outgoing links, index coverage, review-queue coverage, log entry, and exact broken-link results. Open changed notes in Obsidian when embeds or layout changed.
 
 Report:
 
