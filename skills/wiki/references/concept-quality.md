@@ -84,6 +84,17 @@ Separate time-sensitive source claims from durable mechanism. Preserve date, geo
 - If the concept is only a passing mention or the evidence is too thin, keep it in the chapter/source bridge or plain prose rather than creating a new page.
 - Avoid broad edits across many unrelated concepts. Update only pages directly justified by the source.
 
+## Prose quality and conceptual voice
+
+The semantic invariants above are a quality contract, not a mandatory chapter list. A concept page should have the shape of the concept it owns.
+
+- Do not copy the raw record's source headings into a canonical concept one by one. Reorganize around the reusable mechanism, interface, decision rule, or boundary.
+- Avoid a default sequence such as `Scope → Mechanism → Applicability → Evidence boundary` when the concept does not need each part as a separate heading. Put a boundary in the paragraph where it matters, or use a source-specific heading that helps the reader.
+- Prefer direct conceptual statements over repeated attribution leads such as “文章指出……”, “作者认为……”, or “本页是……的编译”. State the mechanism first, then mark source-local evidence where the distinction matters.
+- Keep one clear evidence/provenance passage when the page is seed or source-local. Do not repeat the same uncertainty disclaimer after every claim unless the claim has a different protocol or source boundary.
+- A useful page may be asymmetric: one mechanism can deserve several paragraphs while a passing example needs only one sentence. Do not pad sections to satisfy an outline or a link-count checklist.
+- Read the page once without its frontmatter. If it sounds like a report summarizing a report rather than an explanation a future reader can reuse, revise the prose before accepting the page.
+
 ## Review checklist
 
 Before accepting a concept rewrite, verify:
