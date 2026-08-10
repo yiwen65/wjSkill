@@ -52,6 +52,40 @@ For a book or EPUB in particular:
 - Preserve the original binary or canonical source copy separately when applicable. A raw deep analysis and structured summary should not become a second independently editable full-text copy.
 - Paraphrase source prose and retain only short evidence-bearing excerpts needed for verification. Preserve headings and labels for navigation, but do not copy an entire copyrighted book or article into the raw record by default.
 
+## Prose quality: source-faithful without report templates
+
+Source fidelity concerns both structure and voice. Keeping the original headings does not justify writing every paragraph as a meta-report about what “the article” or “the author” said.
+
+- Open a unit with its actual subject: an actor's decision, a mechanism, an experiment, a requirement, an example, or a limitation. Use attribution when it resolves uncertainty, not as a compulsory sentence prefix.
+- Do not repeat one grammatical pattern such as `文章/作者/来源 + 动词 + 结论` across neighboring paragraphs. Do not mechanically rotate synonyms to hide the repetition; change the sentence focus to match the source unit.
+- Keep source locations, retrieval caveats, and attribution close enough to preserve traceability, but group them at the section or claim level when paragraph-level repetition adds no information.
+- A short provenance note may explain retrieval and completeness once. It must not become a second fixed ending or a disclaimer attached to every section.
+- The result should be a readable, unevenly weighted reading record. A source with a long technical section and a short historical aside should not be flattened into equally sized template blocks.
+
+## Mermaid Visual Summary
+
+Every raw record for an article, paper, report, technical document, transcript, or other structured text must end with a concise, source-local Mermaid `mindmap` after the source-faithful analysis is complete. This visual appendix is the only fixed final section permitted by this rule; it must not flatten the preceding source-specific structure, replace the deep analysis, or introduce cross-source synthesis.
+
+- Build the map only from content already established in the raw record: source sections, claims, mechanisms, evidence, limitations, and uncertainties. Preserve the source's order and omit unsupported categories.
+- Use a final `## 结构导图（Mermaid）` subsection with a renderable fenced block. Keep the root equal to the source topic/title, keep nodes short, and do not copy paragraphs into the diagram:
+
+```mermaid
+mindmap
+  root((来源主题))
+    核心问题
+      问题一
+      问题二
+    方法与机制
+      机制一
+      机制二
+    证据与限制
+      已确认证据
+      未解决的不确定性
+```
+
+- If retrieval or extraction is incomplete, represent the reviewed scope and uncertainty explicitly; never turn missing material into a confirmed node.
+- Add the diagram only after the final raw analysis text is written. Recompute the body SHA-256 over the complete body, including the Mermaid block, and run `audit_vault.py` to check for `raw-hash-drift`.
+
 ## Acceptance checks
 
 Before considering a raw record complete, verify:
@@ -61,5 +95,6 @@ Before considering a raw record complete, verify:
 - each substantive block is attributable to a source section, page, slide, timestamp, speaker turn, or other location;
 - no generic fixed headings were inserted solely because the skill expected them;
 - source-specific caveats remain next to the evidence they qualify;
-- the body hash was recomputed after the final edit;
+- the body hash was recomputed after the final edit, including the Mermaid block;
+- the raw body ends with a renderable, source-local Mermaid `mindmap` whose nodes are supported by the preceding analysis and whose uncertainty matches the retrieval boundary;
 - the formal page, not the raw record, carries cross-source synthesis and reusable knowledge-graph interpretation.

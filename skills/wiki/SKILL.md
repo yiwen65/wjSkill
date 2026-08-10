@@ -42,6 +42,43 @@ Before writing a raw record, load `references/raw-structure.md`. The body must m
 
 Do not force raw records into a universal sequence such as `Summary → Key claims → Key facts → Limitations → Provenance`. Those labels may be used only when the source itself uses them or when a very small provenance note is genuinely needed and has no natural source location. Keep cross-source synthesis and knowledge-graph interpretation in formal `_wiki/` pages. Fixed frontmatter and body hashing remain mandatory; the prose structure is source-dependent.
 
+## Mermaid Summary Map for Raw Records
+
+After completing the source-faithful deep analysis of any article, paper, report, technical document, transcript, or other structured text recorded under `_wiki/raw/`, append a concise, source-local Mermaid `mindmap` at the end of the raw body. This is a fixed visual appendix, not a replacement for the detailed analysis and not a place for cross-source synthesis; it does not change the source-specific structure of the preceding body.
+
+- Build the map only from claims, sections, mechanisms, evidence, limitations, and uncertainties already established in the raw record. Preserve the source's native structure and order rather than inventing a generic outline.
+- Put the map in a final `## 结构导图（Mermaid）` subsection and use a renderable Mermaid fenced block, for example:
+
+```mermaid
+mindmap
+  root((来源主题))
+    核心问题
+      问题一
+      问题二
+    方法与机制
+      机制一
+      机制二
+    证据与限制
+      已确认证据
+      未解决的不确定性
+```
+
+- Use the source title or topic as the root, keep node labels short, and include only categories the source actually supports. Do not copy paragraphs into the diagram.
+- If retrieval is incomplete, reflect the reviewed scope and uncertainty in the map; never draw missing content as a confirmed conclusion.
+- Append the diagram only after the raw analysis is complete, then recompute the raw body SHA-256 and run `audit_vault.py` to confirm no `raw-hash-drift`.
+
+## Prose Quality and Anti-Template Discipline
+
+Governance fields and semantic invariants are acceptance criteria, not a sentence or heading template. Before drafting, derive the smallest outline that fits the source or concept; do not mechanically instantiate the same section sequence for every ingest.
+
+- A raw record should read like a structured reading record, not like a report about a report. Preserve the source's native headings and order, then write from the claims, mechanisms, evidence, and examples in that unit.
+- A formal concept should read like a durable explanation of an idea or mechanism, not like a second abstract. Start with the concept's role and interfaces, then add only the mechanism, boundaries, evidence, and relationships that the concept actually needs.
+- Avoid repetitive attribution leads such as “文章……”, “作者指出……”, or “来源描述……” across adjacent paragraphs. Name the actor, mechanism, decision, evidence, or condition directly when attribution is already clear.
+- Do not repeat the same provenance marker, block-range formula, caveat sentence, or “source says / wiki infers” preamble in every paragraph. Put location markers at the smallest useful source unit and keep uncertainty next to the claim it qualifies.
+- Do not create generic headings such as `Scope`, `Summary`, `Key claims`, or `Evidence boundary` solely because a checklist contains those words. Use them only when they clarify this particular source or concept; otherwise express the boundary in natural prose.
+- Before accepting a draft, scan paragraph openings and section transitions for mechanical repetition. If several neighboring paragraphs have the same grammatical lead, rewrite them around their actual subject rather than rotating synonyms mechanically.
+- Do not polish a source into uniform AI prose. Source-faithful analysis may be uneven in length and emphasis when the material itself is uneven.
+
 ## Paper and Technical-Source Detail Requirement
 
 For papers, technical reports, standards, and implementation documents, do not produce an abstract-only or metadata-only ingest. Before writing the raw record or synthesis page:
