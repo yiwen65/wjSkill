@@ -1,0 +1,4 @@
+interface:
+  display_name: "Review Code"
+  short_description: "Evidence-based review across five risk axes"
+  default_prompt: "Use $review-code to inspect this code or diff and report only concrete, actionable findings."
