@@ -1,0 +1,4 @@
+interface:
+  display_name: "Handoff Writer"
+  short_description: "Write agent-ready continuation handoffs"
+  default_prompt: "Use $handoff-writer to save an agent-ready handoff with clear next steps for the current conversation."
