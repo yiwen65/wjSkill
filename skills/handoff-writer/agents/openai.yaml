@@ -1,4 +1,4 @@
 interface:
   display_name: "Handoff Writer"
-  short_description: "Write agent-ready continuation handoffs"
-  default_prompt: "Use $handoff-writer to save an agent-ready handoff with clear next steps for the current conversation."
+  short_description: "Summarize key aspects of a session"
+  default_prompt: "Use $handoff-writer to summarize the key aspects of the current session for a fresh agent."

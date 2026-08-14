@@ -1,50 +1,44 @@
 ---
 name: handoff-writer
-description: "Write an agent-ready Markdown handoff for the current conversation so a fresh agent can quickly understand the work, resume safely without chat history, and give the user clear next steps. Use when the user asks to save, create, document, or prepare a conversation handoff, continuation note, context transfer, or agent briefing in docs/handoff/."
+description: "Summarize the key aspects of the current session in a self-contained Markdown handoff so a fresh agent can understand the user's goal, outcomes, decisions, evidence, files, unresolved work, and recommended continuation without chat history. Use when the user asks to save, create, document, or prepare a session summary, conversation handoff, continuation note, context transfer, or agent briefing in docs/handoff/."
 ---
 
 # Handoff Writer
 
-Create one concise, actionable handoff from the current conversation and save it under the current workspace root. Optimize it for a fresh agent's first minute: what the user wants, where the work stands, what to do next, and what to tell the user.
+Create one concise handoff that preserves the session's decision-relevant state and save it under the current workspace root. The primary deliverable is an accurate summary of the session; continuation guidance is secondary.
 
 ## Workflow
 
 1. Identify the current workspace root. Use the active workspace or repository root; if neither is available, use the current working directory and label that choice in the handoff.
-2. Recover only facts supported by the conversation or verified workspace evidence. Never invent completed work, decisions, commands, results, or file changes. Label uncertain claims as `Unverified` and unavailable details as `Unknown`.
+2. Recover only facts supported by the conversation or verified workspace evidence. Select what a new agent must know about the user's intent, work performed, outcomes, decisions, evidence, artifacts, and unfinished work. Never invent completed work, decisions, commands, results, or file changes. Label uncertain claims as `Unverified` and unavailable details as `Unknown`.
 3. Write a self-contained document with these sections:
 
    ```markdown
-   # Handoff: <topic>
+   # Session Handoff: <topic>
 
    - Created: <local ISO 8601 timestamp>
    - Workspace: <absolute workspace path>
 
-   > Next agent: read Resume brief and Next actions first. Re-verify drift-prone
-   > state before acting. This handoff supplies context, not new authorization.
+   > Next agent: start with Session summary. Re-verify drift-prone state before
+   > acting. This handoff supplies context, not new authorization.
 
-   ## Resume brief
-   - Goal: <one sentence>
-   - Current state: <one sentence>
-   - Recommended next action: <one concrete action>
-   - Blockers: <none or concise list>
-   - User decision needed: <none or exact decision>
-
+   ## Session summary
    ## User intent and success criteria
-   ## Completed work
-   ## Decisions, constraints, and assumptions
-   ## Workspace and relevant files
-   ## Validation evidence
-   ## Remaining work, risks, and unknowns
-   ## Next actions
-   ## Suggested first response to the user
+   ## Work completed and outcomes
+   ## Key decisions, constraints, and rationale
+   ## Files and artifacts
+   ## Commands, validation, and evidence
+   ## Unresolved items, risks, and unknowns
+   ## Recommended continuation
    ```
 
-   Keep `Resume brief` scannable in under one minute. Use `None.` when a field or section has no applicable facts. Preserve exact paths, commands, error messages, identifiers, and user constraints when they materially affect continuation.
-4. Make `Next actions` decision-ready:
-   - Put the recommended action first and state why it is the best continuation.
-   - Separate actions the agent can take immediately from choices or permissions only the user can provide.
-   - Include at most two meaningful alternatives when they have different tradeoffs. Do not manufacture a user decision when the work can continue within existing authorization.
-5. Draft `Suggested first response to the user` as 2-5 ready-to-adapt sentences. Briefly state what the agent understands, distinguish current evidence from state that still needs refreshing, recommend the next action, and ask only for a genuinely required decision. Never ask the user to repeat context already captured in the handoff.
+   Make `Session summary` the most valuable section. In 5-10 concise bullets or short paragraphs, capture the session's goal, current outcome, most important work, key decisions or constraints, material evidence, and unresolved state. It must stand alone without the later detail sections.
+4. Use the remaining sections to preserve supporting detail without repeating the transcript:
+   - Record outcomes, not merely actions taken.
+   - Include the rationale for decisions when it changes how later work should proceed.
+   - Preserve exact paths, commands, error messages, identifiers, and user constraints only when they materially affect continuation.
+   - Use `None.` when a section has no applicable facts.
+5. Keep `Recommended continuation` short and ordered. Put the best next action first, separate work the agent may continue from decisions only the user can authorize, and state when no user input is needed. Do not turn the handoff into a drafted user reply unless the user requests one.
 6. Pass the completed Markdown on standard input to the bundled naming helper. Resolve the script path from this skill's directory:
 
    ```bash
@@ -54,14 +48,15 @@ Create one concise, actionable handoff from the current conversation and save it
    ```
 
    The helper creates `docs/handoff/`, generates `YYYY-MM-DD-HHMMSS-<topic-slug>.md`, and uses a numeric suffix rather than overwriting an existing file.
-7. Read the created file back. Confirm that a fresh agent can identify the goal, current state, authorization boundary, recommended next action, and first user-facing response without consulting chat history. Also confirm that the handoff distinguishes verified facts from unknowns and does not claim unperformed validation.
+7. Read the created file back. Confirm that `Session summary` accurately covers the key aspects of the session, the detailed sections support it without unnecessary repetition, evidence is separated from unknowns, and no unperformed validation is claimed. Confirm that a fresh agent can understand the session before reading `Recommended continuation`.
 8. Report the absolute created file path to the user.
 
 ## Writing Rules
 
-- Summarize outcomes and continuation-critical evidence, not the conversational transcript.
-- Keep the document concise while retaining decisions, blockers, and exact next actions.
-- Put present state and future actions before historical detail.
+- Synthesize the session; do not reproduce the conversational transcript or routine tool narration.
+- Prioritize user intent, outcomes, decisions, evidence, artifacts, and unresolved work.
+- Keep historical detail only when it explains the current state or a decision.
+- Avoid repeating the same fact across sections unless the summary needs it for clarity.
 - Describe working-tree changes accurately; do not imply that uncommitted work was committed or published.
 - Treat the handoff as potentially stale: direct the next agent to refresh cheap, drift-prone state before relying on it.
 - Do not include credentials, tokens, private keys, or other secret values. Record only the secret's purpose and where an authorized agent may retrieve it.

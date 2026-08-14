@@ -1,0 +1,4 @@
+interface:
+  display_name: "Record Project Learnings"
+  short_description: "Capture verified lessons from project task mistakes"
+  default_prompt: "Use $record-project-learnings to record verified reusable lessons from this task in the project LEARNS.md."

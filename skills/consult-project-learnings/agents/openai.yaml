@@ -1,0 +1,4 @@
+interface:
+  display_name: "Consult Project Learnings"
+  short_description: "Load only relevant lessons before project work"
+  default_prompt: "Use $consult-project-learnings to consult only the project lessons relevant to this task before forming an execution plan."
