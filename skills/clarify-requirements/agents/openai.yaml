@@ -1,0 +1,4 @@
+interface:
+  display_name: "Clarify Requirements"
+  short_description: "Turn ambiguity into a confirmed task contract"
+  default_prompt: "Use $clarify-requirements to clarify this request into a confirmed, executable task contract."

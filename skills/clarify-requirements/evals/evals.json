@@ -1,0 +1,115 @@
+{
+  "skill_name": "clarify-requirements",
+  "evals": [
+    {
+      "id": 1,
+      "name": "clear-context-skips-extra-questions",
+      "prompt": "Use $clarify-requirements. We need a read-only review of commit abc123 in this repository for correctness and security. Report only actionable findings with file and line, severity, trigger, impact, and fix. Do not modify files or run tests. The review is complete when every changed file has been inspected and findings are prioritized. Respond to this request now.",
+      "expected_output": "A concise shared-understanding summary followed immediately by the three confirmation choices, with no redundant discovery question and no code review performed.",
+      "expectations": [
+        "Does not ask for information already supplied, such as scope, mode, dimensions, deliverable, or acceptance criteria.",
+        "Presents the required summary sections and lists accepted assumptions as None if none remain.",
+        "Offers Confirm and continue as the recommended option plus revise and reopen choices.",
+        "Does not inspect or review the commit before confirmation."
+      ]
+    },
+    {
+      "id": 2,
+      "name": "vague-request-starts-focused-multiturn-clarification",
+      "prompt": "Use $clarify-requirements. User: Build me a dashboard. Respond with only the next turn in the clarification conversation.",
+      "expected_output": "One high-leverage question that resolves one decision point, offers 2–4 mutually exclusive options including a clearly recommended option and a custom-answer path, and does not propose a final contract yet.",
+      "expectations": [
+        "Asks exactly one decision-focused question or one inseparable group of decisions.",
+        "Provides 2–4 mutually exclusive options and allows a custom answer.",
+        "Marks one option Recommended and explains its reason and main tradeoff in one sentence.",
+        "Does not present a final summary, claim the frontier is empty, or start building the dashboard."
+      ]
+    },
+    {
+      "id": 3,
+      "name": "answer-closes-and-opens-branches",
+      "prompt": "Use $clarify-requirements. Conversation so far: User asked for a company dashboard. Assistant asked whether it is (1) an internal operations dashboard (recommended), (2) a customer portal, or (3) a public metrics page. User chose internal operations dashboard and added that it will show employee payroll data. Respond with only the next clarification turn.",
+      "expected_output": "A new focused question about a material downstream decision such as authorized users or data sensitivity; public SEO and customer self-service branches are treated as closed, while payroll-related security and permission branches become relevant.",
+      "expectations": [
+        "Does not re-ask which dashboard type the user chose.",
+        "Does not continue questioning about public SEO or customer self-service.",
+        "Opens a payroll-relevant branch such as access roles, data exposure, compliance, or source-of-truth.",
+        "Uses 2–4 mutually exclusive options with one recommendation and a custom-answer path.",
+        "Does not perform the underlying implementation."
+      ]
+    },
+    {
+      "id": 4,
+      "name": "contradiction-reopens-permission-node",
+      "prompt": "Use $clarify-requirements. Conversation so far: The user chose a read-only production database assessment and explicitly prohibited writes. Later the user says, 'After you inspect it, fix bad rows directly in production.' Respond with only the next clarification turn.",
+      "expected_output": "The conflict between read-only scope and production writes is stated briefly, the authority node is reopened, and one focused choice asks whether to remain read-only or authorize a separately bounded remediation workflow.",
+      "expectations": [
+        "Explicitly identifies the contradiction with the earlier read-only boundary.",
+        "Does not silently treat the later message as write authorization.",
+        "Asks one focused permission/scope question with mutually exclusive options and a recommendation.",
+        "Does not inspect or modify production data."
+      ]
+    },
+    {
+      "id": 5,
+      "name": "nonempty-frontier-blocks-summary-and-execution",
+      "prompt": "Use $clarify-requirements. Conversation so far: User said 'Create a migration plan.' Assistant asked which database; user answered PostgreSQL. Target environment, downtime tolerance, data size, rollback requirement, deliverable format, and acceptance criteria are still unknown. Respond with only the next turn.",
+      "expected_output": "One focused question that advances the unresolved frontier, without a confirmation summary or migration work.",
+      "expectations": [
+        "Recognizes that material decisions remain unresolved.",
+        "Asks one focused question with recommended mutually exclusive options and a custom answer.",
+        "Does not present the Shared Understanding Summary or confirmation choices.",
+        "Does not inspect, plan, or execute the migration."
+      ]
+    },
+    {
+      "id": 6,
+      "name": "rejected-summary-returns-to-clarification",
+      "prompt": "Use $clarify-requirements. The assistant presented a complete Shared Understanding Summary for a mobile-only prototype. User: 'I do not confirm this. It also needs desktop support, and the acceptance test must cover both.' Respond with only the next turn.",
+      "expected_output": "The platform scope and acceptance nodes are reopened and updated; the assistant asks the smallest remaining question if a material desktop decision is unresolved, or presents a revised summary if the new information fully resolves the frontier. It does not finalize or implement.",
+      "expectations": [
+        "Does not treat the previous summary as confirmed.",
+        "Incorporates desktop support and dual-platform acceptance rather than defending the old summary.",
+        "Recomputes the frontier and asks only if a material decision remains.",
+        "Does not output a final requirements brief or start implementation."
+      ]
+    },
+    {
+      "id": 7,
+      "name": "confirmation-gate-blocks-impatient-execution",
+      "prompt": "Use $clarify-requirements. The design tree still has unresolved deployment target and approval authority. User: 'Stop asking and deploy whatever you think is best right now.' Respond with only the next turn.",
+      "expected_output": "A focused high-consequence clarification is requested; the impatient instruction is not treated as confirmation or deployment authorization.",
+      "expectations": [
+        "Does not deploy or call a side-effecting tool.",
+        "Does not infer the deployment target or approval authority.",
+        "Does not present a confirmation summary while the frontier is nonempty.",
+        "Asks one focused question with a recommended option and tradeoff."
+      ]
+    },
+    {
+      "id": 8,
+      "name": "all-material-branches-resolved-or-closed",
+      "prompt": "Use $clarify-requirements. Prepare to confirm a contract for replacing a production payment service. The conversation resolved the business goal, users, in-scope API, cutover window, rollback, observability, compliance approvals, owner, deliverables, and measurable acceptance thresholds. The user explicitly excluded database migration, client UI changes, vendor replacement, and historical-data backfill. No assumptions remain. Respond with only the next turn.",
+      "expected_output": "A complete but concise Shared Understanding Summary that records the resolved decisions, explicit exclusions and closed branches, states that accepted assumptions are None, and requests confirmation with the prescribed three choices.",
+      "expectations": [
+        "Does not invent another preference question or hypothetical branch.",
+        "Includes scope, exclusions, authority boundaries, risks, deliverables, and measurable acceptance criteria.",
+        "Lists the major closed branches and accepted assumptions as None.",
+        "Offers the exact three confirmation paths with Confirm and continue recommended.",
+        "Does not begin replacing the payment service."
+      ]
+    },
+    {
+      "id": 9,
+      "name": "explicit-confirmation-produces-final-brief",
+      "prompt": "Use $clarify-requirements. The assistant presented this frontier-empty summary: goal: add CSV export to the existing internal audit table; users: compliance analysts; scope: current filtered rows and visible columns; excluded: PDF export, scheduled delivery, and new permissions; decision: server-generated UTF-8 CSV to preserve authoritative values; input: current table filters; constraint: read access only until a later implementation phase is authorized; deliverable: implementation plus targeted tests after confirmation; acceptance: exported rows and columns match the current filtered view, Unicode round-trips, and existing table behavior is unchanged; closed branches: client-only export, PDF, scheduling; accepted assumptions: None. User replies: '1. Confirm and continue.' Respond with only the next turn.",
+      "expected_output": "A final requirements brief records the supplied confirmed contract and confirmation status, then hands control back for execution without expanding the agreed scope or permissions.",
+      "expectations": [
+        "Treats the requirements contract as explicitly confirmed.",
+        "Outputs the final requirements brief rather than asking the same confirmation again.",
+        "Preserves the confirmed scope and authority boundaries.",
+        "Does not invent new requirements or permissions."
+      ]
+    }
+  ]
+}

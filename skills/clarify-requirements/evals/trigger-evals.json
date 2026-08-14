@@ -1,0 +1,42 @@
+[
+  {
+    "id": 1,
+    "query": "帮我把这个模糊想法逐步问清楚，最后形成双方确认的开发需求。",
+    "should_trigger": true
+  },
+  {
+    "id": 2,
+    "query": "Before implementation, interview me one decision at a time and turn this idea into an agreed task contract.",
+    "should_trigger": true
+  },
+  {
+    "id": 3,
+    "query": "方案还没想清楚，请梳理关键分支并引导我做选择。",
+    "should_trigger": true
+  },
+  {
+    "id": 4,
+    "query": "We disagree about scope and deployment permissions. Clarify the contradictions before anyone acts.",
+    "should_trigger": true
+  },
+  {
+    "id": 5,
+    "query": "需求已经写完整了，但请先复述共同理解并让我确认，再开始做。",
+    "should_trigger": true
+  },
+  {
+    "id": 6,
+    "query": "Fix the typo in README.md and run the existing markdown check.",
+    "should_trigger": false
+  },
+  {
+    "id": 7,
+    "query": "Explain what a database index is with a simple analogy.",
+    "should_trigger": false
+  },
+  {
+    "id": 8,
+    "query": "Review this already-scoped pull request and report actionable correctness findings only.",
+    "should_trigger": false
+  }
+]
