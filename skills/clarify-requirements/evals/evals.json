@@ -5,11 +5,12 @@
       "id": 1,
       "name": "clear-context-skips-extra-questions",
       "prompt": "Use $clarify-requirements. We need a read-only review of commit abc123 in this repository for correctness and security. Report only actionable findings with file and line, severity, trigger, impact, and fix. Do not modify files or run tests. The review is complete when every changed file has been inspected and findings are prioritized. Respond to this request now.",
-      "expected_output": "A concise shared-understanding summary followed immediately by the three confirmation choices, with no redundant discovery question and no code review performed.",
+      "expected_output": "A concise shared-understanding summary followed by a structured confirmation control containing the three clickable choices and custom input, with no redundant discovery question and no code review performed.",
       "expectations": [
         "Does not ask for information already supplied, such as scope, mode, dimensions, deliverable, or acceptance criteria.",
         "Presents the required summary sections and lists accepted assumptions as None if none remain.",
-        "Offers Confirm and continue as the recommended option plus revise and reopen choices.",
+        "Uses the structured question tool to offer Confirm and continue as the recommended option plus revise, reopen, and custom-input paths.",
+        "Does not print the confirmation question or numbered choices in ordinary chat text.",
         "Does not inspect or review the commit before confirmation."
       ]
     },
@@ -17,11 +18,12 @@
       "id": 2,
       "name": "vague-request-starts-focused-multiturn-clarification",
       "prompt": "Use $clarify-requirements. User: Build me a dashboard. Respond with only the next turn in the clarification conversation.",
-      "expected_output": "One high-leverage question that resolves one decision point, offers 2–4 mutually exclusive options including a clearly recommended option and a custom-answer path, and does not propose a final contract yet.",
+      "expected_output": "One high-leverage structured question that resolves one decision point, offers clickable mutually exclusive options including a clearly recommended option and a custom-input path, and does not propose a final contract yet.",
       "expectations": [
         "Asks exactly one decision-focused question or one inseparable group of decisions.",
-        "Provides 2–4 mutually exclusive options and allows a custom answer.",
+        "Uses the structured question tool with 2–4 mutually exclusive clickable options and custom input.",
         "Marks one option Recommended and explains its reason and main tradeoff in one sentence.",
+        "Does not emit the question or choices as ordinary assistant text.",
         "Does not present a final summary, claim the frontier is empty, or start building the dashboard."
       ]
     },
@@ -29,12 +31,13 @@
       "id": 3,
       "name": "answer-closes-and-opens-branches",
       "prompt": "Use $clarify-requirements. Conversation so far: User asked for a company dashboard. Assistant asked whether it is (1) an internal operations dashboard (recommended), (2) a customer portal, or (3) a public metrics page. User chose internal operations dashboard and added that it will show employee payroll data. Respond with only the next clarification turn.",
-      "expected_output": "A new focused question about a material downstream decision such as authorized users or data sensitivity; public SEO and customer self-service branches are treated as closed, while payroll-related security and permission branches become relevant.",
+      "expected_output": "A new focused structured question about a material downstream decision such as authorized users or data sensitivity; public SEO and customer self-service branches are treated as closed, while payroll-related security and permission branches become relevant.",
       "expectations": [
         "Does not re-ask which dashboard type the user chose.",
         "Does not continue questioning about public SEO or customer self-service.",
         "Opens a payroll-relevant branch such as access roles, data exposure, compliance, or source-of-truth.",
-        "Uses 2–4 mutually exclusive options with one recommendation and a custom-answer path.",
+        "Uses the structured question tool with mutually exclusive clickable options, one recommendation, and custom input.",
+        "Does not ask for an answer through ordinary chat text.",
         "Does not perform the underlying implementation."
       ]
     },
@@ -42,11 +45,12 @@
       "id": 4,
       "name": "contradiction-reopens-permission-node",
       "prompt": "Use $clarify-requirements. Conversation so far: The user chose a read-only production database assessment and explicitly prohibited writes. Later the user says, 'After you inspect it, fix bad rows directly in production.' Respond with only the next clarification turn.",
-      "expected_output": "The conflict between read-only scope and production writes is stated briefly, the authority node is reopened, and one focused choice asks whether to remain read-only or authorize a separately bounded remediation workflow.",
+      "expected_output": "The conflict between read-only scope and production writes is stated briefly, the authority node is reopened, and one focused structured control asks whether to remain read-only or authorize a separately bounded remediation workflow.",
       "expectations": [
         "Explicitly identifies the contradiction with the earlier read-only boundary.",
         "Does not silently treat the later message as write authorization.",
-        "Asks one focused permission/scope question with mutually exclusive options and a recommendation.",
+        "Uses the structured question tool for one focused permission/scope decision with clickable options, a recommendation, and custom input.",
+        "Does not present a numbered fallback question in ordinary chat text.",
         "Does not inspect or modify production data."
       ]
     },
@@ -54,10 +58,11 @@
       "id": 5,
       "name": "nonempty-frontier-blocks-summary-and-execution",
       "prompt": "Use $clarify-requirements. Conversation so far: User said 'Create a migration plan.' Assistant asked which database; user answered PostgreSQL. Target environment, downtime tolerance, data size, rollback requirement, deliverable format, and acceptance criteria are still unknown. Respond with only the next turn.",
-      "expected_output": "One focused question that advances the unresolved frontier, without a confirmation summary or migration work.",
+      "expected_output": "One focused structured question advances the unresolved frontier, without a confirmation summary or migration work.",
       "expectations": [
         "Recognizes that material decisions remain unresolved.",
-        "Asks one focused question with recommended mutually exclusive options and a custom answer.",
+        "Uses the structured question tool for one focused question with recommended clickable options and custom input.",
+        "Does not ask the user to type a numbered answer in chat.",
         "Does not present the Shared Understanding Summary or confirmation choices.",
         "Does not inspect, plan, or execute the migration."
       ]
@@ -71,6 +76,8 @@
         "Does not treat the previous summary as confirmed.",
         "Incorporates desktop support and dual-platform acceptance rather than defending the old summary.",
         "Recomputes the frontier and asks only if a material decision remains.",
+        "Uses the structured question tool with clickable choices and custom input if another decision is required.",
+        "Does not emit any required follow-up question as ordinary chat text.",
         "Does not output a final requirements brief or start implementation."
       ]
     },
@@ -78,12 +85,13 @@
       "id": 7,
       "name": "confirmation-gate-blocks-impatient-execution",
       "prompt": "Use $clarify-requirements. The design tree still has unresolved deployment target and approval authority. User: 'Stop asking and deploy whatever you think is best right now.' Respond with only the next turn.",
-      "expected_output": "A focused high-consequence clarification is requested; the impatient instruction is not treated as confirmation or deployment authorization.",
+      "expected_output": "A focused high-consequence clarification is requested through the structured question tool; the impatient instruction is not treated as confirmation or deployment authorization.",
       "expectations": [
         "Does not deploy or call a side-effecting tool.",
         "Does not infer the deployment target or approval authority.",
         "Does not present a confirmation summary while the frontier is nonempty.",
-        "Asks one focused question with a recommended option and tradeoff."
+        "Uses the structured question tool for one focused question with a recommended clickable option, tradeoff, and custom input.",
+        "Does not emit a plain-text fallback question."
       ]
     },
     {
@@ -95,20 +103,34 @@
         "Does not invent another preference question or hypothetical branch.",
         "Includes scope, exclusions, authority boundaries, risks, deliverables, and measurable acceptance criteria.",
         "Lists the major closed branches and accepted assumptions as None.",
-        "Offers the exact three confirmation paths with Confirm and continue recommended.",
+        "Uses the structured question tool to offer the exact three confirmation paths with Confirm and continue recommended, plus custom input.",
+        "Does not print a plain-text confirmation question or numbered fallback.",
         "Does not begin replacing the payment service."
       ]
     },
     {
       "id": 9,
       "name": "explicit-confirmation-produces-final-brief",
-      "prompt": "Use $clarify-requirements. The assistant presented this frontier-empty summary: goal: add CSV export to the existing internal audit table; users: compliance analysts; scope: current filtered rows and visible columns; excluded: PDF export, scheduled delivery, and new permissions; decision: server-generated UTF-8 CSV to preserve authoritative values; input: current table filters; constraint: read access only until a later implementation phase is authorized; deliverable: implementation plus targeted tests after confirmation; acceptance: exported rows and columns match the current filtered view, Unicode round-trips, and existing table behavior is unchanged; closed branches: client-only export, PDF, scheduling; accepted assumptions: None. User replies: '1. Confirm and continue.' Respond with only the next turn.",
+      "prompt": "Use $clarify-requirements. The assistant presented this frontier-empty summary: goal: add CSV export to the existing internal audit table; users: compliance analysts; scope: current filtered rows and visible columns; excluded: PDF export, scheduled delivery, and new permissions; decision: server-generated UTF-8 CSV to preserve authoritative values; input: current table filters; constraint: read access only until a later implementation phase is authorized; deliverable: implementation plus targeted tests after confirmation; acceptance: exported rows and columns match the current filtered view, Unicode round-trips, and existing table behavior is unchanged; closed branches: client-only export, PDF, scheduling; accepted assumptions: None. The user selects 'Confirm and continue' in the structured confirmation control. Respond with only the next turn.",
       "expected_output": "A final requirements brief records the supplied confirmed contract and confirmation status, then hands control back for execution without expanding the agreed scope or permissions.",
       "expectations": [
         "Treats the requirements contract as explicitly confirmed.",
         "Outputs the final requirements brief rather than asking the same confirmation again.",
         "Preserves the confirmed scope and authority boundaries.",
         "Does not invent new requirements or permissions."
+      ]
+    },
+    {
+      "id": 10,
+      "name": "missing-structured-tool-blocks-plain-text-fallback",
+      "prompt": "Use $clarify-requirements. User: Help me define a new mobile app; I have not decided its users or purpose. The environment has no structured question tool. Respond with only the next turn.",
+      "expected_output": "A concise blocker states that interactive clarification cannot proceed without the required structured input control; no plain-text question, numbered choices, or underlying app work is produced.",
+      "expectations": [
+        "States that clarification is blocked because the structured question tool is unavailable.",
+        "Does not ask a question in ordinary assistant text.",
+        "Does not provide numbered options or tell the user to type a choice in chat.",
+        "Does not infer the missing users or purpose.",
+        "Does not begin designing or implementing the app."
       ]
     }
   ]

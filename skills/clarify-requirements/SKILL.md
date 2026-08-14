@@ -1,6 +1,6 @@
 ---
 name: clarify-requirements
-description: Turn ambiguous, underspecified, or conflicting requests and proposed solution directions, including high-consequence work with unconfirmed decisions, into an executable, mutually confirmed requirements contract through focused interactive questions. Use when the user asks to clarify, scope, define, or align on requirements, or when missing decisions would materially change the goal, scope, approach, constraints, authority, deliverables, risk, or acceptance criteria. If invoked for an already clear request, skip unnecessary questions and proceed directly to confirmation. Do not use solely to rewrite a prompt, and do not perform the underlying task before the user confirms the contract.
+description: Turn ambiguous, underspecified, or conflicting requests and proposed solution directions, including high-consequence work with unconfirmed decisions, into an executable, mutually confirmed requirements contract through structured interactive questions with clickable choices and custom input. Use when the user asks to clarify, scope, define, or align on requirements, or when missing decisions would materially change the goal, scope, approach, constraints, authority, deliverables, risk, or acceptance criteria. If invoked for an already clear request, skip unnecessary questions and proceed directly to confirmation. Do not use solely to rewrite a prompt, and do not perform the underlying task before the user confirms the contract.
 ---
 
 # Clarify Requirements
@@ -27,6 +27,24 @@ Before confirmation:
 
 Confirmation accepts the stated contract; it does not expand permissions or
 erase approval boundaries recorded in that contract.
+
+## Require structured input
+
+Issue every clarification, contradiction-resolution, revision, and final
+confirmation question through `request_user_input` or the environment's
+equivalent structured question tool. The interaction must provide clickable
+choices and a built-in custom-input path.
+
+- Do not print a question with numbered choices and ask the user to answer in
+  the ordinary conversation field.
+- Do not duplicate a structured question or its choices in ordinary chat text.
+- If no structured question tool is available, do not fall back to plain-text
+  questioning. Report that interactive clarification is blocked because the
+  required input control is unavailable, then stop without performing the
+  underlying task.
+
+Unsolicited information the user types in chat may still resolve or reopen
+nodes. The restriction applies to questions initiated by the assistant.
 
 ## Maintain a design tree
 
@@ -77,12 +95,14 @@ group of tightly coupled decisions.
 
 For every question:
 
-1. Offer 2–4 clear, mutually exclusive choices.
-2. Mark one choice as **Recommended**.
-3. Give one sentence explaining the recommendation and its main tradeoff.
-4. Allow the user to provide a custom answer.
-5. Prefer a structured question tool when available; otherwise use numbered
-   choices and explicitly allow a custom response.
+1. Invoke the structured question tool rather than emitting the question as
+   ordinary assistant text.
+2. Offer 2–4 clear, mutually exclusive clickable choices, within the tool's
+   supported option limit.
+3. Mark one choice as **Recommended**.
+4. Give one sentence explaining the recommendation and its main tradeoff.
+5. Enable the tool's custom-input affordance; do not make “type in chat” the
+   fallback interaction.
 
 After each answer:
 
@@ -123,8 +143,8 @@ Then ask whether the shared understanding is confirmed, with these choices:
 2. **Revise the summary**
 3. **Reopen a question**
 
-Use the structured question tool when available. A custom answer remains
-allowed.
+Invoke the structured question tool for this confirmation and enable its custom
+input. Do not append the question or numbered choices as ordinary chat text.
 
 ## Handle confirmation
 
@@ -149,4 +169,5 @@ Before requesting confirmation, verify that:
 - no important assumption is silent;
 - contradictions and boundary changes have been resolved;
 - deliverables and observable acceptance criteria are explicit;
+- every assistant-initiated question used structured clickable/custom input;
 - no underlying work or side effect occurred before confirmation.
