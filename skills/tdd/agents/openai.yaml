@@ -1,0 +1,4 @@
+interface:
+  display_name: "TDD"
+  short_description: "Test-first Red-Green-Refactor workflow"
+  default_prompt: "Use $tdd to implement this change one observable Red-Green-Refactor slice at a time."

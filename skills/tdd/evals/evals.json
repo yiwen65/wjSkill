@@ -1,0 +1,78 @@
+{
+  "skill_name": "tdd",
+  "evals": [
+    {
+      "id": 1,
+      "name": "bug-fix-observes-real-red",
+      "prompt": "Use $tdd to fix a parser that accepts an unterminated quoted field. Implement and validate the fix in the current repository.",
+      "expected_output": "The agent first adds and runs a public-interface regression test that fails for the parser bug, then implements the minimum fix and reports observed red and green evidence.",
+      "expectations": [
+        "Inspects repository instructions, parser interfaces, and existing test conventions before choosing the test seam.",
+        "Runs the new regression test against the unmodified production behavior and confirms that it fails for the reported bug.",
+        "Does not implement the parser fix before observing the meaningful red state.",
+        "Makes a minimal production change, reruns the focused test, and performs a relevant broader validation.",
+        "Reports exact commands, red failure reason, green result, and any validation limitation."
+      ]
+    },
+    {
+      "id": 2,
+      "name": "clear-seam-does-not-request-ceremonial-approval",
+      "prompt": "Use $tdd to add case-insensitive lookup to the existing public UserDirectory.findByEmail API. The repository already tests this API through UserDirectory.test.ts. Implement it.",
+      "expected_output": "The agent infers the established public seam, proceeds through one or more small Red-Green-Refactor cycles, and asks no redundant seam-confirmation question.",
+      "expectations": [
+        "Uses the existing public UserDirectory.findByEmail seam and repository test conventions.",
+        "Does not stop to ask the user to approve an already specified test seam.",
+        "Adds one focused behavioral example before changing production behavior.",
+        "Avoids speculative tests or functionality outside case-insensitive lookup.",
+        "Reports observed cycle and final validation evidence."
+      ]
+    },
+    {
+      "id": 3,
+      "name": "setup-failure-is-not-red",
+      "prompt": "Use $tdd to add CSV export. The first new test exits because the fixture path does not exist, before reaching any product code. Continue the task correctly.",
+      "expected_output": "The agent treats the fixture error as a harness problem, fixes or reports it, and does not count it as evidence that CSV behavior is missing.",
+      "expectations": [
+        "Does not label the missing fixture failure as a valid red state.",
+        "Repairs the in-scope test setup or reports the exact blocker before production implementation.",
+        "Requires a failure attributable to missing or incorrect CSV behavior before implementing it.",
+        "Does not claim TDD evidence that was not observed."
+      ]
+    },
+    {
+      "id": 4,
+      "name": "behavior-preserving-seam-preparation",
+      "prompt": "Use $tdd to add timeout handling to legacy code that constructs a remote client internally and has no controllable clock. Existing tests are green.",
+      "expected_output": "The agent may first introduce the smallest behavior-preserving boundary while keeping existing tests green, then begins a genuine failing behavior test before timeout implementation.",
+      "expectations": [
+        "Separates behavior-preserving seam preparation from the Red-Green-Refactor feature cycle.",
+        "Keeps existing behavior green during preparation and does not hide timeout behavior in that change.",
+        "Uses a boundary double for the remote client or clock rather than mocking internal business logic.",
+        "Observes a timeout-specific red before implementing timeout behavior."
+      ]
+    },
+    {
+      "id": 5,
+      "name": "refactor-remains-in-cycle",
+      "prompt": "Use $tdd to add a second discount rule. Passing the new test leaves duplicated condition logic in the implementation.",
+      "expected_output": "After reaching green, the agent removes the duplication without changing behavior and reruns the focused tests to keep the refactor green.",
+      "expectations": [
+        "Reaches red and green before refactoring.",
+        "Treats refactoring as the third phase of the cycle rather than deferring it categorically to code review.",
+        "Does not add another behavior during refactoring.",
+        "Reruns relevant tests after the refactor."
+      ]
+    },
+    {
+      "id": 6,
+      "name": "test-request-alone-does-not-imply-tdd",
+      "prompt": "The implementation is complete. Add integration tests for the existing upload endpoint; the user did not request TDD or test-first development. Decide whether to invoke $tdd.",
+      "expected_output": "The agent does not treat a post-implementation test request as TDD solely because integration tests were requested.",
+      "expectations": [
+        "Recognizes that adding tests after completed implementation is not a Red-Green-Refactor implementation task.",
+        "Does not claim the work was test-driven without an observed pre-implementation red.",
+        "Uses ordinary test-authoring guidance or the user's requested workflow instead of forcing a TDD cycle."
+      ]
+    }
+  ]
+}

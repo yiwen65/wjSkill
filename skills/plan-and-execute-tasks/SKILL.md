@@ -1,6 +1,6 @@
 ---
 name: plan-and-execute-tasks
-description: Turn user requirements, PRDs, or task descriptions into evidence-backed, executable, dependency-aware task plans in docs/tasks, then optionally coordinate authorized implementation with parallel subagents while maintaining verified status. Use when Codex is asked to plan, decompose, schedule, track, resume, or execute non-trivial work from a requirement or PRD, especially multi-file or multi-agent work. Do not use for a trivial one-step action that needs no durable plan or to infer permission to execute from a planning request.
+description: Turn user requirements, PRDs, or task descriptions into evidence-backed, executable, dependency-aware task plans in docs/tasks, then optionally coordinate authorized implementation with parallel subagents while maintaining verified status. Use when agent is asked to plan, decompose, schedule, track, resume, or execute non-trivial work from a requirement or PRD, especially multi-file or multi-agent work. Do not use for a trivial one-step action that needs no durable plan or to infer permission to execute from a planning request.
 ---
 
 # Plan and Execute Tasks
