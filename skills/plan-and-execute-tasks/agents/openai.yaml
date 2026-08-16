@@ -1,0 +1,4 @@
+interface:
+  display_name: "Plan and Execute Tasks"
+  short_description: "Create evidence-based plans and coordinate execution"
+  default_prompt: "Use $plan-and-execute-tasks to turn this requirement into a tracked task plan, then execute it only if I authorize execution."
