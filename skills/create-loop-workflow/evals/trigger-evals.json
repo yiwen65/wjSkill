@@ -1,0 +1,112 @@
+[
+  {
+    "id": 1,
+    "query": "帮我为这个跨多次 Codex 会话的仓库迁移创建一个可恢复的 loop 工作流。",
+    "should_trigger": true
+  },
+  {
+    "id": 2,
+    "query": "Use a Ralph-loop style design to scaffold a bounded research workflow with checkpoints and an evaluator.",
+    "should_trigger": true
+  },
+  {
+    "id": 3,
+    "query": "把这项需要跑两天的任务设计成 planner、worker、judge 分离的 agent loop。",
+    "should_trigger": true
+  },
+  {
+    "id": 4,
+    "query": "Create a durable workflow package that can resume after context resets and keeps its state on disk.",
+    "should_trigger": true
+  },
+  {
+    "id": 5,
+    "query": "给生产巡检任务搭一个带人工审批、预算和熔断的长时 agent 工作流。",
+    "should_trigger": true
+  },
+  {
+    "id": 6,
+    "query": "Formalize this autonomous content-production process as a checkpointed loop that another agent can resume.",
+    "should_trigger": true
+  },
+  {
+    "id": 7,
+    "query": "生成 .agent/loops 下的 WORKFLOW.md、state.json、progress.md 和 handoff.md。",
+    "should_trigger": true
+  },
+  {
+    "id": 8,
+    "query": "Before creating my long-running agent workflow, ask only for the missing completion and authority decisions.",
+    "should_trigger": true
+  },
+  {
+    "id": 9,
+    "query": "Run the existing loop in .agent/loops/api-migration and complete its next task.",
+    "should_trigger": false
+  },
+  {
+    "id": 10,
+    "query": "Explain what the Ralph loop is and give me a simple analogy.",
+    "should_trigger": false
+  },
+  {
+    "id": 11,
+    "query": "Summarize Addy Osmani's article about long-running agents.",
+    "should_trigger": false
+  },
+  {
+    "id": 12,
+    "query": "Fix this typo, run the markdown check, and stop.",
+    "should_trigger": false
+  },
+  {
+    "id": 13,
+    "query": "Write a normal GitHub Actions workflow that runs unit tests on pull requests.",
+    "should_trigger": false
+  },
+  {
+    "id": 14,
+    "query": "Review my existing multi-agent orchestration code for race conditions; do not rewrite it.",
+    "should_trigger": false
+  },
+  {
+    "id": 15,
+    "query": "Resume the research task from progress.md and deliver the final report now.",
+    "should_trigger": false
+  },
+  {
+    "id": 16,
+    "query": "Create a one-page checklist for tomorrow's release meeting.",
+    "should_trigger": false
+  },
+  {
+    "id": 17,
+    "query": "Turn this sequence diagram into a polished architecture visualization.",
+    "should_trigger": false
+  },
+  {
+    "id": 18,
+    "query": "Set up a recurring automation that reminds me every Friday.",
+    "should_trigger": false
+  },
+  {
+    "id": 19,
+    "query": "把这个已完成的 schema v2 loop 换一组输入创建成全新实例，旧历史要保留。",
+    "should_trigger": true
+  },
+  {
+    "id": 20,
+    "query": "把这个旧的 loop 工作流迁移成 schema v3，但绝对不要覆盖原包。",
+    "should_trigger": true
+  },
+  {
+    "id": 21,
+    "query": "按已批准的新合同更新这个 blocked loop，保留它的 progress 和 evidence。",
+    "should_trigger": true
+  },
+  {
+    "id": 22,
+    "query": "我只说目标和权限边界，你从仓库自动推导验证器、预算和 breaker，生成一个可确认的 loop。",
+    "should_trigger": true
+  }
+]

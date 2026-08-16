@@ -1,6 +1,6 @@
 ---
 name: consult-project-learnings
-description: Consult a project root LEARNS.md through bounded, read-only retrieval before Codex forms a substantive execution plan, loading only lessons that clearly match the current task. Use implicitly whenever Codex is about to implement, debug, fix, refactor, review, build, test, deploy, or otherwise work on a project or repository; run after understanding the request and locating the exact project root but before consequential task decisions or edits. Skip silently when no relevant lesson exists. Use record-project-learnings instead when a verified problem is resolved or a task is ending and lessons may need to be written.
+description: Consult a project root LEARNS.md through bounded, read-only retrieval before you forms a substantive execution plan, loading only lessons that clearly match the current task. Use implicitly whenever you is about to implement, debug, fix, refactor, review, build, test, deploy, or otherwise work on a project or repository; run after understanding the request and locating the exact project root but before consequential task decisions or edits. Skip silently when no relevant lesson exists. Use record-project-learnings instead when a verified problem is resolved or a task is ending and lessons may need to be written.
 ---
 
 # Consult Project Learnings

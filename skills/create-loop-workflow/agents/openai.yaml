@@ -1,0 +1,4 @@
+interface:
+  display_name: "Create Loop Workflow"
+  short_description: "Auto-design durable loops from repository evidence"
+  default_prompt: "Use $create-loop-workflow to inspect the target repository read-only, infer evidence, graph, ports, budgets, breakers, verifier scopes, and model requirements, ask only for blocking business decisions, then confirm and create a Schema v3 workflow package without starting its target task."
