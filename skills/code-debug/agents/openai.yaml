@@ -1,0 +1,4 @@
+interface:
+  display_name: "Code Debug"
+  short_description: "Evidence-driven root-cause debugging and minimal fixes"
+  default_prompt: "Use $code-debug to reproduce this bug, prove its root cause, implement the smallest authorized fix, and verify it."
