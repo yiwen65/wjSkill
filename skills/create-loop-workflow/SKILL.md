@@ -5,8 +5,9 @@ description: Create or instantiate durable, bounded, resumable loop workflow pac
 
 # Create Loop Workflow
 
-Create a practical workflow package that another Codex session can run and
-resume. Design the workflow; do not execute its target task.
+Create a practical workflow package that another agent session can run and
+resume in a compatible runtime. Design the workflow; do not execute its target
+task.
 
 ## Preserve the creation boundary
 
