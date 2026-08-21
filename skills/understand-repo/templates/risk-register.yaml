@@ -1,0 +1,17 @@
+risks:
+  - id: "RSK-001"
+    title: ""
+    category: "architecture|behavior|data|security|reliability|performance|compatibility|operations|knowledge"
+    trigger: ""
+    impact: ""
+    severity: "low|medium|high|critical"
+    likelihood: "low|medium|high|unknown"
+    evidence_ids: []
+    affected_modules: []
+    affected_scenarios: []
+    mitigation: ""
+    validation: ""
+    rollback: ""
+    owner: ""
+    residual_unknowns: []
+    status: "open|mitigated|accepted|resolved"

@@ -1,0 +1,13 @@
+interface:
+  display_name: "Understand Repo"
+  short_description: "用可追溯证据接管大型仓库并分析关键链路、系统边界与变更影响"
+  icon_small: "./assets/icon.svg"
+  icon_large: "./assets/icon.svg"
+  default_prompt: "使用 $understand-repo 在固定 revision 下理解当前仓库，并明确证据、范围和未知项。"
+policy:
+  products:
+    - "chatgpt"
+    - "codex"
+    - "api"
+    - "atlas"
+  allow_implicit_invocation: true

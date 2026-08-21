@@ -1,0 +1,86 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.org/edru/manifest.schema.json",
+  "title": "EDRU Run Manifest",
+  "type": "object",
+  "required": [
+    "edru_run"
+  ],
+  "properties": {
+    "edru_run": {
+      "type": "object",
+      "required": [
+        "schema_version",
+        "run_id",
+        "status",
+        "mode",
+        "repository",
+        "scope",
+        "asset_root"
+      ],
+      "properties": {
+        "schema_version": {
+          "type": "string"
+        },
+        "run_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "status": {
+          "enum": [
+            "in_progress",
+            "blocked",
+            "completed",
+            "completed_with_unknowns"
+          ]
+        },
+        "mode": {
+          "enum": [
+            "survey",
+            "takeover",
+            "change-ready"
+          ]
+        },
+        "repository": {
+          "type": "object",
+          "required": [
+            "path_or_url",
+            "revision"
+          ],
+          "properties": {
+            "path_or_url": {
+              "type": "string"
+            },
+            "revision": {
+              "type": "string"
+            },
+            "branch": {
+              "type": "string"
+            },
+            "dirty_worktree": {
+              "type": [
+                "boolean",
+                "null"
+              ]
+            }
+          },
+          "additionalProperties": true
+        },
+        "scope": {
+          "type": "object"
+        },
+        "environment": {
+          "type": "object"
+        },
+        "budget": {
+          "type": "object"
+        },
+        "asset_root": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": true
+    }
+  },
+  "additionalProperties": false
+}

@@ -1,0 +1,67 @@
+boundaries:
+  apis:
+    - id: "API-001"
+      type: "http|grpc|graphql|cli|library"
+      name: ""
+      provider: ""
+      consumers: []
+      version: ""
+      authn: ""
+      authz: ""
+      input_schema: ""
+      output_schema: ""
+      errors: []
+      compatibility: ""
+      evidence_ids: []
+      confidence: "C0"
+
+  events:
+    - id: "EVT-001"
+      topic_or_channel: ""
+      event_type: ""
+      producer: ""
+      consumers: []
+      schema: ""
+      delivery: ""
+      ordering: ""
+      retry: ""
+      deduplication: ""
+      evidence_ids: []
+      confidence: "C0"
+
+  data_stores:
+    - id: "DATA-001"
+      name: ""
+      type: ""
+      owner: ""
+      readers: []
+      writers: []
+      schema_or_migrations: []
+      consistency: ""
+      transaction_boundary: ""
+      evidence_ids: []
+      confidence: "C0"
+
+  configuration:
+    - id: "CFG-001"
+      key_or_group: ""
+      source: ""
+      consumers: []
+      default: ""
+      reload_behavior: ""
+      sensitive: false
+      evidence_ids: []
+      confidence: "C0"
+
+  third_parties:
+    - id: "EXT-001"
+      name: ""
+      purpose: ""
+      caller: ""
+      protocol: ""
+      timeout: ""
+      retry: ""
+      fallback: ""
+      credentials: ""
+      evidence_ids: []
+      confidence: "C0"

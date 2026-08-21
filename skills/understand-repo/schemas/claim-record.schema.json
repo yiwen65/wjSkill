@@ -1,0 +1,96 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.org/edru/claim-record.schema.json",
+  "title": "EDRU Claim Record",
+  "type": "object",
+  "required": [
+    "id",
+    "claim",
+    "model",
+    "kind",
+    "scope",
+    "confidence",
+    "evidence_ids",
+    "counter_hypotheses",
+    "unknowns",
+    "invalidated_by",
+    "status"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^CLM-[A-Za-z0-9._-]+$"
+    },
+    "claim": {
+      "type": "string",
+      "minLength": 1
+    },
+    "model": {
+      "enum": [
+        "goal",
+        "execution",
+        "architecture",
+        "behavior",
+        "boundary",
+        "quality",
+        "history",
+        "impact"
+      ]
+    },
+    "kind": {
+      "enum": [
+        "EXPECTED",
+        "DECLARED",
+        "MAY",
+        "OBSERVED",
+        "REFUTED"
+      ]
+    },
+    "scope": {
+      "type": "object"
+    },
+    "confidence": {
+      "enum": [
+        "C0",
+        "C1",
+        "C2",
+        "C3",
+        "C4"
+      ]
+    },
+    "evidence_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "counter_hypotheses": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "unknowns": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "invalidated_by": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "status": {
+      "enum": [
+        "open",
+        "supported",
+        "refuted",
+        "partially_supported",
+        "blocked"
+      ]
+    }
+  },
+  "additionalProperties": true
+}

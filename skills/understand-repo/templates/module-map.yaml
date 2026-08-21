@@ -1,0 +1,39 @@
+modules:
+  - id: "MOD-001"
+    name: ""
+    paths: []
+    build_targets: []
+    deployables: []
+    responsibility: ""
+    decisions_or_state_owned: []
+
+    entrypoints:
+      - symbol: ""
+        locator: ""
+        evidence_ids: []
+
+    provides:
+      - type: "api|library|event|data|extension"
+        name: ""
+        evidence_ids: []
+
+    dependencies:
+      - target: ""
+        relation: "build|import|calls_may|calls_observed|reads|writes|publishes|subscribes"
+        evidence_ids: []
+        confidence: "C0|C1|C2|C3|C4"
+
+    data_ownership: []
+    configuration: []
+    extensions: []
+    owners: []
+    tests: []
+
+    intended_vs_as_built:
+      intended: ""
+      actual: ""
+      deviation: ""
+
+    risks: []
+    unknowns: []
+    confidence: "C0"

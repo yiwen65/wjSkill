@@ -1,0 +1,22 @@
+hypotheses:
+  - id: "HYP-001"
+    statement: ""
+    source: ""
+    affected_models: []
+    severity_if_wrong: "low|medium|high|critical"
+    confidence: "C0"
+    support_evidence_ids: []
+    possible_refutation: ""
+    next_action: ""
+    status: "open|supported|refuted|partially_supported|blocked_by_environment"
+
+unknowns:
+  - id: "UNK-001"
+    statement: ""
+    category: "scope|build|runtime|dependency|behavior|data|security|history|consumer"
+    severity: "low|medium|high|critical"
+    impact: ""
+    blocked_by: ""
+    validation_action: ""
+    owner_or_source: ""
+    status: "open|accepted|resolved|blocked"

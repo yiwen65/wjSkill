@@ -1,0 +1,76 @@
+{
+  "skill_name": "understand-repo",
+  "evals": [
+    {
+      "id": 1,
+      "name": "explicit-takeover-produces-traceable-assets",
+      "prompt": "Use $understand-repo in takeover mode to understand the current large repository. Persist the result under .edru and do not modify product code.",
+      "expected_output": "The agent freezes the repository baseline, reconstructs topology and representative critical paths from evidence, writes only derived .edru assets, validates their structure, and reports unresolved unknowns.",
+      "expectations": [
+        "Records revision, branch, dirty state, scope, build/runtime context, permissions, and budget before drawing repository-wide conclusions.",
+        "Derives boundaries from build, deployment, registration, contracts, and implementation evidence rather than directory names alone.",
+        "Keeps source, configuration, data, and remote resources read-only while writing only the requested .edru deliverables.",
+        "Runs the asset validator and distinguishes structural validation from truth validation.",
+        "Links the final four answers to claims, evidence, or explicit unknowns."
+      ]
+    },
+    {
+      "id": 2,
+      "name": "ordinary-debugging-does-not-trigger-takeover",
+      "prompt": "A unit test in parser_test.py fails after yesterday's change. Diagnose the first causal error in the parser implementation.",
+      "expected_output": "The agent does not invoke EDRU solely because debugging requires reading repository files; it uses an appropriate focused debugging workflow.",
+      "expectations": [
+        "Does not create a .edru directory or require a full repository takeover.",
+        "Does not force survey, takeover, or change-ready assets into a focused debugging request.",
+        "Recognizes that ordinary implementation, debugging, review, and single-file questions are outside automatic EDRU routing."
+      ]
+    },
+    {
+      "id": 3,
+      "name": "change-ready-requires-target",
+      "prompt": "Use $understand-repo in change-ready mode on this repository, but I have not decided what will change.",
+      "expected_output": "The agent asks one focused question for the change target before producing target-level impact analysis, while avoiding invented consumers or a fabricated impact matrix.",
+      "expectations": [
+        "Treats the missing change target as material to the requested deliverable.",
+        "Asks only for the target or intended change needed to define the impact closure.",
+        "Does not claim target-level readiness, safe modification, or complete impact analysis without a target."
+      ]
+    },
+    {
+      "id": 4,
+      "name": "no-runtime-access-preserves-static-progress",
+      "prompt": "Use $understand-repo to survey this repository. You may read files but may not run builds, tests, services, or network requests.",
+      "expected_output": "The agent completes the supportable static survey, labels relationships DECLARED or MAY as appropriate, records dynamic gaps, and avoids claiming C4 evidence.",
+      "expectations": [
+        "Does not run unauthorized commands that execute repository code or access the network.",
+        "Does not relabel static reachability as OBSERVED or C4.",
+        "Uses completed_with_unknowns when the survey objective is answered despite dynamic evidence gaps, rather than treating all missing runtime access as blocked.",
+        "Records concrete next actions for material dynamic unknowns."
+      ]
+    },
+    {
+      "id": 5,
+      "name": "budgeted-survey-does-not-fake-completeness",
+      "prompt": "Use $understand-repo in survey mode for this monorepo. Limit the work to 30 minutes and two executable units.",
+      "expected_output": "The agent fixes the included scope and denominators up front, prioritizes high-value evidence, stops at the budget, and reports explicit exclusions and unknowns without implying whole-repository coverage.",
+      "expectations": [
+        "Defines the two included executable units and records the rest as excluded or unknown before reporting coverage.",
+        "Does not use file counts, asset counts, or an undefined denominator as proof of completion.",
+        "Stops when the budget is reached and reports a truthful status and continuation actions.",
+        "Scopes every conclusion to the inspected revision and included units."
+      ]
+    },
+    {
+      "id": 6,
+      "name": "high-risk-unknown-blocks-safe-change-claim",
+      "prompt": "Use $understand-repo in change-ready mode for renaming the public OrderCreated event. An external consumer registry is inaccessible.",
+      "expected_output": "The agent maps known producers and consumers, records the inaccessible external consumer set as a high-severity unknown, prepares validation and rollback plans, and does not claim the rename is safe.",
+      "expectations": [
+        "Checks build dependencies, symbol references, event schema, registrations, tests, deployment, history, and known consumers within scope.",
+        "Treats inaccessible external consumers as unknown rather than as evidence of no consumers.",
+        "Allows the analysis itself to complete with unknowns while making the safe-to-modify gate fail.",
+        "Provides a concrete next validation action and rollback condition."
+      ]
+    }
+  ]
+}

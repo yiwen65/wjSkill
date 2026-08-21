@@ -1,0 +1,54 @@
+repository:
+  name: ""
+  path_or_url: ""
+  revision: ""
+  branch: ""
+  dirty_worktree: null
+  analyzed_at: ""
+
+scope:
+  included: []
+  excluded: []
+  objective: ""
+
+repository_instructions:
+  files: []
+  important_rules: []
+
+source_of_truth:
+  - area: ""
+    source: ""
+    generated_outputs: []
+    generator: ""
+    update_command: ""
+    evidence_ids: []
+
+build:
+  systems: []
+  primary_targets: []
+  package_managers: []
+  lockfiles: []
+  commands:
+    build: []
+    unit_test: []
+    integration_test: []
+    verify: []
+
+runtime:
+  platforms: []
+  deploy_forms: []
+  required_services: []
+  feature_flags: []
+  config_sources: []
+
+constraints:
+  runtime_access: false
+  network_access: false
+  missing_dependencies: []
+  security_notes: []
+
+initial_unknowns:
+  - id: "UNK-001"
+    statement: ""
+    severity: "low|medium|high|critical"
+    validation_action: ""

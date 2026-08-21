@@ -1,0 +1,42 @@
+edru_run:
+  schema_version: "1.0"
+  run_id: "EDRU-YYYYMMDD-HHMMSS"
+  status: "in_progress" # in_progress | blocked | completed | completed_with_unknowns
+  mode: "takeover" # survey | takeover | change-ready
+  started_at: ""
+  completed_at: ""
+
+  repository:
+    path_or_url: ""
+    revision: ""
+    branch: ""
+    dirty_worktree: null
+    submodules: []
+    lfs_enabled: null
+
+  objective: ""
+  change_target: ""
+
+  scope:
+    included: []
+    excluded: []
+    assumptions: []
+
+  environment:
+    platform: ""
+    build_variant: ""
+    feature_flags: []
+    runtime_access: false
+    network_access: false
+    isolation: ""
+    tool_versions: {}
+
+  budget:
+    max_elapsed_minutes: null
+    max_files_full_read: null
+    max_critical_paths: 3
+    max_dynamic_scenarios: 0
+
+  asset_root: ".edru"
+  critical_paths: []
+  blocking_unknowns: []

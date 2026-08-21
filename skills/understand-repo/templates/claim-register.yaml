@@ -1,0 +1,20 @@
+claims:
+  - id: "CLM-001"
+    claim: ""
+    model: "goal|execution|architecture|behavior|boundary|quality|history|impact"
+    kind: "EXPECTED|DECLARED|MAY|OBSERVED|REFUTED"
+
+    scope:
+      repository: ""
+      revision: ""
+      build_targets: []
+      platform: ""
+      feature_flags: []
+      runtime_input: ""
+
+    confidence: "C0"
+    evidence_ids: []
+    counter_hypotheses: []
+    unknowns: []
+    invalidated_by: []
+    status: "open|supported|refuted|partially_supported|blocked"

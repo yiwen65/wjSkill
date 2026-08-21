@@ -1,0 +1,89 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.org/edru/readiness-report.schema.json",
+  "title": "EDRU Machine Readiness Summary",
+  "type": "object",
+  "required": [
+    "repository",
+    "revision",
+    "mode",
+    "status",
+    "gates",
+    "metrics",
+    "blocking_unknowns"
+  ],
+  "properties": {
+    "repository": {
+      "type": "string"
+    },
+    "revision": {
+      "type": "string"
+    },
+    "mode": {
+      "enum": [
+        "survey",
+        "takeover",
+        "change-ready"
+      ]
+    },
+    "status": {
+      "enum": [
+        "blocked",
+        "completed",
+        "completed_with_unknowns"
+      ]
+    },
+    "gates": {
+      "type": "object",
+      "required": [
+        "G0",
+        "G1",
+        "G2",
+        "G3",
+        "G4"
+      ],
+      "additionalProperties": {
+        "enum": [
+          "PASS",
+          "FAIL",
+          "NA"
+        ]
+      }
+    },
+    "metrics": {
+      "type": "object",
+      "properties": {
+        "critical_path_evidence_coverage": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "critical_edges_c0_c1": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "mapped_key_module_ratio": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "high_severity_unknowns": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "c4_scenarios": {
+          "type": "integer",
+          "minimum": 0
+        }
+      },
+      "additionalProperties": true
+    },
+    "blocking_unknowns": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "additionalProperties": true
+}

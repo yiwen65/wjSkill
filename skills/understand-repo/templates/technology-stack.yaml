@@ -1,0 +1,67 @@
+stack:
+  languages:
+    - name: ""
+      version: ""
+      scope: []
+      evidence_ids: []
+
+  frameworks:
+    - name: ""
+      version: ""
+      purpose: ""
+      scope: []
+      evidence_ids: []
+
+  build_systems:
+    - name: ""
+      version: ""
+      targets_or_modules: []
+      evidence_ids: []
+
+  package_management:
+    - ecosystem: ""
+      manifest: ""
+      lockfile: ""
+      evidence_ids: []
+
+  runtimes:
+    - name: ""
+      version: ""
+      platform: ""
+      evidence_ids: []
+
+  data_stores:
+    - name: ""
+      type: ""
+      purpose: ""
+      evidence_ids: []
+
+  messaging:
+    - name: ""
+      protocol: ""
+      purpose: ""
+      evidence_ids: []
+
+  infrastructure:
+    - name: ""
+      purpose: ""
+      evidence_ids: []
+
+  testing:
+    - level: "unit|integration|contract|e2e|performance|security"
+      framework: ""
+      locations: []
+      commands: []
+      evidence_ids: []
+
+  observability:
+    logs: []
+    metrics: []
+    traces: []
+    profiles: []
+
+  security:
+    authentication: []
+    authorization: []
+    secrets: []
+    policies: []

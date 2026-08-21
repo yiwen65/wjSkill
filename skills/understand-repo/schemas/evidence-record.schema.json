@@ -1,0 +1,83 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.org/edru/evidence-record.schema.json",
+  "title": "EDRU Evidence Record",
+  "type": "object",
+  "required": [
+    "id",
+    "source_type",
+    "locator",
+    "summary",
+    "supports",
+    "refutes",
+    "tool",
+    "revision",
+    "scope",
+    "strength"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^EV-[A-Za-z0-9._-]+$"
+    },
+    "source_type": {
+      "enum": [
+        "source",
+        "build",
+        "test",
+        "trace",
+        "config",
+        "history",
+        "contract",
+        "log",
+        "metric",
+        "profile",
+        "data",
+        "documentation"
+      ]
+    },
+    "locator": {
+      "type": "string",
+      "minLength": 1
+    },
+    "summary": {
+      "type": "string",
+      "minLength": 1
+    },
+    "supports": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "refutes": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "tool": {
+      "type": "string"
+    },
+    "tool_version": {
+      "type": "string"
+    },
+    "revision": {
+      "type": "string"
+    },
+    "scope": {
+      "type": "object"
+    },
+    "strength": {
+      "enum": [
+        "direct",
+        "corroborating",
+        "weak"
+      ]
+    },
+    "observed_at": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": true
+}
