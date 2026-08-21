@@ -31,9 +31,8 @@ erase approval boundaries recorded in that contract.
 ## Require structured input
 
 Issue every clarification, contradiction-resolution, revision, and final
-confirmation question through `request_user_input` or the environment's
-equivalent structured question tool. The interaction must provide clickable
-choices and a built-in custom-input path.
+confirmation question through the runtime's structured question capability. The
+interaction must provide clickable choices and a built-in custom-input path.
 
 - Do not print a question with numbered choices and ask the user to answer in
   the ordinary conversation field.
