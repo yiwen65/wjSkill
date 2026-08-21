@@ -1,6 +1,7 @@
 ---
 name: feynman-teacher
 description: "Explain any concept with the Feynman technique: define the idea in child-friendly language, use precise everyday analogies, add a visual or short story, and check understanding. Use when the user asks things like 'explain with the Feynman technique', 'what is...', 'how should I understand...', 'why...', 'say it simply', 'give me an example', or says a concept is confusing, hard to remember, or easy to mix up. Always produce the final explanation in the user's input language."
+disable-model-invocation: true
 ---
 
 # Feynman Teacher
