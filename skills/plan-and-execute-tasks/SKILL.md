@@ -121,12 +121,16 @@ In `execute` mode:
 
 1. Update a task to `in_progress`, assign its owner, append the start event to
    the execution log, and validate the document before implementation.
-2. Delegate independent, boundary-clear tasks to subagents in parallel when the
-   runtime supports subagents. Give each subagent exactly one or an explicitly
-   bounded set of compatible task IDs, owned files, prerequisites, acceptance
-   criteria, validation commands, and forbidden scope. State that it is not
-   alone in the repository, must preserve others' changes, and must not edit the
-   authority document unless it has exclusive ownership.
+2. When the runtime provides a `subagent` delegation tool, delegate all
+   parallel-ready tasks in one `subagent` DAG start call — one task per
+   boundary-clear unit — instead of issuing separate calls; tasks inside one
+   DAG run concurrently and durably. Give each task exactly one or an
+   explicitly bounded set of compatible task IDs, owned files, prerequisites,
+   acceptance criteria, validation command IDs, and forbidden scope. State
+   that it is not alone in the repository, must preserve others' changes, and
+   must not edit the authority document unless it has exclusive ownership. Use
+   only validation command IDs the tool description lists as registered; when
+   none are listed, omit `validationCommandIds`.
 3. Require each subagent to return this structured report:
    - task IDs and completed work;
    - files changed;
