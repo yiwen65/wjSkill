@@ -1,23 +1,23 @@
-# EDRU 方法来源与边界
+# EDRU Method Sources and Boundaries
 
-本文件只在用户询问方法依据、研究来源或方法边界时加载。执行仓库理解时，以目标仓库证据为权威来源。
+Load this file only when the user asks about methodological grounding, research sources, or method boundaries. During repository understanding, treat target-repository evidence as authoritative.
 
-## 主要来源方向
+## Source areas
 
-| 方向 | 对 EDRU 的启发 | 代表资料 |
+| Area | Influence on EDRU | Representative source |
 |---|---|---|
-| 架构恢复 | 从实现提取事实并逐层聚合；同一系统需要多个视图 | SEI, Architecture Reconstruction Guidelines |
-| 多视图架构 | 部署、模块、构建、运行和数据视图不能互相替代 | SEI, Views and Beyond |
-| 设计与实现差异 | 同时维护 intended architecture 和 as-built architecture | Murphy, Notkin, Sullivan, Software Reflexion Models |
-| Feature Location | 定位起点与确定完整影响范围是不同任务 | Dit et al., Feature Location in Source Code |
-| 静态与动态分析 | 静态描述可能路径，动态只覆盖已执行输入与配置 | 程序分析与软件侦察相关研究 |
-| 代码图谱 | 语法、符号、控制流和数据流适合作为事实层，不等于自动恢复业务架构 | Joern CPG, CodeQL, SCIP, Kythe, Glean |
-| 仓库级 Agent | 迭代检索、层级定位、计划和工具接口优于一次性加载仓库 | SWE-agent、RepoCoder、Agentless 等公开研究 |
-| 构建影响分析 | 构建反向依赖和 affected targets 是影响闭包的一部分 | Bazel Query, Nx affected |
-| 测试影响分析 | 覆盖数据可提供实际执行映射，但不能证明未覆盖路径不存在 | Test Impact Analysis 工程实践 |
-| 软件考古 | blame 只是入口，还需内容、路径、PR、Issue 和回滚历史 | Git 官方文档及软件演化实践 |
+| Architecture reconstruction | Extract facts from implementation and aggregate them progressively; one system needs multiple views | SEI, Architecture Reconstruction Guidelines |
+| Multi-view architecture | Deployment, module, build, runtime, and data views cannot substitute for one another | SEI, Views and Beyond |
+| Intended versus implemented design | Maintain both intended architecture and as-built architecture | Murphy, Notkin, Sullivan, Software Reflexion Models |
+| Feature location | Finding a starting point differs from determining the full impact scope | Dit et al., Feature Location in Source Code |
+| Static and dynamic analysis | Static analysis describes possible paths; dynamic evidence covers only executed inputs and configurations | Program analysis and software reconnaissance research |
+| Code graphs | Syntax, symbols, control flow, and data flow are useful fact layers but do not automatically recover business architecture | Joern CPG, CodeQL, SCIP, Kythe, Glean |
+| Repository-level agents | Iterative retrieval, hierarchical localization, planning, and tool interfaces outperform loading a repository all at once | SWE-agent, RepoCoder, Agentless, and related public research |
+| Build impact analysis | Build reverse dependencies and affected targets are part of the impact closure | Bazel Query, Nx affected |
+| Test impact analysis | Coverage can map actual execution but cannot prove uncovered paths do not exist | Test Impact Analysis engineering practice |
+| Software archaeology | Blame is only an entry point; also inspect content, paths, PRs, issues, and rollback history | Git documentation and software-evolution practice |
 
-## 参考链接
+## References
 
 - https://www.sei.cmu.edu/library/architecture-reconstruction-guidelines/
 - https://www.sei.cmu.edu/library/views-and-beyond-collection/
@@ -32,13 +32,13 @@
 - https://git-scm.com/docs/git-blame
 - https://martinfowler.com/articles/rise-test-impact-analysis.html
 
-## 证据边界
+## Evidence boundary
 
-以下内容是 EDRU 的工程约定，不是经过统一基准校准的行业标准：
+The following are EDRU engineering conventions, not industry standards calibrated through a common benchmark:
 
-- C0–C4 置信度分级；
-- `survey`、`takeover`、`change-ready` 三种模式；
-- 阶段门禁和完成状态；
-- 资产文件命名和目录结构。
+- the C0–C4 confidence scale;
+- the `survey`, `takeover`, and `change-ready` modes;
+- phase gates and completion states;
+- asset names and directory layout.
 
-这些约定应通过不同语言、仓库规模和真实变更任务持续校准。
+Continue calibrating these conventions across languages, repository sizes, and real change tasks.

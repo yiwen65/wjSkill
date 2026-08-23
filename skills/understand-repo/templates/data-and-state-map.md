@@ -1,13 +1,13 @@
-# 数据与状态地图
+# Data and State Map
 
-## 主要实体
+## Primary Entities
 
-| 实体 | 所有者 | 存储位置 | 创建者 | 读者 | 写者 | 生命周期 | 证据 |
+| Entity | Owner | Storage | Creator | Readers | Writers | Lifecycle | Evidence |
 |---|---|---|---|---|---|---|---|
 
-## 状态机
+## State Machines
 
-### 状态对象：`<name>`
+### State object: `<name>`
 
 ```mermaid
 stateDiagram-v2
@@ -17,20 +17,20 @@ stateDiagram-v2
   Active --> Done: success
 ```
 
-| 转换 | 触发 | 前置条件 | 写入位置 | 副作用 | 失败语义 | 证据 | 置信度 |
+| Transition | Trigger | Preconditions | Write location | Side effects | Failure semantics | Evidence | Confidence |
 |---|---|---|---|---|---|---|---|
 
-## 事务与一致性
+## Transactions and Consistency
 
-| 操作 | 边界 | 原子性 | 幂等策略 | 并发控制 | 补偿/恢复 | 证据 |
+| Operation | Boundary | Atomicity | Idempotency | Concurrency control | Compensation/recovery | Evidence |
 |---|---|---|---|---|---|---|
 
-## 缓存
+## Caches
 
-| 缓存 | Source of truth | Key | 填充 | 失效 | 一致性风险 | 证据 |
+| Cache | Source of truth | Key | Population | Invalidation | Consistency risk | Evidence |
 |---|---|---|---|---|---|---|
 
-## 未验证状态行为
+## Unverified State Behavior
 
-| 未知 ID | 行为 | 风险 | 需要的运行场景 |
+| Unknown ID | Behavior | Risk | Required runtime scenario |
 |---|---|---|---|

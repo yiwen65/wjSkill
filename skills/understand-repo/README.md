@@ -1,21 +1,29 @@
 # EDRU Repository Understanding
 
-EDRU 用可追溯证据恢复大型或陌生仓库的可执行拓扑、关键链路、边界、状态和变更影响。核心规则与触发边界见 `SKILL.md`。
+EDRU uses traceable evidence to create or update knowledge about the executable topology, critical paths, boundaries, state, and change impact of large or unfamiliar repositories. `operation: create | update` controls the asset lifecycle; `mode: survey | takeover | change-ready` controls analysis depth. See `SKILL.md` for the core contract and invocation boundaries.
 
-## 资源
+## Resources
 
-- `references/takeover-protocol.md`：复杂接管和 `change-ready` 的执行检查点；
-- `templates/`：按资产类型加载的输出模板；
-- `schemas/`：manifest、claim、evidence 和 readiness 的机器校验契约；
-- `examples/`：只在结构不清楚时参考的最小示例；
-- `scripts/validate_edru_assets.py`：资产结构校验器；
-- `evals/evals.json`：路由、权限和证据边界的行为评测场景；
-- `references/method-sources.md`：仅用于解释方法来源与边界。
+- `references/takeover-protocol.md`: execution checkpoints for complex takeovers and `change-ready` work;
+- `references/update-protocol.md`: lineage, invalidation, retention, and full-rebaseline rules for every update;
+- `templates/`: output templates loaded by asset type;
+- `schemas/`: machine-validation contracts for manifests, claims, evidence, and readiness data;
+- `examples/`: minimal examples used only when structure remains unclear;
+- `scripts/validate_edru_assets.py`: asset structure validator;
+- `evals/evals.json`: behavioral evaluation cases for routing, authority, and evidence boundaries;
+- `references/method-sources.md`: methodological sources and boundaries, loaded only when requested.
 
-## 资产校验
+## Validate assets
 
 ```bash
-python3 scripts/validate_edru_assets.py /path/to/.edru --mode takeover
+python3 scripts/validate_edru_assets.py /path/to/.edru --operation create --mode takeover
+python3 scripts/validate_edru_assets.py /path/to/.edru --operation update --mode takeover
 ```
 
-校验通过只表示必要文件存在且基础格式可解析，不表示仓库结论真实。
+A passing result means only that required files exist, lifecycle metadata is coherent, and basic formats are parseable. It does not prove that repository conclusions are true or that an update found every affected dependency.
+
+## Usage examples
+
+- Create a reusable baseline: `Use $understand-repo with operation create and mode takeover. Persist the assets under .edru.`
+- Refresh after repository changes: `Use $understand-repo with operation update and mode takeover. Update the existing .edru assets from the recorded revision to current HEAD.`
+- Refresh before one planned change: `Use $understand-repo with operation update and mode change-ready for changing <target>. Refresh the existing .edru baseline first.`

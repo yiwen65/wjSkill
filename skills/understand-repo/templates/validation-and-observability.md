@@ -1,31 +1,31 @@
-# 验证与可观测性
+# Validation and Observability
 
-## 测试地图
+## Test Map
 
-| 层级 | 位置/目标 | 覆盖场景 | 依赖 | 命令 | 当前状态 | 证据 |
+| Level | Location/target | Covered scenarios | Dependencies | Command | Current status | Evidence |
 |---|---|---|---|---|---|---|
 
-## 运行验证
+## Runtime Validation
 
-| 场景 | 版本/配置 | 输入 | 观测方式 | 结果 | Evidence ID |
+| Scenario | Version/configuration | Input | Observation method | Result | Evidence ID |
 |---|---|---|---|---|---|
 
-## Trace、日志、指标和 Profile
+## Traces, Logs, Metrics, and Profiles
 
-| 信号 | 位置 | 关键字段/关联 ID | 支持的 Claim | 局限 |
+| Signal | Location | Key fields/correlation ID | Supported claim | Limitation |
 |---|---|---|---|---|
 
-## 故障和边界验证
+## Failure and Boundary Validation
 
-| 故障 | 注入位置 | 预期行为 | 实际行为 | 重试/降级/补偿 | 证据 |
+| Failure | Injection point | Expected behavior | Actual behavior | Retry/degradation/compensation | Evidence |
 |---|---|---|---|---|---|
 
-## MAY / OBSERVED 对照
+## MAY / OBSERVED Comparison
 
-| Edge/Behavior | MAY | OBSERVED | 配置与输入 | 结论 |
+| Edge/behavior | MAY | OBSERVED | Configuration and input | Conclusion |
 |---|---|---|---|---|
 
-## 运行缺口
+## Runtime Gaps
 
-| 未知 ID | 缺失环境或信号 | 影响 | 替代证据 | 下一动作 |
+| Unknown ID | Missing environment or signal | Impact | Alternative evidence | Next action |
 |---|---|---|---|---|

@@ -1,95 +1,95 @@
-# EDRU 接管协议
+# EDRU Takeover Protocol
 
-仅在 `takeover`、`change-ready`，或跨多个可执行单元的复杂 `survey` 中读取本协议。它补充执行检查点，不改变 `SKILL.md` 的权限、范围和完成门禁。
+Read this protocol only for `takeover`, `change-ready`, or a complex `survey` spanning multiple executables. It adds execution checkpoints without changing the authority, scope, or completion gates in `SKILL.md`.
 
-## 1. 建立分析基线
+## 1. Establish the analysis baseline
 
-- 固定 revision、branch、dirty 状态、submodule、LFS、平台和工具版本。
-- 读取范围内的 `AGENTS.md`、贡献规则、OWNERS、生成规则和仓库级约束。
-- 记录 included/excluded scope、构建目标、部署形态、功能开关、运行配置、权限和预算。
-- 把缺失依赖、环境限制和未经验证的默认值写入未知清单。
-- 若用户只要求回答问题，保持 answer-only；若要求资产，再初始化 `output_root` 和 manifest。
+- Freeze revision, branch, dirty state, submodules, LFS state, platform, and tool versions.
+- Read in-scope `AGENTS.md` files, contribution rules, OWNERS, generation rules, and repository constraints.
+- Record included and excluded scope, build targets, deployment form, feature flags, runtime configuration, permissions, and budget.
+- Add missing dependencies, environment limitations, and unverified defaults to the unknowns register.
+- If the user wants only an answer, remain answer-only. Initialize `output_root` and the manifest only when persistent assets are requested.
 
-## 2. 恢复系统地图
+## 2. Recover the system map
 
-从以下事实源定位候选边界：
+Locate candidate boundaries from these fact sources:
 
-1. 构建目标与依赖图；
-2. 部署清单、启动命令和运行单元；
-3. 路由、注册、DI、插件与消息订阅；
-4. API、IDL、schema、配置和数据库迁移；
-5. 生成器、生成产物及消费者。
+1. build targets and dependency graphs;
+2. deployment manifests, startup commands, and runtime units;
+3. routing, registration, dependency injection, plugins, and message subscriptions;
+4. APIs, IDLs, schemas, configuration, and database migrations;
+5. generators, generated artifacts, and consumers.
 
-对每个纳入范围的关键单元记录：职责、入口、构建目标、部署形态、提供的接口、依赖、状态或数据所有权、配置、测试、所有者、证据和未知。先定义“关键单元”清单，再报告覆盖率。
+For each in-scope critical unit, record responsibility, entry points, build targets, deployment form, provided interfaces, dependencies, state or data ownership, configuration, tests, owners, evidence, and unknowns. Define the critical-unit inventory before reporting coverage.
 
-同时维护：
+Maintain all three views:
 
-- intended architecture：文档、ADR 或提案表达的预期；
-- as-built architecture：构建、配置和实现直接支持的现状；
-- deviation：二者差异、风险及证据。
+- intended architecture: intent expressed by documentation, ADRs, or proposals;
+- as-built architecture: current behavior directly supported by build, configuration, and implementation evidence;
+- deviation: differences, risks, and supporting evidence.
 
-## 3. 选择场景与关键链路
+## 3. Select scenarios and critical paths
 
-根据目标、风险和预算选择少量代表性场景，通常覆盖：
+Choose a small representative set according to objective, risk, and budget. It will usually cover:
 
-- 主要写路径；
-- 主要读路径；
-- 异步事件路径；
-- 主要失败、超时或重试路径；
-- 权限、安全、管理或扩展路径。
+- the primary write path;
+- the primary read path;
+- an asynchronous event path;
+- a primary failure, timeout, or retry path;
+- a permission, security, administration, or extension path.
 
-每个场景先定义参与者、触发、输入、初始状态、关键配置、预期输出、最终状态和可观测 oracle。然后沿以下路径追踪：
+For each scenario, first define actors, trigger, input, initial state, critical configuration, expected output, final state, and an observable oracle. Then trace:
 
 ```text
-外部刺激
-→ 边界适配器
-→ 路由或分发
-→ 鉴权、校验与转换
-→ 编排与核心规则
-→ 数据读写或消息发布
-→ 下游消费者
-→ 返回结果或最终状态
+external stimulus
+→ boundary adapter
+→ routing or dispatch
+→ authentication, validation, and transformation
+→ orchestration and core rules
+→ data read/write or message publication
+→ downstream consumer
+→ response or final state
 ```
 
-每条边记录调用者、符号、输入输出、状态变化、副作用、事务、异常、超时、重试、补偿、降级、claim、evidence 和置信度。结果对象还要反向追踪到生产者或写入点。
+For every edge, record caller, symbol, inputs and outputs, state changes, side effects, transaction boundaries, errors, timeouts, retries, compensation, degradation, claim, evidence, and confidence. Trace result objects backward to their producer or write point as well.
 
-## 4. 互证、反证与历史
+## 4. Corroboration, refutation, and history
 
-- 静态调用、引用和数据流只建立 `MAY`。
-- 测试、覆盖、Trace、Profile、日志、指标和数据变化建立 `OBSERVED`。
-- 对“静态有但动态无”和“动态有但静态无”分别解释；证据不足就保持未知。
-- 每个高风险 claim 至少提出一个能被证伪的反假设。
-- 检查反射、动态注册、DI、插件、RPC、消息、FFI 和生成代码导致的隐式关系。
-- 对异常设计、关键模块和计划修改点检查引入、修复、回滚、共同变更、PR、Issue 和 ADR。
-- 区分有意兼容、临时技术债、偶然复杂度和架构约束；无法恢复的意图保持未知。
+- Static calls, references, and data flow establish only `MAY`.
+- Tests, coverage, traces, profiles, logs, metrics, and data changes establish `OBSERVED`.
+- Explain "static but not dynamic" and "dynamic but not static" separately; retain unknown status when evidence is insufficient.
+- Give every high-risk claim at least one falsifiable counter-hypothesis.
+- Check reflection, dynamic registration, dependency injection, plugins, RPC, messaging, FFI, and generated code for implicit relationships.
+- For unusual designs, critical modules, and proposed change points, inspect introduction, fixes, rollbacks, co-changes, PRs, issues, and ADRs.
+- Distinguish deliberate compatibility, temporary debt, accidental complexity, and architectural constraints. Keep unrecoverable intent unknown.
 
-## 5. `change-ready` 影响闭包
+## 5. `change-ready` impact closure
 
-围绕明确的 `change_target` 检查：
+Around the explicit `change_target`, inspect:
 
-- 构建反向依赖和受影响目标；
-- 符号调用者、实现者、override、注册和生成关系；
-- API、消息、配置、schema 和数据消费者；
-- 共享状态读写者、缓存、事务、迁移和一致性；
-- 运行消费者、测试、告警、权限、部署和操作手册；
-- 历史兼容、共同变更及跨仓或外部消费者。
+- build reverse dependencies and affected targets;
+- symbol callers, implementers, overrides, registrations, and generated relationships;
+- API, message, configuration, schema, and data consumers;
+- shared-state readers and writers, caches, transactions, migrations, and consistency;
+- runtime consumers, tests, alerts, permissions, deployment, and runbooks;
+- compatibility history, co-changes, and cross-repository or external consumers.
 
-输出修改前预测：预计改变、预计不变、可观测 oracle 和验证方式。为每个高风险影响准备针对性验证和可执行回滚条件。无法覆盖的消费者进入未知清单，不能按“无影响”处理。
+Produce pre-change predictions: expected changes, expected non-changes, observable oracles, and validation methods. Prepare targeted validation and executable rollback conditions for every high-risk impact. Put uncovered consumers in the unknowns register; never treat them as evidence of no impact.
 
-## 6. 成本控制
+## 6. Cost control
 
-- 优先查看构建/部署事实、精确符号、注册关系、契约和错误字符串，再做宽泛搜索。
-- 大量同构叶子模块可用“典型 + 边界 + 高风险”采样；入口、公共契约、迁移、权限、失败处理、生成源、状态机和变更目标上下游不得采样跳过。
-- 缓存证据时绑定 `(repo, revision, build_variant, platform, feature_flags, tool_versions)`；任一关键维度变化都要重新判断有效性。
-- 仓库变化后沿 `changed symbol → generated output → reverse dependency → contract/state consumer → critical path → claim/report` 失效。
-- 达到预算或边际收益很低时停止扩张，用 `completed_with_unknowns` 表达剩余缺口。
+- Inspect build and deployment facts, precise symbols, registrations, contracts, and error strings before broad searches.
+- For many homogeneous leaf modules, sample a typical, boundary, and high-risk implementation. Never sample away entry points, public contracts, migrations, permissions, failure handling, generation sources, state machines, or the direct upstream and downstream of a change target.
+- Bind cached evidence to `(repo, revision, dirty_fingerprint, build_variant, platform, feature_flags, tool_versions)` and reassess validity when any critical dimension changes.
+- For persistent asset refreshes, follow `update-protocol.md`; invalidate along `changed source/contract/config/envelope → generated output or registration → reverse dependency → contract/state consumer → critical path → claim/report`.
+- Stop expanding at the budget or when marginal value is low, and use `completed_with_unknowns` for the remaining gaps.
 
-## 7. 交付检查
+## 7. Delivery check
 
-- 所需资产存在并通过结构验证；
-- 每个重要结论可追溯到 claim 和 evidence；
-- 关键链路范围已定义，纳入的边都有 `C2+` 证据；
-- `MAY`、`OBSERVED` 与 `REFUTED` 没有混用；
-- 重要未知都有严重度、影响、阻断来源和下一动作；
-- `change-ready` 的高严重度未知正确阻止“可安全修改”结论；
-- readiness report 能基于底层资产回答最终四问，并明确降级项。
+- Required assets exist and pass structural validation.
+- Every material conclusion traces to claims and evidence.
+- Critical-path scope is defined, and every included edge has `C2+` evidence.
+- `MAY`, `OBSERVED`, and `REFUTED` are not conflated.
+- Every material unknown has severity, impact, blocking source, and a next action.
+- High-severity unknowns correctly block a "safe to modify" conclusion in `change-ready`.
+- The readiness report answers the final four questions from underlying assets and states every downgrade explicitly.

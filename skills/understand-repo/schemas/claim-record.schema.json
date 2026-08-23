@@ -82,6 +82,19 @@
         "type": "string"
       }
     },
+    "lifecycle_status": {
+      "enum": ["active", "invalidated", "superseded"]
+    },
+    "inherited_from_run_id": {
+      "type": "string"
+    },
+    "validated_at_revision": {
+      "type": "string"
+    },
+    "superseded_by": {
+      "type": "array",
+      "items": {"type": "string"}
+    },
     "status": {
       "enum": [
         "open",

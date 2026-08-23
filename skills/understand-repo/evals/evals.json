@@ -71,6 +71,55 @@
         "Allows the analysis itself to complete with unknowns while making the safe-to-modify gate fail.",
         "Provides a concrete next validation action and rollback condition."
       ]
+    },
+    {
+      "id": 7,
+      "name": "incremental-update-invalidates-only-bounded-closure",
+      "prompt": "Use $understand-repo with operation update and mode takeover. Refresh the existing .edru assets from revision abc123 to def456 after a localized parser refactor, preserving still-valid knowledge.",
+      "expected_output": "The agent validates the parent manifest, preserves affected parent assets in history, computes a bounded invalidation closure, retains still-applicable records with lineage, regenerates impacted assets, and emits an update summary.",
+      "expectations": [
+        "Treats update and takeover as separate dimensions rather than inventing an update mode.",
+        "Compares revision and execution-envelope dimensions before reusing prior claims or evidence.",
+        "Preserves the parent manifest and changed assets before overwriting them.",
+        "Records retained, invalidated, superseded, and regenerated items without deleting stale provenance.",
+        "Runs the validator with --operation update --mode takeover and separates structural success from truth validation."
+      ]
+    },
+    {
+      "id": 8,
+      "name": "update-without-valid-baseline-does-not-invent-lineage",
+      "prompt": "Update the existing .edru knowledge, but its manifest.yaml is missing and no previous run ID or revision can be recovered.",
+      "expected_output": "The agent does not silently overwrite the assets or fabricate a parent run. It asks whether to repair the baseline or execute a new create operation.",
+      "expectations": [
+        "Treats a readable, sufficiently identified parent manifest as a prerequisite for update.",
+        "Does not infer old revision, run ID, or evidence applicability from filenames or current HEAD.",
+        "Does not relabel the request as a successful update without user direction.",
+        "Preserves existing files while the lifecycle decision is unresolved."
+      ]
+    },
+    {
+      "id": 9,
+      "name": "major-refactor-forces-full-rebaseline-with-lineage",
+      "prompt": "Update the takeover assets after the repository replaced its root build system, moved most modules, and rewrote public schemas. The previous manifest is valid.",
+      "expected_output": "The agent records operation update with strategy full_rebaseline, preserves parent history, rebuilds the selected mode from the target snapshot, and explains why incremental reuse is unsafe.",
+      "expectations": [
+        "Does not reuse stale locators or confidence merely to minimize work.",
+        "Keeps the parent run and from/to snapshot lineage even though analysis is rebuilt.",
+        "Records a non-empty fallback reason and the evidence supporting the strategy decision.",
+        "Does not misrepresent full_rebaseline as a fresh create operation."
+      ]
+    },
+    {
+      "id": 10,
+      "name": "update-change-ready-refreshes-before-impact-closure",
+      "prompt": "Use $understand-repo operation update with mode change-ready for changing the PaymentAuthorized message. Refresh the old .edru baseline first.",
+      "expected_output": "The agent refreshes affected baseline knowledge from the parent snapshot and then performs target-specific impact closure; stale parent coverage cannot satisfy the safe-to-modify gate.",
+      "expectations": [
+        "Requires both a valid update baseline and an explicit change target.",
+        "Refreshes affected topology, contracts, state consumers, and critical paths before judging change impact.",
+        "Produces both 13-change-impact-matrix.md and 16-update-summary.md.",
+        "Blocks a safe-to-modify conclusion when high-severity consumers remain unbounded."
+      ]
     }
   ]
 }

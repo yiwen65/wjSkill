@@ -1,6 +1,6 @@
-# 可执行与部署拓扑
+# Executable and Deployment Topology
 
-## 构建和部署关系
+## Build and Deployment Relationships
 
 ```mermaid
 flowchart TD
@@ -9,22 +9,22 @@ flowchart TD
   Artifact --> Deployable[Deployable]
 ```
 
-## 可执行单元
+## Executable Units
 
-| ID | 名称 | 类型 | 构建目标 | 入口 | 产物 | 部署位置 | 依赖服务 | 所有者 | 证据 |
+| ID | Name | Type | Build target | Entry point | Artifact | Deployment location | Required services | Owner | Evidence |
 |---|---|---|---|---|---|---|---|---|---|
 
-## 启动与关闭
+## Startup and Shutdown
 
-| 单元 | 启动流程 | 就绪条件 | 健康检查 | 关闭流程 | 证据 |
+| Unit | Startup path | Readiness condition | Health check | Shutdown path | Evidence |
 |---|---|---|---|---|---|
 
-## 生成关系
+## Generated Relationships
 
-| Source of truth | Generator | Generated output | Consumer | 更新命令 | 证据 |
+| Source of truth | Generator | Generated output | Consumer | Update command | Evidence |
 |---|---|---|---|---|---|
 
-## 未映射单元
+## Unmapped Units
 
-| 候选 | 为什么疑似可执行单元 | 缺失证据 | 下一动作 |
+| Candidate | Why it may be executable | Missing evidence | Next action |
 |---|---|---|---|

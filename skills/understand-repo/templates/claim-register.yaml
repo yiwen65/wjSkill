@@ -17,4 +17,8 @@ claims:
     counter_hypotheses: []
     unknowns: []
     invalidated_by: []
+    lifecycle_status: "active" # active | invalidated | superseded
+    inherited_from_run_id: ""
+    validated_at_revision: ""
+    superseded_by: []
     status: "open|supported|refuted|partially_supported|blocked"

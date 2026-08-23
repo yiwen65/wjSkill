@@ -3,82 +3,103 @@
   "$id": "https://example.org/edru/manifest.schema.json",
   "title": "EDRU Run Manifest",
   "type": "object",
-  "required": [
-    "edru_run"
-  ],
+  "required": ["edru_run"],
   "properties": {
     "edru_run": {
       "type": "object",
       "required": [
         "schema_version",
         "run_id",
+        "operation",
         "status",
         "mode",
         "repository",
         "scope",
-        "asset_root"
+        "asset_root",
+        "history_root"
       ],
       "properties": {
-        "schema_version": {
-          "type": "string"
-        },
-        "run_id": {
-          "type": "string",
-          "minLength": 1
-        },
+        "schema_version": {"const": "2.0"},
+        "run_id": {"type": "string", "minLength": 1},
+        "parent_run_id": {"type": "string"},
+        "operation": {"enum": ["create", "update"]},
         "status": {
-          "enum": [
-            "in_progress",
-            "blocked",
-            "completed",
-            "completed_with_unknowns"
-          ]
+          "enum": ["in_progress", "blocked", "completed", "completed_with_unknowns"]
         },
-        "mode": {
-          "enum": [
-            "survey",
-            "takeover",
-            "change-ready"
-          ]
-        },
+        "mode": {"enum": ["survey", "takeover", "change-ready"]},
         "repository": {
           "type": "object",
-          "required": [
-            "path_or_url",
-            "revision"
-          ],
+          "required": ["path_or_url", "revision"],
           "properties": {
-            "path_or_url": {
-              "type": "string"
-            },
-            "revision": {
-              "type": "string"
-            },
-            "branch": {
-              "type": "string"
-            },
-            "dirty_worktree": {
-              "type": [
-                "boolean",
-                "null"
-              ]
-            }
+            "path_or_url": {"type": "string", "minLength": 1},
+            "revision": {"type": "string", "minLength": 1},
+            "branch": {"type": "string"},
+            "dirty_worktree": {"type": ["boolean", "null"]},
+            "working_tree_fingerprint": {"type": "string"}
           },
           "additionalProperties": true
         },
-        "scope": {
-          "type": "object"
-        },
-        "environment": {
-          "type": "object"
-        },
-        "budget": {
-          "type": "object"
-        },
-        "asset_root": {
-          "type": "string"
+        "scope": {"type": "object"},
+        "environment": {"type": "object"},
+        "budget": {"type": "object"},
+        "asset_root": {"type": "string", "minLength": 1},
+        "history_root": {"type": "string", "minLength": 1},
+        "update": {
+          "type": "object",
+          "required": [
+            "previous_manifest",
+            "trigger",
+            "strategy",
+            "from_revision",
+            "to_revision",
+            "ancestry",
+            "changed_paths",
+            "changed_envelope_dimensions",
+            "retained_assets",
+            "preserved_parent_assets",
+            "invalidated_claim_ids",
+            "invalidated_evidence_ids",
+            "superseded_evidence_ids",
+            "regenerated_assets",
+            "fallback_reason"
+          ],
+          "properties": {
+            "previous_manifest": {"type": "string", "minLength": 1},
+            "trigger": {"enum": ["manual", "revision_change", "envelope_change", "mixed"]},
+            "strategy": {"enum": ["no_op", "incremental", "full_rebaseline"]},
+            "from_revision": {"type": "string", "minLength": 1},
+            "to_revision": {"type": "string", "minLength": 1},
+            "from_working_tree_fingerprint": {"type": "string"},
+            "to_working_tree_fingerprint": {"type": "string"},
+            "ancestry": {"enum": ["ancestor", "diverged", "rewritten", "unknown"]},
+            "changed_paths": {"type": "array", "items": {"type": "string"}},
+            "changed_envelope_dimensions": {"type": "array", "items": {"type": "string"}},
+            "retained_assets": {"type": "array", "items": {"type": "string"}},
+            "preserved_parent_assets": {"type": "array", "items": {"type": "string"}},
+            "invalidated_claim_ids": {"type": "array", "items": {"type": "string"}},
+            "invalidated_evidence_ids": {"type": "array", "items": {"type": "string"}},
+            "superseded_evidence_ids": {"type": "array", "items": {"type": "string"}},
+            "regenerated_assets": {"type": "array", "items": {"type": "string"}},
+            "fallback_reason": {"type": "string"}
+          },
+          "allOf": [
+            {
+              "if": {"properties": {"strategy": {"const": "full_rebaseline"}}},
+              "then": {"properties": {"fallback_reason": {"minLength": 1}}}
+            }
+          ],
+          "additionalProperties": true
         }
       },
+      "allOf": [
+        {
+          "if": {"properties": {"operation": {"const": "update"}}},
+          "then": {
+            "required": ["parent_run_id", "update"],
+            "properties": {"parent_run_id": {"minLength": 1}}
+          }
+        }
+      ],
       "additionalProperties": true
     }
   },

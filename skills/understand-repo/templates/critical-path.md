@@ -1,21 +1,21 @@
-# KP-XXX：关键链路名称
+# KP-XXX: Critical Path Name
 
-## 场景定义
+## Scenario Definition
 
-| 字段 | 内容 |
+| Field | Value |
 |---|---|
 | Repository / Revision |  |
-| 参与者 |  |
-| 外部刺激 |  |
-| 初始状态 |  |
+| Actor |  |
+| External stimulus |  |
+| Initial state |  |
 | Build target |  |
 | Runtime config |  |
 | Feature flags |  |
-| 预期最终状态 |  |
+| Expected final state |  |
 | Oracle |  |
-| 运行证据 | 未执行 / trace-id / test |
+| Runtime evidence | Not run / trace ID / test |
 
-## 链路摘要
+## Path Summary
 
 ```mermaid
 sequenceDiagram
@@ -30,32 +30,32 @@ sequenceDiagram
   C-->>A: response/final state
 ```
 
-## 逐步链路
+## Path Steps
 
-| 步骤 | 触发/调用者 | 组件与符号 | 输入 | 状态前→后 | 副作用 | 异常/超时/重试/降级 | Claim | 证据 | 置信度 |
+| Step | Trigger/caller | Component and symbol | Input | State before→after | Side effects | Error/timeout/retry/degradation | Claim | Evidence | Confidence |
 |---:|---|---|---|---|---|---|---|---|---|
 
-## 数据流
+## Data Flow
 
-| 数据 | 来源 | 转换 | 消费者 | 最终落点 | 敏感性 | 证据 |
+| Data | Source | Transformation | Consumer | Final destination | Sensitivity | Evidence |
 |---|---|---|---|---|---|---|
 
-## 分支和边界条件
+## Branches and Boundary Conditions
 
-| 条件 | 分支 | 结果 | 可观测性 | 证据 |
+| Condition | Branch | Result | Observability | Evidence |
 |---|---|---|---|---|
 
-## MAY 与 OBSERVED 差异
+## MAY versus OBSERVED
 
-| 关系 | 静态结果 | 运行结果 | 解释或未知 |
+| Relationship | Static result | Runtime result | Explanation or unknown |
 |---|---|---|---|
 
-## 反假设
+## Counter-Hypotheses
 
-| Claim | 反假设 | 验证结果 | 状态 |
+| Claim | Counter-hypothesis | Validation result | Status |
 |---|---|---|---|
 
-## 剩余未知
+## Remaining Unknowns
 
-| 未知 ID | 未知 | 严重度 | 下一验证动作 |
+| Unknown ID | Unknown | Severity | Next validation action |
 |---|---|---|---|

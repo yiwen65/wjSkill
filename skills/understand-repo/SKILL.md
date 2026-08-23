@@ -1,113 +1,130 @@
 ---
 name: understand-repo
-description: 以可追溯证据恢复大型或陌生代码仓库的可执行拓扑、关键链路、边界与状态，并形成可增量维护的仓库认知和变更影响资产。仅在用户明确要求仓库接管、系统或架构理解、关键链路追踪、技术尽调，或修改前影响分析时使用；不要因普通实现、调试、代码审查或单文件问答而自动调用。
+description: Create or update traceable repository knowledge by recovering executable topology, critical paths, boundaries, state, and change impact for large or unfamiliar repositories. Use only when the user explicitly asks for repository takeover, system or architecture understanding, critical-path tracing, technical due diligence, pre-change impact analysis, or a refresh of existing .edru assets after repository changes or major refactoring. Do not auto-invoke for ordinary implementation, debugging, code review, or single-file questions.
 ---
 
-# EDRU 仓库理解
+# EDRU Repository Understanding
 
-## 目标
+## Goal
 
-在固定 revision、构建目标和运行配置范围内，用可定位的仓库证据回答：
+Within a fixed revision, build target, and runtime configuration, use locatable repository evidence to answer:
 
-1. 系统如何工作？
-2. 关键代码在哪里？
-3. 指定修改可能影响什么？
-4. 还存在哪些未验证风险？
+1. How does the system work?
+2. Where is the critical code?
+3. What could a specified change affect?
+4. What risks remain unverified?
 
-交付物是结论及其证据、适用范围和未知项，而不是目录摘要或阅读记录。
+The deliverable is a set of conclusions with evidence, applicability, and unknowns—not a directory summary or reading log.
 
-## 权限边界
+## Authority boundaries
 
-- 默认只读分析源码、配置、数据和远程资源。调用本 Skill 不授权修改它们。
-- 用户要求持久化接管资产时，只在 `output_root` 写派生的 EDRU 文件；若用户只要求回答问题，则直接回答，不创建资产目录。
-- 运行构建、测试或仓库脚本前，确认任务已授权执行，并先检查仓库指令与命令风险。未知仓库优先使用隔离环境，不加载主机秘密或生产凭证，不自行开启网络。
-- 权限或环境不足时继续完成可证明的静态部分，将动态结论标为未知；不要把未运行说成已验证。
+- Analyze source code, configuration, data, and remote resources read-only by default. Invoking this Skill does not authorize modifying them.
+- When the user requests persistent EDRU assets, write only derived EDRU files under `output_root`. If the user asks only for an answer, answer directly and do not create an asset directory.
+- Before running builds, tests, or repository scripts, confirm that execution is authorized and inspect repository instructions and command risk. For an unknown repository, prefer isolation, do not load host secrets or production credentials, and do not enable network access without authorization.
+- When permissions or environment access are insufficient, complete the statically supportable work and record dynamic conclusions as unknown. Never present unexecuted work as validated.
 
-## 模式与必要输入
+## Operations, modes, and required inputs
 
-| 模式 | 适用目标 | 交付范围 |
+`operation` controls the lifecycle of persistent EDRU knowledge. `mode` controls analysis depth. They are orthogonal: every operation supports every mode.
+
+| Operation | Use when | Required behavior |
 |---|---|---|
-| `survey` | 快速建立系统边界和可执行地图 | 基线、拓扑、模块、边界、证据和未知 |
-| `takeover` | 形成可复用的仓库接管认知；默认 | `survey` 加关键链路、数据状态、历史风险和验证地图 |
-| `change-ready` | 为一个明确改动建立影响闭包 | 在受影响范围内完成 `takeover` 证据，加影响矩阵、修改前预测、验证和回滚计划 |
+| `create` | No valid baseline exists, or the user requests a new baseline | Build assets for the target snapshot without inventing prior lineage |
+| `update` | The user explicitly asks to refresh existing EDRU assets after repository or execution-envelope changes | Validate the prior manifest, compare snapshots, retain only still-valid knowledge, invalidate affected records, preserve history, and refresh impacted assets |
 
-先从用户输入和仓库状态确定：仓库路径或 URL、目标、包含/排除范围、模式、revision、构建/平台/功能开关、运行与网络权限、预算、输出位置；`change-ready` 还需要明确 `change_target`。只有缺失项会实质改变范围、权限或交付物时才提问。
+| Mode | Use when | Deliverable scope |
+|---|---|---|
+| `survey` | Quickly establish system boundaries and executable topology | Baseline, topology, modules, boundaries, evidence, and unknowns |
+| `takeover` | Build reusable repository knowledge; default | Everything in `survey`, plus critical paths, data and state, historical risks, and a validation map |
+| `change-ready` | Establish the impact closure for one explicit change | `takeover` evidence within the affected scope, plus an impact matrix, pre-change predictions, validation, and rollback plans |
 
-默认值：
+Derive the repository path or URL, objective, included and excluded scope, operation, mode, revision, build/platform/feature flags, runtime and network permissions, budget, and output location from the request and repository state. `change-ready` also requires an explicit `change_target`. Ask only when a missing value would materially change scope, authority, or the deliverable.
 
-- `revision`：当前 `HEAD`，同时记录 branch 与 dirty 状态；
-- `scope`：当前仓库；
-- `mode`：`takeover`；
-- `runtime_access`、`network_access`：`false`；
-- `max_critical_paths`：`3`；
-- `output_root`：`.edru`。
+Select `update` only when the user explicitly requests an update or refresh of persistent EDRU assets. Repository changes alone do not authorize writes. An update requires a readable previous `manifest.yaml` with enough repository and snapshot identity to establish lineage. If it is missing or invalid, do not silently overwrite the assets or invent a parent run; ask whether to repair the baseline or run `create`. A valid prior run with unbounded change may use the `full_rebaseline` update strategy while preserving lineage and the previous asset versions.
 
-若用户指定 `change-ready` 却没有变更目标，先询问一个聚焦问题，不得伪造目标级影响分析。
+Defaults:
 
-## 按需加载资源
+- `operation`: `create`;
+- `revision`: current `HEAD`, while also recording branch, dirty state, and a working-tree fingerprint when dirty;
+- `scope`: current repository;
+- `mode`: `takeover`;
+- `runtime_access`, `network_access`: `false`;
+- `max_critical_paths`: `3`;
+- `output_root`: `.edru`.
 
-只读取当前任务需要的资源：
+If the user selects `change-ready` without a change target, ask one focused question before proceeding. Do not fabricate target-level impact analysis. If `update` targets the same repository snapshot and execution envelope as the parent, record a validated no-op update rather than rewriting unchanged knowledge.
 
-- `takeover`、`change-ready`，或跨多个可执行单元的复杂 `survey`：读取 [接管协议](references/takeover-protocol.md)。
-- 生成某项资产：只读取对应的 `templates/` 文件；不要一次加载全部模板。
-- 生成或校验 manifest、claim、evidence 或机器可读 readiness 数据：读取对应的 `schemas/` 文件。
-- 结构仍不清楚时，才读取 `examples/` 中相应示例。
-- 仅当用户询问方法依据、研究来源或方法边界时，读取 [方法来源](references/method-sources.md)。
+## Load resources only when needed
 
-生成资产目录后运行：
+Read only resources required for the current request:
+
+- For `takeover`, `change-ready`, or a complex `survey` spanning multiple executables, read the [takeover protocol](references/takeover-protocol.md).
+- For every `update`, read the [update protocol](references/update-protocol.md) before changing persistent assets.
+- When producing an asset, read only its corresponding file in `templates/`; use `manifest.yaml` for `create` and `update-manifest.yaml` for `update`. Do not load every template at once.
+- When producing or validating manifest, claim, evidence, or machine-readable readiness data, read the corresponding file in `schemas/`.
+- Read the matching item in `examples/` only when the structure remains unclear.
+- Read [method sources](references/method-sources.md) only when the user asks about methodological grounding, research sources, or method boundaries.
+
+After producing an asset directory, run:
 
 ```bash
-python3 scripts/validate_edru_assets.py <output_root> --mode <mode>
+python3 scripts/validate_edru_assets.py <output_root> --operation <operation> --mode <mode>
 ```
 
-该脚本只证明结构可解析和必要文件存在，不证明结论真实。
+The script proves only that required files exist, lifecycle metadata is coherent, and basic structure is parseable. It does not prove that repository conclusions are true or that an update found every affected dependency.
 
-## 证据契约
+## Evidence contract
 
-### 关系类型
+### Relationship types
 
-- `EXPECTED`：文档、ADR 或提案表达的预期；
-- `DECLARED`：构建、配置、IDL、注册或源码直接声明；
-- `MAY`：静态分析得到的可能关系；
-- `OBSERVED`：测试、Trace、覆盖、Profile、日志或数据变化实际观测到的关系；
-- `REFUTED`：被更强证据否定的结论。
+- `EXPECTED`: intent stated by documentation, an ADR, or a proposal;
+- `DECLARED`: a relationship directly declared by build metadata, configuration, IDL, registration, or source code;
+- `MAY`: a possible relationship found through static analysis;
+- `OBSERVED`: a relationship observed through tests, traces, coverage, profiles, logs, or data changes;
+- `REFUTED`: a conclusion contradicted by stronger evidence.
 
-### 置信度
+### Confidence
 
-- `C0`：无证据；
-- `C1`：仅有命名、目录、注释、单份文档或模型推断；
-- `C2`：至少一个直接实现、构建、配置或接口证据；
-- `C3`：两个相对独立的证据通道互证；
-- `C4`：在已记录版本、配置和输入下实际执行验证。
+- `C0`: no evidence;
+- `C1`: only names, directories, comments, one document, or model inference;
+- `C2`: at least one direct implementation, build, configuration, or interface source;
+- `C3`: corroboration through two relatively independent evidence channels;
+- `C4`: execution under a recorded version, configuration, and input.
 
-`C4` 只覆盖执行过的场景。静态可达不等于实际执行，未观察到也不等于不可达。
+`C4` covers only the executed scenario. Static reachability does not prove runtime execution, and failure to observe a path does not prove it is unreachable.
 
-### 记录规则
+### Recording rules
 
-- 每个实质性 claim 记录类型、置信度、revision、适用范围、证据 ID、反假设和剩余未知。
-- Evidence 使用可复查 locator，如 `path#symbol:line`、构建目标、命令、trace ID 或 commit，并记录工具、revision、范围与局限。
-- 目录名、文件名和类名只用于导航，不能单独证明架构边界。
-- 对生成代码建立 `source → generator → output → consumer`；不要把产物误当修改源。
-- 负面结论使用“在已检查范围内未发现”，除非证据确实覆盖静态、动态和外部通道。
-- 符号引用、反向依赖和调用关系优先使用构建系统、编译器、LSP、索引器或语言专用工具；模型推断保留为 `C0/C1`。
+- For each substantive claim, record its type, confidence, revision, scope, evidence IDs, counter-hypotheses, and remaining unknowns.
+- Give each evidence item a reviewable locator such as `path#symbol:line`, build target, command, trace ID, or commit, and record the tool, revision, scope, and limitations.
+- Use directory, file, and class names only for navigation; they cannot independently prove an architectural boundary.
+- For generated code, establish `source → generator → output → consumer`; do not treat a generated artifact as the source to edit.
+- Phrase negative findings as "not found within the inspected scope" unless the evidence actually covers static, dynamic, and external channels.
+- Prefer build systems, compilers, LSPs, indexers, and language-specific tools for symbol references, reverse dependencies, and call relationships. Keep model inference at `C0/C1`.
 
-## 执行方法
+## Execution method
 
-按依赖关系推进，不为形式执行与目标无关的阶段：
+Follow dependency order, but do not perform phases that do not serve the objective:
 
-1. **冻结包络。** 记录 revision、dirty 状态、仓库指令、范围、构建目标、平台、配置、功能开关、权限和预算。
-2. **恢复可执行拓扑。** 从构建与部署事实识别入口、产物、服务、库、生成关系和外部边界，再映射模块职责与数据所有权。
-3. **选择代表性场景。** 根据目标和预算选择主要读写、异步、失败/重试、权限或扩展路径；先定义纳入范围，避免事后移动完成口径。
-4. **纵向追踪关键链路。** 从外部刺激追到最终状态，记录调用者、符号、输入输出、状态变化、副作用、事务、错误、超时、重试、补偿和降级。
-5. **互证与反证。** 对关键 claim 比较实现、构建、配置、测试、运行观测和历史；检查注册、DI、反射、插件、RPC、消息、FFI 与生成代码造成的隐藏边。
-6. **扩张影响闭包。** 仅 `change-ready` 必做：检查构建反向依赖、调用者/实现者、契约消费者、共享状态读写者、运行消费者、测试、运维、安全、历史兼容及跨仓未知。
-7. **收敛。** 运行结构校验，评估门禁，保留未解决项和下一验证动作，并让最终报告链接到底层资产。
+1. **Select the operation and freeze the envelope.** Record operation, revision, dirty state and fingerprint, repository instructions, scope, build targets, platform, configuration, feature flags, permissions, and budget. For `update`, validate the parent manifest and follow the update protocol before reusing any prior claim or evidence.
+2. **Recover executable topology.** Use build and deployment facts to identify entry points, artifacts, services, libraries, generated relationships, and external boundaries; then map module responsibilities and data ownership.
+3. **Choose representative scenarios.** Select primary reads/writes, asynchronous flows, failure/retry paths, permissions, or extension paths according to the objective and budget. Define the included set before measuring coverage.
+4. **Trace critical paths vertically.** Follow each path from external stimulus to final state, recording callers, symbols, inputs and outputs, state changes, side effects, transactions, errors, timeouts, retries, compensation, and degradation.
+5. **Corroborate and challenge.** Compare implementation, build, configuration, tests, runtime observations, and history for critical claims. Check registration, DI, reflection, plugins, RPC, messaging, FFI, and generated code for hidden edges.
+6. **Expand the impact closure.** Required only for `change-ready`: inspect build reverse dependencies, callers and implementers, contract consumers, shared-state readers and writers, runtime consumers, tests, operations, security, compatibility history, and cross-repository unknowns.
+7. **Converge.** Run structural validation with both operation and mode, evaluate gates, preserve unresolved items and next validation actions, and link the final report to underlying assets.
 
-在预算内优先获取最能降低高严重度未知的证据。达到预算、需要额外权限/凭证/用户决策，或继续搜索已不能实质提高结论时停止扩张并如实降级。
+Within the budget, prioritize evidence that most reduces high-severity unknowns. Stop expanding when the budget is reached, progress requires additional permission, credentials, or a user decision, or further search cannot materially improve the conclusion. Degrade status truthfully.
 
-## 持久化资产
+## Persistent assets
 
-只有用户要求持久化资产时才生成以下文件。字段使用 `templates/`；文件要求由验证脚本判定。
+Generate the following files only when the user requests persistent assets. Use fields from `templates/`; the validator determines required files.
+
+Every `update` also requires:
+
+- `16-update-summary.md`
+
+Before replacing any existing asset, preserve the parent manifest and every changed or removed asset under the manifest's history root. Do not delete invalidated claims or evidence merely because they are stale; retain their provenance and mark their lifecycle state.
 
 ### `survey`
 
@@ -125,7 +142,7 @@ python3 scripts/validate_edru_assets.py <output_root> --mode <mode>
 
 ### `takeover`
 
-除 `survey` 资产外：
+In addition to `survey` assets:
 
 - `06-data-and-state-map.md`
 - `07-critical-paths/KP-xxx.md`
@@ -135,27 +152,28 @@ python3 scripts/validate_edru_assets.py <output_root> --mode <mode>
 
 ### `change-ready`
 
-除 `takeover` 资产外：
+In addition to `takeover` assets:
 
 - `13-change-impact-matrix.md`
 
-## 完成门禁
+## Completion gates
 
-- **基线：** 所有结论可绑定到明确 revision、分析范围和执行包络。
-- **地图：** 先列出范围内的关键可执行单元、模块和边界，再计算覆盖；关键边界至少有 `C2` 证据，intended/as-built 差异已记录。
-- **链路：** 每条已纳入关键链路的边都有证据且不低于 `C2`；`MAY` 与 `OBSERVED` 不混用。没有运行权限时可以没有 `C4`，但必须记录动态缺口。
-- **影响：** `change-ready` 已检查各类直接和间接消费者；任何未缓解的高严重度未知都会阻止“可安全修改”结论，但不抹去已完成的分析。
-- **未知：** 每个重要未知都有严重度、影响、阻断来源和下一验证动作。
-- **可复查：** 最终四问能追溯到 claim、evidence 或明确未知；结构验证通过。
+- **Baseline:** Every conclusion is bound to an explicit revision, analysis scope, and execution envelope.
+- **Map:** Enumerate in-scope critical executables, modules, and boundaries before calculating coverage. Critical boundaries have at least `C2` evidence, and intended/as-built differences are recorded.
+- **Paths:** Every edge in each included critical path has evidence of at least `C2`; `MAY` and `OBSERVED` are not conflated. `C4` is optional when runtime access is unavailable, but the dynamic gap must be recorded.
+- **Impact:** `change-ready` has checked relevant direct and indirect consumers. Any unmitigated high-severity unknown blocks a "safe to modify" conclusion without erasing completed analysis.
+- **Unknowns:** Every material unknown has severity, impact, blocking source, and a next validation action.
+- **Reviewability:** The final four answers trace to claims, evidence, or explicit unknowns, and structural validation passes.
+- **Lifecycle:** For `update`, lineage is valid, unchanged assets are explicitly retained, affected records are invalidated or superseded, prior versions are recoverable, and the incremental or full-rebaseline strategy is justified.
 
-状态含义：
+Status meanings:
 
-- `completed`：目标范围已满足门禁且没有影响结论的未解决未知；
-- `completed_with_unknowns`：已能回答目标，但仍有明确边界内的未知或动态缺口；
-- `blocked`：缺少决定、权限、凭证或关键输入，导致目标本身无法形成可支持的答案。
+- `completed`: the target scope meets all gates and has no unresolved unknown that affects the conclusion;
+- `completed_with_unknowns`: the objective can be answered, but bounded unknowns or dynamic gaps remain;
+- `blocked`: a missing decision, permission, credential, or critical input prevents a supportable answer to the objective itself.
 
-不要用资产数量、阅读文件数或未经定义分母的覆盖率宣称完成。
+Do not claim completion from asset counts, files read, or a coverage ratio with an undefined denominator.
 
-## 最终响应
+## Final response
 
-简要给出仓库与 revision、模式与范围、系统工作方式、关键代码/链路、边界与状态、变更影响、最高风险未知、门禁状态和资产路径。清楚区分已证实、推断、未观测和未知，不用摘要替代底层证据。
+Briefly report repository and revision, operation, mode and scope, how the system works, critical code and paths, boundaries and state, change impact, highest-risk unknowns, gate status, and asset paths. For `update`, include the parent and target snapshots, retained/invalidated/regenerated assets, and whether the strategy was incremental, no-op, or full rebaseline. Clearly distinguish supported facts, inference, unobserved behavior, and unknowns. Do not let the summary replace the underlying evidence.

@@ -1,6 +1,6 @@
-# 系统概览
+# System Overview
 
-## 分析范围
+## Analysis Scope
 
 - Repository:
 - Revision:
@@ -9,21 +9,21 @@
 - Excluded:
 - Build/runtime scope:
 
-## 系统目标
+## System Goals
 
-### 用户与参与者
+### Users and Actors
 
-| 参与者 | 目标 | 主要入口 | 证据 | 置信度 |
+| Actor | Goal | Primary entry point | Evidence | Confidence |
 |---|---|---|---|---|
 
-### 主要能力
+### Primary Capabilities
 
-| 能力 | 用户价值 | 入口 | 结果/最终状态 | 证据 | 置信度 |
+| Capability | User value | Entry point | Result/final state | Evidence | Confidence |
 |---|---|---|---|---|---|
 
-### 非目标与边界
+### Non-Goals and Boundaries
 
-## 系统上下文
+## System Context
 
 ```mermaid
 flowchart LR
@@ -31,22 +31,22 @@ flowchart LR
   System --> External[External dependency]
 ```
 
-## 关键可执行单元
+## Critical Executable Units
 
-| 单元 | 职责 | 构建目标 | 入口 | 部署形态 | 证据 |
+| Unit | Responsibility | Build target | Entry point | Deployment form | Evidence |
 |---|---|---|---|---|---|
 
-## 代表性场景
+## Representative Scenarios
 
-| 场景 ID | 参与者 | 触发 | 初始状态 | 最终状态 | Oracle | 链路资产 |
+| Scenario ID | Actor | Trigger | Initial state | Final state | Oracle | Path asset |
 |---|---|---|---|---|---|---|
 
-## Intended 与 As-built 差异
+## Intended versus As-Built Differences
 
-| 预期 | 实际 | 差异 | 风险 | 证据 |
+| Intended | Actual | Difference | Risk | Evidence |
 |---|---|---|---|---|
 
-## 最高风险未知
+## Highest-Risk Unknowns
 
-| 未知 ID | 未知 | 严重度 | 影响 | 下一验证动作 |
+| Unknown ID | Unknown | Severity | Impact | Next validation action |
 |---|---|---|---|---|

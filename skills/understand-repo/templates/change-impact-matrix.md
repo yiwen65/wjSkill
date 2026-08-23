@@ -1,8 +1,8 @@
-# 修改影响矩阵
+# Change Impact Matrix
 
-## 变更目标
+## Change Target
 
-| 字段 | 内容 |
+| Field | Value |
 |---|---|
 | Target |  |
 | Target type | symbol / module / API / schema / config / data / deployment |
@@ -11,27 +11,27 @@
 | Risk level |  |
 | Scope limits |  |
 
-## 影响闭包
+## Impact Closure
 
-| 修改元素 | 构建反向依赖 | 符号调用者/实现者 | 接口和消费者 | 共享状态 | 运行消费者 | 测试 | 运维/安全 | 历史约束 | 严重度 | 证据与未知 |
+| Changed element | Build reverse dependencies | Symbol callers/implementers | Interfaces and consumers | Shared state | Runtime consumers | Tests | Operations/security | Historical constraints | Severity | Evidence and unknowns |
 |---|---|---|---|---|---|---|---|---|---|---|
 
-## 修改前预测
+## Pre-Change Predictions
 
-| 预测 ID | 预计会改变 | 预计不会改变 | 预计测试/指标/日志 | 验证方式 | 结果 |
+| Prediction ID | Expected to change | Expected not to change | Expected test/metric/log result | Validation method | Result |
 |---|---|---|---|---|---|
 
-## 验证计划
+## Validation Plan
 
-| 层级 | 命令或场景 | 覆盖的风险 | Oracle | 前置条件 |
+| Layer | Command or scenario | Covered risk | Oracle | Preconditions |
 |---|---|---|---|---|
 
-## 回滚计划
+## Rollback Plan
 
-| 触发条件 | 回滚动作 | 数据恢复 | 观测确认 | 负责人 |
+| Trigger | Rollback action | Data recovery | Observability confirmation | Owner |
 |---|---|---|---|---|
 
-## 未覆盖消费者
+## Uncovered Consumers
 
-| 未知 ID | 消费者范围 | 为什么未覆盖 | 严重度 | 下一动作 |
+| Unknown ID | Consumer scope | Why uncovered | Severity | Next action |
 |---|---|---|---|---|

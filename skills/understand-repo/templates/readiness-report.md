@@ -1,59 +1,78 @@
-# EDRU 仓库接管完成度报告
+# EDRU Repository Takeover Readiness Report
 
-## 基本信息
+## Basic Information
 
-| 字段 | 内容 |
+| Field | Value |
 |---|---|
 | Repository |  |
 | Revision |  |
+| Operation | create / update |
+| Parent run / revision | N/A for create |
 | Mode |  |
 | Objective |  |
 | Scope |  |
 | Build/runtime context |  |
 | Status | completed / completed_with_unknowns / blocked |
 
-## 最终四问
+## Final Four Questions
 
-### 1. 系统如何工作？
+### 1. How does the system work?
 
-### 2. 关键代码在哪里？
+### 2. Where is the critical code?
 
-### 3. 一次修改会影响什么？
+### 3. What could a change affect?
 
-### 4. 还存在哪些未知风险？
+### 4. What risks remain unknown?
 
-## 门禁结果
+## Gate Results
 
-| Gate | 结果 | 证据/资产 | 阻断项 |
+| Gate | Result | Evidence/assets | Blockers |
 |---|---|---|---|
-| G0 基线 | PASS/FAIL |  |  |
-| G1 系统地图 | PASS/FAIL |  |  |
-| G2 关键链路 | PASS/FAIL |  |  |
-| G3 影响与未知 | PASS/FAIL/N/A |  |  |
-| G4 交付 | PASS/FAIL |  |  |
+| G0 Baseline | PASS/FAIL |  |  |
+| G1 System map | PASS/FAIL |  |  |
+| G2 Critical paths | PASS/FAIL |  |  |
+| G3 Impact and unknowns | PASS/FAIL/N/A |  |  |
+| G4 Delivery | PASS/FAIL |  |  |
+| G5 Knowledge lifecycle | PASS/FAIL/N/A |  |  |
 
-## 量化指标
+## Metrics
 
-| 指标 | 值 | 解释 |
+| Metric | Value | Meaning |
 |---|---:|---|
-| 关键链路证据覆盖率 |  | supported edges / total critical edges |
-| C0/C1 关键边数量 |  |  |
-| 已映射关键模块比例 |  |  |
-| 已映射关键边界比例 |  |  |
-| 高严重度未知数量 |  |  |
-| C4 场景数量 |  |  |
+| Critical-path evidence coverage |  | supported edges / total critical edges |
+| C0/C1 critical edges |  |  |
+| Mapped critical-module ratio |  |  |
+| Mapped critical-boundary ratio |  |  |
+| High-severity unknowns |  |  |
+| C4 scenarios |  |  |
+| Retained assets |  | update only |
+| Regenerated assets |  | update only |
+| Invalidated claims/evidence |  | update only |
 
-## 资产索引
+## Update Result
 
-| 资产 | 状态 | 路径 | 备注 |
+Use `N/A` for `create`.
+
+| Field | Value |
+|---|---|
+| Strategy | no_op / incremental / full_rebaseline / N/A |
+| From snapshot |  |
+| To snapshot |  |
+| Trigger |  |
+| History location |  |
+| Fallback reason |  |
+
+## Asset Index
+
+| Asset | Status | Path | Notes |
 |---|---|---|---|
 
-## 最高风险未知
+## Highest-Risk Unknowns
 
-| 未知 ID | 未知 | 严重度 | 对安全修改的影响 | 下一动作 |
+| Unknown ID | Unknown | Severity | Effect on safe modification | Next action |
 |---|---|---|---|---|
 
-## 结论
+## Conclusion
 
 - Repository understanding status:
 - Safe to modify target:

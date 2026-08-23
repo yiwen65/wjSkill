@@ -1,0 +1,66 @@
+edru_run:
+  schema_version: "2.0"
+  run_id: "EDRU-YYYYMMDD-HHMMSS"
+  operation: "update"
+  parent_run_id: "EDRU-PARENT-RUN-ID"
+  status: "in_progress" # in_progress | blocked | completed | completed_with_unknowns
+  mode: "takeover" # survey | takeover | change-ready
+  started_at: ""
+  completed_at: ""
+
+  repository:
+    path_or_url: "REPLACE_REPOSITORY"
+    revision: "REPLACE_TARGET_REVISION"
+    branch: ""
+    dirty_worktree: null
+    working_tree_fingerprint: ""
+    submodules: []
+    lfs_enabled: null
+
+  objective: ""
+  change_target: ""
+
+  scope:
+    included: []
+    excluded: []
+    assumptions: []
+
+  environment:
+    platform: ""
+    build_variant: ""
+    feature_flags: []
+    runtime_access: false
+    network_access: false
+    isolation: ""
+    tool_versions: {}
+
+  budget:
+    max_elapsed_minutes: null
+    max_files_full_read: null
+    max_critical_paths: 3
+    max_dynamic_scenarios: 0
+
+  asset_root: ".edru"
+  history_root: "history" # relative to asset_root
+  critical_paths: []
+  blocking_unknowns: []
+
+  update:
+    previous_manifest: "history/EDRU-PARENT-RUN-ID/manifest.yaml"
+    trigger: "revision_change" # manual | revision_change | envelope_change | mixed
+    strategy: "incremental" # no_op | incremental | full_rebaseline
+    from_revision: "REPLACE_PARENT_REVISION"
+    to_revision: "REPLACE_TARGET_REVISION"
+    from_working_tree_fingerprint: ""
+    to_working_tree_fingerprint: ""
+    ancestry: "ancestor" # ancestor | diverged | rewritten | unknown
+    changed_paths: []
+    changed_envelope_dimensions: []
+    retained_assets: []
+    preserved_parent_assets:
+      - "history/EDRU-PARENT-RUN-ID/manifest.yaml"
+    invalidated_claim_ids: []
+    invalidated_evidence_ids: []
+    superseded_evidence_ids: []
+    regenerated_assets: []
+    fallback_reason: "" # required and non-empty for full_rebaseline

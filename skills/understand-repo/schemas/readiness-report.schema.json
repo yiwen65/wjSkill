@@ -6,6 +6,7 @@
   "required": [
     "repository",
     "revision",
+    "operation",
     "mode",
     "status",
     "gates",
@@ -13,77 +14,59 @@
     "blocking_unknowns"
   ],
   "properties": {
-    "repository": {
-      "type": "string"
-    },
-    "revision": {
-      "type": "string"
-    },
-    "mode": {
-      "enum": [
-        "survey",
-        "takeover",
-        "change-ready"
-      ]
-    },
-    "status": {
-      "enum": [
-        "blocked",
-        "completed",
-        "completed_with_unknowns"
-      ]
-    },
+    "repository": {"type": "string"},
+    "revision": {"type": "string"},
+    "operation": {"enum": ["create", "update"]},
+    "mode": {"enum": ["survey", "takeover", "change-ready"]},
+    "status": {"enum": ["blocked", "completed", "completed_with_unknowns"]},
     "gates": {
       "type": "object",
-      "required": [
-        "G0",
-        "G1",
-        "G2",
-        "G3",
-        "G4"
-      ],
-      "additionalProperties": {
-        "enum": [
-          "PASS",
-          "FAIL",
-          "NA"
-        ]
-      }
+      "required": ["G0", "G1", "G2", "G3", "G4", "G5"],
+      "properties": {
+        "G0": {"enum": ["PASS", "FAIL", "NA"]},
+        "G1": {"enum": ["PASS", "FAIL", "NA"]},
+        "G2": {"enum": ["PASS", "FAIL", "NA"]},
+        "G3": {"enum": ["PASS", "FAIL", "NA"]},
+        "G4": {"enum": ["PASS", "FAIL", "NA"]},
+        "G5": {"enum": ["PASS", "FAIL", "NA"]}
+      },
+      "additionalProperties": false
     },
     "metrics": {
       "type": "object",
       "properties": {
-        "critical_path_evidence_coverage": {
-          "type": "number",
-          "minimum": 0,
-          "maximum": 1
-        },
-        "critical_edges_c0_c1": {
-          "type": "integer",
-          "minimum": 0
-        },
-        "mapped_key_module_ratio": {
-          "type": "number",
-          "minimum": 0,
-          "maximum": 1
-        },
-        "high_severity_unknowns": {
-          "type": "integer",
-          "minimum": 0
-        },
-        "c4_scenarios": {
-          "type": "integer",
-          "minimum": 0
-        }
+        "critical_path_evidence_coverage": {"type": "number", "minimum": 0, "maximum": 1},
+        "critical_edges_c0_c1": {"type": "integer", "minimum": 0},
+        "mapped_key_module_ratio": {"type": "number", "minimum": 0, "maximum": 1},
+        "high_severity_unknowns": {"type": "integer", "minimum": 0},
+        "c4_scenarios": {"type": "integer", "minimum": 0},
+        "retained_assets": {"type": "integer", "minimum": 0},
+        "regenerated_assets": {"type": "integer", "minimum": 0},
+        "invalidated_claims": {"type": "integer", "minimum": 0},
+        "invalidated_evidence": {"type": "integer", "minimum": 0}
       },
       "additionalProperties": true
     },
-    "blocking_unknowns": {
-      "type": "array",
-      "items": {
-        "type": "string"
-      }
+    "blocking_unknowns": {"type": "array", "items": {"type": "string"}},
+    "update_summary": {
+      "type": "object",
+      "required": ["parent_run_id", "from_revision", "to_revision", "strategy", "history_root"],
+      "properties": {
+        "parent_run_id": {"type": "string", "minLength": 1},
+        "from_revision": {"type": "string", "minLength": 1},
+        "to_revision": {"type": "string", "minLength": 1},
+        "strategy": {"enum": ["no_op", "incremental", "full_rebaseline"]},
+        "history_root": {"type": "string", "minLength": 1},
+        "fallback_reason": {"type": "string"}
+      },
+      "additionalProperties": true
     }
   },
+  "allOf": [
+    {
+      "if": {"properties": {"operation": {"const": "update"}}},
+      "then": {"required": ["update_summary"]}
+    }
+  ],
   "additionalProperties": true
 }

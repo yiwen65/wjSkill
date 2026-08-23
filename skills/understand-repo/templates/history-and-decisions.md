@@ -1,26 +1,26 @@
-# 历史与设计决策
+# History and Design Decisions
 
-## 决策时间线
+## Decision Timeline
 
-| 日期/版本 | 决策或变化 | 原因 | 涉及模块 | 兼容策略 | 来源 | 当前状态 |
+| Date/version | Decision or change | Reason | Affected modules | Compatibility strategy | Source | Current status |
 |---|---|---|---|---|---|---|
 
-## 关键兼容逻辑
+## Critical Compatibility Logic
 
-| 逻辑 | 兼容对象 | 引入原因 | 删除条件 | 风险 | 证据 |
+| Logic | Compatibility target | Introduction reason | Removal condition | Risk | Evidence |
 |---|---|---|---|---|---|
 
-## 回滚与失败设计
+## Rollbacks and Failed Designs
 
-| 提案/提交 | 发生了什么 | 失败原因 | 后续修复 | 对当前修改的约束 |
+| Proposal/commit | What happened | Failure reason | Follow-up fix | Constraint on the current change |
 |---|---|---|---|---|
 
-## 热点和共同变更
+## Hotspots and Co-Changes
 
-| 文件/模块 | 共同变更对象 | 频率或现象 | 推论 | 证据 | 置信度 |
+| File/module | Co-change target | Frequency or pattern | Inference | Evidence | Confidence |
 |---|---|---|---|---|---|
 
-## 无法恢复的历史意图
+## Unrecoverable Historical Intent
 
-| 未知 ID | 现象 | 已检索来源 | 剩余问题 |
+| Unknown ID | Observation | Sources inspected | Remaining question |
 |---|---|---|---|

@@ -1,6 +1,8 @@
 edru_run:
-  schema_version: "1.0"
+  schema_version: "2.0"
   run_id: "EDRU-YYYYMMDD-HHMMSS"
+  operation: "create" # create | update
+  parent_run_id: "" # required and non-empty for update
   status: "in_progress" # in_progress | blocked | completed | completed_with_unknowns
   mode: "takeover" # survey | takeover | change-ready
   started_at: ""
@@ -11,6 +13,7 @@ edru_run:
     revision: ""
     branch: ""
     dirty_worktree: null
+    working_tree_fingerprint: ""
     submodules: []
     lfs_enabled: null
 
@@ -38,5 +41,8 @@ edru_run:
     max_dynamic_scenarios: 0
 
   asset_root: ".edru"
+  history_root: "history" # relative to asset_root
   critical_paths: []
   blocking_unknowns: []
+
+  # For operation: update, use templates/update-manifest.yaml instead.
