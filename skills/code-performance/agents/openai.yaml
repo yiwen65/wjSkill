@@ -1,0 +1,4 @@
+interface:
+  display_name: "Code Performance"
+  short_description: "Cross-language static and measured performance diagnostics"
+  default_prompt: "Use $code-performance to detect this project's runtime, select its language adapter, and diagnose performance with static-only or measured evidence as authorized."

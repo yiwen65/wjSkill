@@ -17,3 +17,12 @@
 - Correct approach: Pair `### [x]` with `Status: done`, then close the document with `Overall status: done` and `Result: passed`.
 - Prevention: Run `python3 /Users/w/.codex/skills/wjskill-plan-and-execute-tasks/scripts/task_document.py validate --path <task-document>` immediately after every task-status transition.
 - Verified by: The understand-repo operations ledger passed after applying these exact enum values.
+
+## `skills/code-performance` — give static-only diagnosis a real mode branch
+
+- Wrong approach: Added generic cautions for missing runtime evidence while leaving reproduction, profiling, baseline, and A/B sections as the only executable workflow.
+- Why it failed: Without an early mode gate and exit, a code-only request could still be pushed through the measured workflow or produce empty runtime sections.
+- Recognition signal: The request forbids target execution, builds, benchmarks, profiling, or instrumentation, but the Skill still asks for measured baselines or before/after results.
+- Correct approach: Select Static-only before the measured contract, route it to a dedicated reference, prohibit entry into the measured loop, and classify output as static facts, conditional risks, or unknowns.
+- Prevention: Check that the static router precedes the measured workflow, defines a hard stop, forbids unmeasured runtime labels, and provides its own finding gate and report contract.
+- Verified by: `skills/code-performance` passed official `quick_validate.py` plus targeted checks for routing order, hard-stop language, evidence classes, zero-finding behavior, and resolved references.
