@@ -1,0 +1,4 @@
+interface:
+  display_name: "Dead Code Cleanup"
+  short_description: "Evidence-driven, reversible dead-code cleanup"
+  default_prompt: "Use $dead-code-cleanup to classify these dead-code candidates, prove what is safe to remove, and make only the authorized reversible cleanup."
