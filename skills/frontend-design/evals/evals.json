@@ -1,0 +1,49 @@
+{
+  "skill_name": "frontend-design",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "我们 SaaS 产品的新落地页上线了，帮我 review 一下设计：首屏是紫蓝渐变背景加持续运动的光晕，居中巨型标语“重新定义团队协作的未来”；下面三张一模一样的圆角卡片，各配一个 emoji 图标（🚀✨🔒）；再往下是五家客户 logo 墙和“效率提升 300%”的数据（这两块是市场同事临时编的，还没有真实客户）。正文用 14px 浅灰色（#999）白底。首屏四个按钮“免费试用 / 立即购买 / 了解更多 / 观看演示”都是同样的实心主按钮样式。输出问题清单和修改建议。",
+      "expected_output": "A severity-ordered design critique that diagnoses the core problem as mismatch (no visible object/value/evidence/primary action) rather than 'purple is wrong', flags fabricated logos and stats as content-honesty blockers, identifies CTA competition, contrast risk, emoji-as-icon, and motion concerns with evidence classes and retest methods, and fixes P0 before polish.",
+      "files": [],
+      "expectations": [
+        "Diagnoses the first screen's core failure as missing object/value/evidence/next-step (hierarchy-task mismatch), and judges the purple gradient by its job — does not declare the color itself guilty",
+        "Flags the fabricated client logos and '300%' statistic as a content-honesty issue (P0/P1): require confirmed evidence, explicit sample-data labeling, or removal",
+        "Flags four equal-weight primary CTAs competing in one decision region; recommends one primary action per decision region with demoted secondaries",
+        "Flags 14px #999 on white as a contrast risk to be measured against 4.5:1, without claiming 14px itself violates WCAG (no minimum font size exists)",
+        "Flags emoji used as functional icons: meaning and style instability, missing accessible names",
+        "Flags the perpetually moving glow for reduced-motion and distraction checks, with pause/degrade requirements",
+        "Orders findings P0 → P1 → P2, each with observable symptom, user impact, concrete fix, and retest method; does not claim unverified measurements as tested"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "帮我设计一个 SaaS 账单管理后台的主页面：要能看账单列表、按状态筛选、跨行对比金额、导出。风格要求：现代、高级、简洁，看起来像 Linear 那种高级感。给我设计方案说明和关键布局描述。",
+      "expected_output": "A design proposal that frames the task contract before visuals, treats the vague style adjectives as an incomplete brief, chooses application-appropriate density and a comparison table with rigorous number formatting, designs non-default states, and borrows Linear's decision logic (precise relationships, consistency) rather than copying its skin.",
+      "files": [],
+      "expectations": [
+        "Frames a task contract (audience, key tasks: locate/filter/compare/export, recovery paths) before or alongside the visual design",
+        "Flags that “现代、高级、简洁” and “像 Linear” are not a usable brand brief — asks targeted questions or records explicit assumptions",
+        "Chooses application-appropriate density and explicitly avoids marketing-page whitespace/poster layout for the admin",
+        "Uses a table for cross-record amount comparison: unified units/precision/localization, right or decimal alignment, tabular-nums where supported, distinguishes 0 / unknown / N/A",
+        "Designs at least 3 non-default states (e.g. loading, empty ledger, no filter results, export failure/success, permission denied) with preserved task information",
+        "Keeps filters adjacent to the list and a stable primary action; key flows operable by keyboard",
+        "Borrows Linear's transferable decision (precise relationships, consistent detail, calm hierarchy) instead of copying dark thin-line surface styling"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "用户投诉我们的注册页：1) 键盘用户 Tab 到一半焦点就看不到了；2) 提交失败时整个表单闪一下红色，用户不知道哪里错了，已填内容还被清空；3) 提交按钮经常灰色不可点，但不告诉用户缺什么；4) 手机上表单项要左右滑才能看全。分析原因并给修复方案。",
+      "expected_output": "Root-cause analysis mapping each symptom to the correct WCAG clause class with concrete fixes — visible/unobscured focus, per-field text errors with input preservation, explained disabled states, and reflow instead of horizontal scroll — each fix carrying a retest method, severity, and honest verification status.",
+      "files": [],
+      "expectations": [
+        "Maps symptom 1 to focus visible / focus not obscured (2.4.7 / 2.4.11): restore a visible focus indicator and fix occlusion by sticky elements or scroll margins",
+        "Maps symptom 2 to error identification and use of color (3.3.1 / 1.4.1): per-field text reasons associated with fields, not color alone; preserves valid input and offers retry instead of clearing the form",
+        "Maps symptom 3 to disabled-without-explanation: surface the unmet conditions near the button, distinguish disabled from read-only",
+        "Maps symptom 4 to reflow (1.4.10, 320 CSS px equivalent): layout reflows without two-dimensional scrolling for reading",
+        "Each fix carries a retest method (keyboard-only run, simulated submit failure, 320px-equivalent width check)",
+        "Assigns severity per issue, marks runtime-dependent claims as unverified, and does not declare the page compliant from the description alone"
+      ]
+    }
+  ]
+}

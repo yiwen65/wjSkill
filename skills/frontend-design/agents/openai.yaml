@@ -1,0 +1,4 @@
+interface:
+  display_name: "Frontend Design"
+  short_description: "Evidence-graded web UI design, review, and repair"
+  default_prompt: "Use $frontend-design to design, review, or repair this web page or component: frame the task contract first, apply Hard/Conv/Taste-graded rules, and verify states, accessibility, and responsive behavior with honest evidence."
