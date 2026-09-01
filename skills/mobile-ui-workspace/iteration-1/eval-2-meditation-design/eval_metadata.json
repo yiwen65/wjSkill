@@ -1,0 +1,13 @@
+{
+  "eval_id": 2,
+  "eval_name": "meditation-home-design",
+  "prompt": "帮我设计一个冥想 App 的“今日练习”首页，iOS 和 Android 都要。风格要求：现代、高级、简洁。先给我设计方案说明，再给我关键页面的布局描述。",
+  "assertions": [
+    "States a task contract or explicit assumptions (target user, key task, required content) before or alongside the visual design",
+    "Designs at least 3 non-default states (e.g. first load, empty/no active plan, offline or cached, download/play failure)",
+    "Differentiates iOS and Android platform behavior (navigation, back, components), not one design relabeled twice",
+    "Does not delete required content in the name of minimalism, and explains operationally what 简洁/modern means for this design",
+    "Covers accessibility basics: text scaling, touch targets, or semantic labels",
+    "Flags that 现代/高级/简洁 adjectives are not a usable brand brief, or records the gap as an explicit assumption"
+  ]
+}

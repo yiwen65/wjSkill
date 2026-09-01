@@ -1,0 +1,87 @@
+{
+  "expectations": [
+    {
+      "text": "States a task contract or explicit assumptions (target user, key task, required content) before or alongside the visual design",
+      "passed": true,
+      "evidence": "The output opens with ‘产品与设计目标’ before the visual direction. It defines the core task (‘知道今天为什么练、练什么、需要多久；一键开始或继续练习’), identifies adult users with 5–20 minutes available, describes usage contexts, and explicitly assumes an existing personalized plan while recording unknown brand, OS, subscription, and download requirements."
+    },
+    {
+      "text": "Designs at least 3 non-default states (e.g. first load, empty/no active plan, offline or cached, download/play failure)",
+      "passed": true,
+      "evidence": "Section 5 substantively specifies eight states with both UI behavior and recovery actions: first load/no cache, background refresh/cached content, offline/downloaded, offline/not downloaded, today-content request failure, audio playback failure, large text, and reduced motion. Sections 4.2–4.3 additionally define resume and completed states."
+    },
+    {
+      "text": "Differentiates iOS and Android platform behavior (navigation, back, components), not one design relabeled twice",
+      "passed": true,
+      "evidence": "The design gives distinct implementations: iOS uses Safe Area, Dynamic Type, native Tab Bar and Sheet, 44×44 pt targets, and VoiceOver ordering; Android uses system Insets, Material 3 Navigation Bar and Modal Bottom Sheet, Android 15 edge-to-edge handling, Predictive Back, 48×48 dp targets, and TalkBack. It also keeps pt separate from dp/sp."
+    },
+    {
+      "text": "Does not delete required content in the name of minimalism, and explains operationally what 简洁/modern means for this design",
+      "passed": true,
+      "evidence": "The output operationalizes ‘现代、高级、简洁’ as restrained hierarchy, precise typography, low-noise color, one primary content container, and sparse purposeful motion—not glass, gradients, thin type, or stacked cards. The proposed home still retains the task-critical theme, duration, explanation, teacher, start/resume action, adjustments, progress, navigation, status messaging, and recovery actions; it moves course browsing to ‘练习’ rather than deleting it."
+    },
+    {
+      "text": "Covers accessibility basics: text scaling, touch targets, or semantic labels",
+      "passed": true,
+      "evidence": "Accessibility is covered across the layout and Section 7: Dynamic Type/Android Font Scale with wrapping and growing containers; minimum 44×44 pt iOS and 48×48 dp Android targets; semantic names, roles, states, values, and reading order; decorative ripples hidden from the accessibility tree; non-color status cues; contrast targets; and a VoiceOver/TalkBack validation plan."
+    },
+    {
+      "text": "Flags that 现代/高级/简洁 adjectives are not a usable brand brief, or records the gap as an explicit assumption",
+      "passed": true,
+      "evidence": "The assumptions say brand name and related product constraints are undetermined, label the interpretation of the three adjectives as an adjustable evidence-C design strategy, and later state: ‘品牌信息缺失，因此颜色、圆角与动效均为提案而非行业标准’. The pending decisions explicitly request brand personality and audience confirmation."
+    }
+  ],
+  "summary": {
+    "passed": 6,
+    "failed": 0,
+    "total": 6,
+    "pass_rate": 1.0
+  },
+  "execution_metrics": {
+    "total_steps": 9,
+    "errors_encountered": 0,
+    "output_chars": 5774,
+    "transcript_chars": 2042
+  },
+  "timing": {
+    "executor_duration_seconds": 0.0,
+    "total_duration_seconds": 0.0
+  },
+  "claims": [
+    {
+      "claim": "The deliverable defines default, loading, failure, offline, resume, and completed states on paper.",
+      "type": "factual",
+      "verified": true,
+      "evidence": "Sections 4.1–4.3 define not-started, resume, and completed layouts; Section 5 adds first-load, refresh, two offline variants, request failure, and playback failure states."
+    },
+    {
+      "claim": "The iOS and Android proposals use meaningfully different platform navigation, component, back, sizing, and accessibility conventions.",
+      "type": "quality",
+      "verified": true,
+      "evidence": "Sections 4.1 and 6 name separate Tab Bar/Navigation Bar, Sheet/Material Bottom Sheet, Predictive Back, pt/dp target sizes, Safe Area/Insets, and VoiceOver/TalkBack behavior rather than merely changing platform labels."
+    },
+    {
+      "claim": "The concept has not been validated through rendering, device testing, or assistive-technology testing.",
+      "type": "process",
+      "verified": true,
+      "evidence": "The opening notice and Section 8 explicitly classify real-device proportions, contrast measurements, runtime hit areas, VoiceOver/TalkBack, maximum text size, weak-network behavior, and audio failure as unverified. The transcript likewise says no device rendering, interactive prototype, or assistive-technology test was performed."
+    }
+  ],
+  "user_notes_summary": {
+    "uncertainties": [],
+    "needs_review": [],
+    "workarounds": []
+  },
+  "eval_feedback": {
+    "suggestions": [
+      {
+        "reason": "No assertion directly checks the user's main deliverable: that the response first provides a coherent design rationale and then a concrete key-page layout for the 今日练习 home. A checklist could satisfy all six assertions while still omitting a usable page hierarchy. Add an assertion for the ordered rationale-plus-layout deliverable and require the layout to include the primary daily-practice content and action."
+      },
+      {
+        "assertion": "Does not delete required content in the name of minimalism, and explains operationally what 简洁/modern means for this design",
+        "reason": "‘Required content’ is not enumerated in the eval, so this half is partly grader-defined. Make it discriminating by naming the minimum task content to preserve, such as today's practice identity, duration, primary start/resume action, status/recovery messaging, and access to the remaining product destinations."
+      }
+    ],
+    "overall": "The assertions strongly test the skill's assumptions, state coverage, platform adaptation, accessibility, and handling of vague style language. They should additionally verify the core requested design-and-layout deliverable and make the required-content criterion explicit."
+  }
+}

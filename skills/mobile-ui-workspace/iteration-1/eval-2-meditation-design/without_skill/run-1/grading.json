@@ -1,0 +1,89 @@
+{
+  "expectations": [
+    {
+      "text": "States a task contract or explicit assumptions (target user, key task, required content) before or alongside the visual design",
+      "passed": true,
+      "evidence": "In `outputs/meditation-today-home-design.md`, section 1 opens with all three elements: `目标用户：希望用 5–20 分钟完成日常冥想的初学者与稳定练习者`, a four-item `核心任务` list, and `必须保留的信息：问候与日期、今日主练习、时长、进度、主操作、下载/离线状态、当日完成状态、连续练习信息`."
+    },
+    {
+      "text": "Designs at least 3 non-default states (e.g. first load, empty/no active plan, offline or cached, download/play failure)",
+      "passed": true,
+      "evidence": "Section 7 substantively specifies six states (A–F): `首次进入 / 尚未生成计划`, `正常未开始`, `进行中 / 中途退出`, `今日已完成`, `离线 / 缓存可用`, and `加载或播放失败`. Each includes state-specific content and actions; for example, failure preserves progress and offers `重试` and `查看已下载练习`."
+    },
+    {
+      "text": "Differentiates iOS and Android platform behavior (navigation, back, components), not one design relabeled twice",
+      "passed": true,
+      "evidence": "Section 6 provides a platform comparison covering large-title navigation versus Material 3 Top App Bar, Tab Bar versus Material 3 Navigation Bar, iOS edge-swipe/navigation-button back versus Android system/predictive back, native press/haptics versus Material Filled Button/ripple, and native menu/sheet versus overflow/Modal Bottom Sheet. It explicitly says the design is not `一套界面换设备壳`."
+    },
+    {
+      "text": "Does not delete required content in the name of minimalism, and explains operationally what 简洁/modern means for this design",
+      "passed": true,
+      "evidence": "The output preserves required content including theme, duration, progress, primary action, download/offline state, completion state, and streak information. It states `简洁不等于删掉关键内容` and operationalizes the adjectives: modern means clear grids, dynamic type, native components, lightweight motion, and timely feedback; concise means one primary CTA, compact secondary data, and progressive disclosure."
+    },
+    {
+      "text": "Covers accessibility basics: text scaling, touch targets, or semantic labels",
+      "passed": true,
+      "evidence": "Section 8 covers all named basics: iOS `44×44pt` and Android `48×48dp` interaction targets, system font scaling, VoiceOver/TalkBack labels such as `继续今日练习，剩余 6 分钟，按钮`, semantic labels for icons, and hiding decorative textures from the accessibility tree. It also addresses contrast, reduced motion, transcripts, and non-color-only state communication."
+    },
+    {
+      "text": "Flags that 现代/高级/简洁 adjectives are not a usable brand brief, or records the gap as an explicit assumption",
+      "passed": true,
+      "evidence": "The assumptions section explicitly states: `“现代、高级、简洁”还不是完整的品牌简报`, temporarily assumes an `安静、温暖、可信赖` brand character, and records brand color, font licensing, imagery preference, and tone guidelines as items still needing confirmation."
+    }
+  ],
+  "summary": {
+    "passed": 6,
+    "failed": 0,
+    "total": 6,
+    "pass_rate": 1.0
+  },
+  "execution_metrics": {
+    "output_chars": 12129,
+    "transcript_chars": 1663
+  },
+  "timing": {
+    "executor_duration_seconds": 0.0,
+    "total_duration_seconds": 0.0,
+    "total_tokens": 108651,
+    "note": "duration_ms was not exposed by the Pi subagent harness; timing.json records 0.0 seconds and tokens from run inspection"
+  },
+  "claims": [
+    {
+      "claim": "The design covers first-entry, not-started, in-progress, completed, offline/cache-available, and load/play-failure states.",
+      "type": "factual",
+      "verified": true,
+      "evidence": "Counted six corresponding A–F subsections in `状态设计`, each with state-specific behavior and recovery actions."
+    },
+    {
+      "claim": "The iOS and Android proposals use platform-specific navigation, back behavior, controls, menus, and feedback rather than merely changing the device frame.",
+      "type": "quality",
+      "verified": true,
+      "evidence": "Verified against the six-row platform-differences table and the platform-specific layout notes in the default home and player descriptions."
+    },
+    {
+      "claim": "The proposed text and key actions meet WCAG AA contrast targets.",
+      "type": "quality",
+      "verified": false,
+      "evidence": "The document specifies WCAG AA as a requirement, but no rendered screens, contrast calculations, or component-state color pairs are provided, so actual conformance cannot be verified from this design document alone."
+    },
+    {
+      "claim": "The complete design proposal was saved to `outputs/meditation-today-home-design.md`.",
+      "type": "process",
+      "verified": true,
+      "evidence": "The transcript records the save step, and the non-empty 12,129-character Markdown output exists in the executor result."
+    }
+  ],
+  "user_notes_summary": {
+    "uncertainties": [],
+    "needs_review": [],
+    "workarounds": []
+  },
+  "eval_feedback": {
+    "suggestions": [
+      {
+        "reason": "The prompt expressly requests key-page layout descriptions, but no assertion directly checks that a concrete, usable layout description was delivered. A response could discuss assumptions, states, platform differences, minimalism, and accessibility yet still omit the requested page layout. Add an assertion requiring a structured home-page layout that places the required content and primary CTA."
+      }
+    ],
+    "overall": "The six assertions are substantive and discriminating for the design-process risks they target. Add one direct assertion for the requested key-page layout deliverable."
+  }
+}

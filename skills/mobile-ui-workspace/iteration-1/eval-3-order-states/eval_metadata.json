@@ -1,0 +1,13 @@
+{
+  "eval_id": 3,
+  "eval_name": "order-page-states-fix",
+  "prompt": "用户投诉我们的外卖 App 订单列表页：1) 弱网时转圈很久，最后显示“暂无订单”，但用户其实有历史订单；2) iOS 大字体模式下，底部固定的“再来一单”按钮把最后一个订单的金额挡住了。分析问题原因并给出修复方案。",
+  "assertions": [
+    "Distinguishes request-failed/timeout from genuinely empty order data as the root-cause class of problem 1",
+    "Proposes offline/cache honesty: cached orders shown with freshness or sync labeling instead of a bare 暂无订单",
+    "Identifies fixed layout / missing runtime safe-area or inset handling as the cause of problem 2, with an inset-aware or scrollable fix",
+    "Addresses large-text scaling via text roles and adaptive layout rather than by shrinking or fixing text size",
+    "Each fix carries a verification/retest method (e.g. airplane mode, slow network simulation, largest accessibility text size)",
+    "Assigns severity or priority per issue, and does not claim unverified fixes as verified"
+  ]
+}

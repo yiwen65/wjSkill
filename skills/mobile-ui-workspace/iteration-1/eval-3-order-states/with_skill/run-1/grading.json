@@ -1,0 +1,48 @@
+{
+  "expectations": [
+    {
+      "text": "Distinguishes request-failed/timeout from genuinely empty order data as the root-cause class of problem 1",
+      "passed": true,
+      "evidence": "Core conclusion 1: '请求状态被错误地当成数据状态'; explicit notFetched/failed/confirmedEmpty split."
+    },
+    {
+      "text": "Proposes offline/cache honesty: cached orders shown with freshness or sync labeling instead of a bare 暂无订单",
+      "passed": true,
+      "evidence": "hasData+offline → '当前离线，显示已缓存订单'; '更新失败，当前显示截至 14:30 的订单'; stale-while-revalidate repository design."
+    },
+    {
+      "text": "Identifies fixed layout / missing runtime safe-area or inset handling as the cause of problem 2, with an inset-aware or scrollable fix",
+      "passed": true,
+      "evidence": "F2 root causes: overlay without contentInset sync, hardcoded constants; fixes: .safeAreaInset / sibling-to-safeAreaLayoutGuide / measured runtime height."
+    },
+    {
+      "text": "Addresses large-text scaling via text roles and adaptive layout rather than by shrinking or fixing text size",
+      "passed": true,
+      "evidence": "'不要通过缩小字号解决'; Dynamic Type text styles, vertical restack at accessibility sizes."
+    },
+    {
+      "text": "Each fix carries a verification/retest method (e.g. airplane mode, slow network simulation, largest accessibility text size)",
+      "passed": true,
+      "evidence": "Both findings carry 复测方法; plus a full 必测矩阵 (network/data + layout/a11y) and 发布阻断条件."
+    },
+    {
+      "text": "Assigns severity or priority per issue, and does not claim unverified fixes as verified",
+      "passed": true,
+      "evidence": "P1(暂定) per finding with '严重度需在真机复现后确认'; score reported as 0–93 range with 2/32 coverage, explicitly '不是产品质量分数'."
+    }
+  ],
+  "summary": {
+    "passed": 6,
+    "failed": 0,
+    "total": 6,
+    "pass_rate": 1.0
+  },
+  "timing": {
+    "total_tokens": 189472,
+    "total_duration_seconds": 0.0
+  },
+  "eval_feedback": {
+    "suggestions": [],
+    "overall": "Graded inline by parent agent after grader subagent infrastructure failures; evidence quoted from restored deliverables."
+  }
+}

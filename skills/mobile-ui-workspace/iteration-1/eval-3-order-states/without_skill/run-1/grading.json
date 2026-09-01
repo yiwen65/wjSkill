@@ -1,0 +1,48 @@
+{
+  "expectations": [
+    {
+      "text": "Distinguishes request-failed/timeout from genuinely empty order data as the root-cause class of problem 1",
+      "passed": true,
+      "evidence": "'网络失败被错误地当成业务数据为空'; 4-state split incl. error/staleContent; '只有服务端成功返回且解析成功的空集合，才能进入 empty'."
+    },
+    {
+      "text": "Proposes offline/cache honesty: cached orders shown with freshness or sync labeling instead of a bare 暂无订单",
+      "passed": true,
+      "evidence": "staleContent keeps old orders with '当前为上次内容'; cache snapshot with 更新时间; monitoring metric 'empty 展示中成功且0条的比例目标100%'."
+    },
+    {
+      "text": "Identifies fixed layout / missing runtime safe-area or inset handling as the cause of problem 2, with an inset-aware or scrollable fix",
+      "passed": true,
+      "evidence": "Root causes: floating button + fixed/no contentInset, missing Home Indicator safe area; fix: measured runtime height driving contentInset + scrollIndicatorInsets, or sibling layout."
+    },
+    {
+      "text": "Addresses large-text scaling via text roles and adaptive layout rather than by shrinking or fixing text size",
+      "passed": true,
+      "evidence": "Dynamic Type semantic styles, min-height+padding buttons, no ellipsizing price; no shrink-to-fit."
+    },
+    {
+      "text": "Each fix carries a verification/retest method (e.g. airplane mode, slow network simulation, largest accessibility text size)",
+      "passed": true,
+      "evidence": "Problem 1 has '如何确认根因' + state test list; Problem 2 has layout/a11y checklist; UI-automation assertions proposed."
+    },
+    {
+      "text": "Assigns severity or priority per issue, and does not claim unverified fixes as verified",
+      "passed": false,
+      "evidence": "Good honesty ('高概率根因，应先确认'), but no severity or priority is assigned to either issue anywhere — only a work ordering in 实施顺序."
+    }
+  ],
+  "summary": {
+    "passed": 5,
+    "failed": 1,
+    "total": 6,
+    "pass_rate": 0.83
+  },
+  "timing": {
+    "total_tokens": 84211,
+    "total_duration_seconds": 0.0
+  },
+  "eval_feedback": {
+    "suggestions": [],
+    "overall": "Graded inline by parent agent after grader subagent infrastructure failures; evidence quoted from restored deliverables."
+  }
+}

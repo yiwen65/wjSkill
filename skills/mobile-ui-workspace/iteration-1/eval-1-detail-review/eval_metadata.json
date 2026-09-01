@@ -1,0 +1,14 @@
+{
+  "eval_id": 1,
+  "eval_name": "detail-page-review",
+  "prompt": "我给我们团队的记账 App 做了个新的交易详情页（iOS），设计稿描述如下：顶部是一张全宽的品牌渐变卡片，里面用 12pt 浅灰色字显示商户名和金额；右上角一个 20×20pt 的垃圾桶图标作为删除按钮；页面中部的输入框用 placeholder 当标签（备注、分类）；底部一个通栏大按钮写着“确认”，点击后直接删除该交易、不做二次确认。帮我 review 一下这个页面的设计，输出问题清单和改进建议。",
+  "assertions": [
+    "Identifies the direct-delete-without-confirmation flow (button labeled 确认 that immediately deletes the transaction) as a critical/P0-level issue",
+    "Flags the 20×20pt delete icon's touch target against the iOS 44×44pt default hit-area guidance",
+    "Flags placeholder-as-label for the 备注/分类 input fields",
+    "Flags the 12pt light-gray merchant/amount text as a readability or contrast risk",
+    "Findings follow a critique structure: at minimum each has severity plus user impact, a concrete fix, and a retest/verification step",
+    "Does not fabricate measurements beyond the sizes given in the prompt, and marks runtime-dependent claims (screen reader, actual contrast ratio, real hit region) as unverified or to-be-tested",
+    "Grades the basis of its rules (official guide vs research/practice vs heuristic) or otherwise labels which claims are platform guidance versus opinion"
+  ]
+}

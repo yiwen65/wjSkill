@@ -1,0 +1,370 @@
+{
+  "metadata": {
+    "skill_name": "mobile-ui",
+    "skill_path": "/Users/w/AI/.skills/wjSkill/skills/mobile-ui",
+    "executor_model": "gpt-5.6-sol",
+    "analyzer_model": "<model-name>",
+    "timestamp": "2026-09-01T05:00:15Z",
+    "evals_run": [
+      1,
+      2,
+      3
+    ],
+    "runs_per_configuration": 1
+  },
+  "runs": [
+    {
+      "eval_id": 1,
+      "configuration": "with_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 7,
+        "failed": 0,
+        "total": 7,
+        "time_seconds": 0.0,
+        "tokens": 206873,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "Identifies the direct-delete-without-confirmation flow (button labeled 确认 that immediately deletes the transaction) as a critical/P0-level issue",
+          "passed": true,
+          "evidence": "F1 marked 'P0 阻断': copy/consequence mismatch of 确认-delete with no recovery path."
+        },
+        {
+          "text": "Flags the 20×20pt delete icon's touch target against the iOS 44×44pt default hit-area guidance",
+          "passed": true,
+          "evidence": "F3: '以 44×44 pt 作为默认命中目标（A 类指南，并非对所有组件都无例外的硬门槛）' — correct nuance."
+        },
+        {
+          "text": "Flags placeholder-as-label for the 备注/分类 input fields",
+          "passed": true,
+          "evidence": "F4: placeholder-as-label, '消失的输入标签'反模式."
+        },
+        {
+          "text": "Flags the 12pt light-gray merchant/amount text as a readability or contrast risk",
+          "passed": true,
+          "evidence": "F2: 12pt 浅灰 on gradient, hierarchy + contrast risk, '实际对比度未测量'."
+        },
+        {
+          "text": "Findings follow a critique structure: at minimum each has severity plus user impact, a concrete fix, and a retest/verification step",
+          "passed": true,
+          "evidence": "Every finding F1–F7 has 严重度/用户影响/最小修复/复测/不确定性 fields."
+        },
+        {
+          "text": "Does not fabricate measurements beyond the sizes given in the prompt, and marks runtime-dependent claims (screen reader, actual contrast ratio, real hit region) as unverified or to-be-tested",
+          "passed": true,
+          "evidence": "Known-facts disclaimer up top; '不能据 20×20pt 图形直接断言命中区违规'; score table keeps U items, reports 2.3–68.3 bounds + 32% coverage."
+        },
+        {
+          "text": "Grades the basis of its rules (official guide vs research/practice vs heuristic) or otherwise labels which claims are platform guidance versus opinion",
+          "passed": true,
+          "evidence": "依据说明 section splits A 类 (HIG/WCAG) vs B/C 类; rules cited with class labels inline."
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": 2,
+      "configuration": "with_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 6,
+        "failed": 0,
+        "total": 6,
+        "time_seconds": 0.0,
+        "tokens": 112063,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "States a task contract or explicit assumptions (target user, key task, required content) before or alongside the visual design",
+          "passed": true,
+          "evidence": "The output opens with ‘产品与设计目标’ before the visual direction. It defines the core task (‘知道今天为什么练、练什么、需要多久；一键开始或继续练习’), identifies adult users with 5–20 minutes available, describes usage contexts, and explicitly assumes an existing personalized plan while recording unknown brand, OS, subscription, and download requirements."
+        },
+        {
+          "text": "Designs at least 3 non-default states (e.g. first load, empty/no active plan, offline or cached, download/play failure)",
+          "passed": true,
+          "evidence": "Section 5 substantively specifies eight states with both UI behavior and recovery actions: first load/no cache, background refresh/cached content, offline/downloaded, offline/not downloaded, today-content request failure, audio playback failure, large text, and reduced motion. Sections 4.2–4.3 additionally define resume and completed states."
+        },
+        {
+          "text": "Differentiates iOS and Android platform behavior (navigation, back, components), not one design relabeled twice",
+          "passed": true,
+          "evidence": "The design gives distinct implementations: iOS uses Safe Area, Dynamic Type, native Tab Bar and Sheet, 44×44 pt targets, and VoiceOver ordering; Android uses system Insets, Material 3 Navigation Bar and Modal Bottom Sheet, Android 15 edge-to-edge handling, Predictive Back, 48×48 dp targets, and TalkBack. It also keeps pt separate from dp/sp."
+        },
+        {
+          "text": "Does not delete required content in the name of minimalism, and explains operationally what 简洁/modern means for this design",
+          "passed": true,
+          "evidence": "The output operationalizes ‘现代、高级、简洁’ as restrained hierarchy, precise typography, low-noise color, one primary content container, and sparse purposeful motion—not glass, gradients, thin type, or stacked cards. The proposed home still retains the task-critical theme, duration, explanation, teacher, start/resume action, adjustments, progress, navigation, status messaging, and recovery actions; it moves course browsing to ‘练习’ rather than deleting it."
+        },
+        {
+          "text": "Covers accessibility basics: text scaling, touch targets, or semantic labels",
+          "passed": true,
+          "evidence": "Accessibility is covered across the layout and Section 7: Dynamic Type/Android Font Scale with wrapping and growing containers; minimum 44×44 pt iOS and 48×48 dp Android targets; semantic names, roles, states, values, and reading order; decorative ripples hidden from the accessibility tree; non-color status cues; contrast targets; and a VoiceOver/TalkBack validation plan."
+        },
+        {
+          "text": "Flags that 现代/高级/简洁 adjectives are not a usable brand brief, or records the gap as an explicit assumption",
+          "passed": true,
+          "evidence": "The assumptions say brand name and related product constraints are undetermined, label the interpretation of the three adjectives as an adjustable evidence-C design strategy, and later state: ‘品牌信息缺失，因此颜色、圆角与动效均为提案而非行业标准’. The pending decisions explicitly request brand personality and audience confirmation."
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": 3,
+      "configuration": "with_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 6,
+        "failed": 0,
+        "total": 6,
+        "time_seconds": 0.0,
+        "tokens": 189472,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "Distinguishes request-failed/timeout from genuinely empty order data as the root-cause class of problem 1",
+          "passed": true,
+          "evidence": "Core conclusion 1: '请求状态被错误地当成数据状态'; explicit notFetched/failed/confirmedEmpty split."
+        },
+        {
+          "text": "Proposes offline/cache honesty: cached orders shown with freshness or sync labeling instead of a bare 暂无订单",
+          "passed": true,
+          "evidence": "hasData+offline → '当前离线，显示已缓存订单'; '更新失败，当前显示截至 14:30 的订单'; stale-while-revalidate repository design."
+        },
+        {
+          "text": "Identifies fixed layout / missing runtime safe-area or inset handling as the cause of problem 2, with an inset-aware or scrollable fix",
+          "passed": true,
+          "evidence": "F2 root causes: overlay without contentInset sync, hardcoded constants; fixes: .safeAreaInset / sibling-to-safeAreaLayoutGuide / measured runtime height."
+        },
+        {
+          "text": "Addresses large-text scaling via text roles and adaptive layout rather than by shrinking or fixing text size",
+          "passed": true,
+          "evidence": "'不要通过缩小字号解决'; Dynamic Type text styles, vertical restack at accessibility sizes."
+        },
+        {
+          "text": "Each fix carries a verification/retest method (e.g. airplane mode, slow network simulation, largest accessibility text size)",
+          "passed": true,
+          "evidence": "Both findings carry 复测方法; plus a full 必测矩阵 (network/data + layout/a11y) and 发布阻断条件."
+        },
+        {
+          "text": "Assigns severity or priority per issue, and does not claim unverified fixes as verified",
+          "passed": true,
+          "evidence": "P1(暂定) per finding with '严重度需在真机复现后确认'; score reported as 0–93 range with 2/32 coverage, explicitly '不是产品质量分数'."
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": 1,
+      "configuration": "without_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 0.71,
+        "passed": 5,
+        "failed": 2,
+        "total": 7,
+        "time_seconds": 0.0,
+        "tokens": 67948,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "Identifies the direct-delete-without-confirmation flow (button labeled 确认 that immediately deletes the transaction) as a critical/P0-level issue",
+          "passed": true,
+          "evidence": "Two P0 rows: '确认'实际执行删除 + 删除前不做二次确认."
+        },
+        {
+          "text": "Flags the 20×20pt delete icon's touch target against the iOS 44×44pt default hit-area guidance",
+          "passed": true,
+          "evidence": "'应放入至少 44×44pt 的可点击区域' — right number, though without default-vs-minimum nuance."
+        },
+        {
+          "text": "Flags placeholder-as-label for the 备注/分类 input fields",
+          "passed": true,
+          "evidence": "P1 row: placeholder 代替标签, '输入后标签消失'."
+        },
+        {
+          "text": "Flags the 12pt light-gray merchant/amount text as a readability or contrast risk",
+          "passed": true,
+          "evidence": "P1 row: 12pt 浅灰 on gradient, '对比度不足' + hierarchy."
+        },
+        {
+          "text": "Findings follow a critique structure: at minimum each has severity plus user impact, a concrete fix, and a retest/verification step",
+          "passed": false,
+          "evidence": "Table gives severity/impact/fix per finding, but retest lives only in one global 验收建议 list, not bound per finding; several checklist items don't map back to specific findings."
+        },
+        {
+          "text": "Does not fabricate measurements beyond the sizes given in the prompt, and marks runtime-dependent claims (screen reader, actual contrast ratio, real hit region) as unverified or to-be-tested",
+          "passed": true,
+          "evidence": "Header note: '已知尺寸仅为设计描述中的…不对具体设备尺寸作额外假设'; hit-target claim conditional ('若同时就是点击区域')."
+        },
+        {
+          "text": "Grades the basis of its rules (official guide vs research/practice vs heuristic) or otherwise labels which claims are platform guidance versus opinion",
+          "passed": false,
+          "evidence": "No source/evidence classification anywhere; 44×44pt and other guidance cited without labeling it as Apple guidance vs opinion."
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": 2,
+      "configuration": "without_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 6,
+        "failed": 0,
+        "total": 6,
+        "time_seconds": 0.0,
+        "tokens": 108651,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "States a task contract or explicit assumptions (target user, key task, required content) before or alongside the visual design",
+          "passed": true,
+          "evidence": "In `outputs/meditation-today-home-design.md`, section 1 opens with all three elements: `目标用户：希望用 5–20 分钟完成日常冥想的初学者与稳定练习者`, a four-item `核心任务` list, and `必须保留的信息：问候与日期、今日主练习、时长、进度、主操作、下载/离线状态、当日完成状态、连续练习信息`."
+        },
+        {
+          "text": "Designs at least 3 non-default states (e.g. first load, empty/no active plan, offline or cached, download/play failure)",
+          "passed": true,
+          "evidence": "Section 7 substantively specifies six states (A–F): `首次进入 / 尚未生成计划`, `正常未开始`, `进行中 / 中途退出`, `今日已完成`, `离线 / 缓存可用`, and `加载或播放失败`. Each includes state-specific content and actions; for example, failure preserves progress and offers `重试` and `查看已下载练习`."
+        },
+        {
+          "text": "Differentiates iOS and Android platform behavior (navigation, back, components), not one design relabeled twice",
+          "passed": true,
+          "evidence": "Section 6 provides a platform comparison covering large-title navigation versus Material 3 Top App Bar, Tab Bar versus Material 3 Navigation Bar, iOS edge-swipe/navigation-button back versus Android system/predictive back, native press/haptics versus Material Filled Button/ripple, and native menu/sheet versus overflow/Modal Bottom Sheet. It explicitly says the design is not `一套界面换设备壳`."
+        },
+        {
+          "text": "Does not delete required content in the name of minimalism, and explains operationally what 简洁/modern means for this design",
+          "passed": true,
+          "evidence": "The output preserves required content including theme, duration, progress, primary action, download/offline state, completion state, and streak information. It states `简洁不等于删掉关键内容` and operationalizes the adjectives: modern means clear grids, dynamic type, native components, lightweight motion, and timely feedback; concise means one primary CTA, compact secondary data, and progressive disclosure."
+        },
+        {
+          "text": "Covers accessibility basics: text scaling, touch targets, or semantic labels",
+          "passed": true,
+          "evidence": "Section 8 covers all named basics: iOS `44×44pt` and Android `48×48dp` interaction targets, system font scaling, VoiceOver/TalkBack labels such as `继续今日练习，剩余 6 分钟，按钮`, semantic labels for icons, and hiding decorative textures from the accessibility tree. It also addresses contrast, reduced motion, transcripts, and non-color-only state communication."
+        },
+        {
+          "text": "Flags that 现代/高级/简洁 adjectives are not a usable brand brief, or records the gap as an explicit assumption",
+          "passed": true,
+          "evidence": "The assumptions section explicitly states: `“现代、高级、简洁”还不是完整的品牌简报`, temporarily assumes an `安静、温暖、可信赖` brand character, and records brand color, font licensing, imagery preference, and tone guidelines as items still needing confirmation."
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": 3,
+      "configuration": "without_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 0.83,
+        "passed": 5,
+        "failed": 1,
+        "total": 6,
+        "time_seconds": 0.0,
+        "tokens": 84211,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "Distinguishes request-failed/timeout from genuinely empty order data as the root-cause class of problem 1",
+          "passed": true,
+          "evidence": "'网络失败被错误地当成业务数据为空'; 4-state split incl. error/staleContent; '只有服务端成功返回且解析成功的空集合，才能进入 empty'."
+        },
+        {
+          "text": "Proposes offline/cache honesty: cached orders shown with freshness or sync labeling instead of a bare 暂无订单",
+          "passed": true,
+          "evidence": "staleContent keeps old orders with '当前为上次内容'; cache snapshot with 更新时间; monitoring metric 'empty 展示中成功且0条的比例目标100%'."
+        },
+        {
+          "text": "Identifies fixed layout / missing runtime safe-area or inset handling as the cause of problem 2, with an inset-aware or scrollable fix",
+          "passed": true,
+          "evidence": "Root causes: floating button + fixed/no contentInset, missing Home Indicator safe area; fix: measured runtime height driving contentInset + scrollIndicatorInsets, or sibling layout."
+        },
+        {
+          "text": "Addresses large-text scaling via text roles and adaptive layout rather than by shrinking or fixing text size",
+          "passed": true,
+          "evidence": "Dynamic Type semantic styles, min-height+padding buttons, no ellipsizing price; no shrink-to-fit."
+        },
+        {
+          "text": "Each fix carries a verification/retest method (e.g. airplane mode, slow network simulation, largest accessibility text size)",
+          "passed": true,
+          "evidence": "Problem 1 has '如何确认根因' + state test list; Problem 2 has layout/a11y checklist; UI-automation assertions proposed."
+        },
+        {
+          "text": "Assigns severity or priority per issue, and does not claim unverified fixes as verified",
+          "passed": false,
+          "evidence": "Good honesty ('高概率根因，应先确认'), but no severity or priority is assigned to either issue anywhere — only a work ordering in 实施顺序."
+        }
+      ],
+      "notes": []
+    }
+  ],
+  "run_summary": {
+    "with_skill": {
+      "pass_rate": {
+        "mean": 1.0,
+        "stddev": 0.0,
+        "min": 1.0,
+        "max": 1.0
+      },
+      "time_seconds": {
+        "mean": 0.0,
+        "stddev": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "tokens": {
+        "mean": 169469.3333,
+        "stddev": 50470.9226,
+        "min": 112063,
+        "max": 206873
+      }
+    },
+    "without_skill": {
+      "pass_rate": {
+        "mean": 0.8467,
+        "stddev": 0.1457,
+        "min": 0.71,
+        "max": 1.0
+      },
+      "time_seconds": {
+        "mean": 0.0,
+        "stddev": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "tokens": {
+        "mean": 86936.6667,
+        "stddev": 20487.9354,
+        "min": 67948,
+        "max": 108651
+      }
+    },
+    "delta": {
+      "pass_rate": "+0.15",
+      "time_seconds": "+0.0",
+      "tokens": "+82533"
+    }
+  },
+  "notes": [
+    "Single run per configuration (n=1): deltas are directional, not statistically reliable.",
+    "Eval-2 (meditation-home-design) passed 6/6 in BOTH configurations — its assertions are largely non-discriminating; a strong baseline model already flags brand-brief gaps and designs states. Future iterations need sharper assertions (e.g. evidence-class labels on rules, verification-boundary reporting).",
+    "The discriminating assertions were exactly the skill-specific ones: per-finding retest methods + evidence grading (eval-1), per-issue severity (eval-3) — the baseline failed those.",
+    "With-skill runs cost 2.4x tokens on eval-1 (207k vs 68k) and 2.2x on eval-3 (189k vs 84k); eval-2 was roughly equal (112k vs 109k). The overhead buys the critique contract, score bounds, and verification boundaries.",
+    "duration_ms is not exposed by the Pi subagent harness; time_seconds is 0.0 for all runs. Token counts were recovered from run inspection.",
+    "Infrastructure note: writer-subagent outputs landed in isolated git commits and had to be restored via git show; two grader subagents graded empty directories and were replaced with inline grading."
+  ]
+}

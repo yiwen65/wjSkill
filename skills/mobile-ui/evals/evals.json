@@ -1,0 +1,48 @@
+{
+  "skill_name": "mobile-ui",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "我给我们团队的记账 App 做了个新的交易详情页（iOS），设计稿描述如下：顶部是一张全宽的品牌渐变卡片，里面用 12pt 浅灰色字显示商户名和金额；右上角一个 20×20pt 的垃圾桶图标作为删除按钮；页面中部的输入框用 placeholder 当标签（备注、分类）；底部一个通栏大按钮写着“确认”，点击后直接删除该交易、不做二次确认。帮我 review 一下这个页面的设计，输出问题清单和改进建议。",
+      "expected_output": "A structured design critique that catches the critical flaws (misleading irreversible delete, undersized touch target, placeholder-as-label, low-contrast small text), grades findings by severity with evidence classes, gives fixes and retest methods, and does not claim unverified items as passed.",
+      "files": [],
+      "expectations": [
+        "Identifies the direct-delete-without-confirmation flow (button labeled 确认 that immediately deletes the transaction) as a critical/P0-level issue",
+        "Flags the 20×20pt delete icon's touch target against the iOS 44×44pt default hit-area guidance",
+        "Flags placeholder-as-label for the 备注/分类 input fields",
+        "Flags the 12pt light-gray merchant/amount text as a readability or contrast risk",
+        "Findings follow a critique structure: at minimum each has severity plus user impact, a concrete fix, and a retest/verification step",
+        "Does not fabricate measurements beyond the sizes given in the prompt, and marks runtime-dependent claims (screen reader, actual contrast ratio, real hit region) as unverified or to-be-tested",
+        "Grades the basis of its rules (official guide vs research/practice vs heuristic) or otherwise labels which claims are platform guidance versus opinion"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "帮我设计一个冥想 App 的“今日练习”首页，iOS 和 Android 都要。风格要求：现代、高级、简洁。先给我设计方案说明，再给我关键页面的布局描述。",
+      "expected_output": "A design proposal that frames the task contract and assumptions before visuals, designs non-happy-path states (loading / no subscription / offline cached / download failed), differentiates iOS and Android platform behavior, treats 'clean' as organization rather than content deletion, and covers accessibility basics — instead of jumping straight to a visual description.",
+      "files": [],
+      "expectations": [
+        "States a task contract or explicit assumptions (target user, key task, required content) before or alongside the visual design",
+        "Designs at least 3 non-default states (e.g. first load, empty/no active plan, offline or cached, download/play failure)",
+        "Differentiates iOS and Android platform behavior (navigation, back, components), not one design relabeled twice",
+        "Does not delete required content in the name of minimalism, and explains operationally what 简洁/modern means for this design",
+        "Covers accessibility basics: text scaling, touch targets, or semantic labels",
+        "Flags that 现代/高级/简洁 adjectives are not a usable brand brief, or records the gap as an explicit assumption"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "用户投诉我们的外卖 App 订单列表页：1) 弱网时转圈很久，最后显示“暂无订单”，但用户其实有历史订单；2) iOS 大字体模式下，底部固定的“再来一单”按钮把最后一个订单的金额挡住了。分析问题原因并给出修复方案。",
+      "expected_output": "Root-cause analysis that distinguishes request-failed from empty-data states, addresses offline/cache honesty, identifies safe-area/fixed-layout occlusion as the occlusion cause with runtime-inset fixes, addresses large-text scaling without truncation, and provides per-fix retest methods with severity and evidence grading.",
+      "files": [],
+      "expectations": [
+        "Distinguishes request-failed/timeout from genuinely empty order data as the root-cause class of problem 1",
+        "Proposes offline/cache honesty: cached orders shown with freshness or sync labeling instead of a bare 暂无订单",
+        "Identifies fixed layout / missing runtime safe-area or inset handling as the cause of problem 2, with an inset-aware or scrollable fix",
+        "Addresses large-text scaling via text roles and adaptive layout rather than by shrinking or fixing text size",
+        "Each fix carries a verification/retest method (e.g. airplane mode, slow network simulation, largest accessibility text size)",
+        "Assigns severity or priority per issue, and does not claim unverified fixes as verified"
+      ]
+    }
+  ]
+}
