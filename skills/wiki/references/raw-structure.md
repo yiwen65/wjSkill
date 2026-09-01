@@ -17,6 +17,7 @@ Apply these rules:
 - merge only obvious extraction artifacts, such as duplicated headings or a heading split across adjacent lines, and do not silently invent missing structure;
 - keep cross-source synthesis, reusable concept definitions, and broad judgments in formal `_wiki/` pages, not in the raw record;
 - place extraction limitations, uncertain equations, figure/diagram caveats, and missing-section notes next to the affected source unit whenever possible;
+- extract substantive source images into `_wiki/raw/assets/<raw-stem>/` and embed them at their original source position in the raw body; a remote URL or empty placeholder is not sufficient when the image can be retrieved;
 - preserve enough location information that a reader can map a raw paragraph back to the source.
 
 The raw record should be a source-faithful deep analysis and structured summary, not a polished concept page, not a short abstract or metadata card, and not a full copyrighted transcription. It should preserve the source's structure while explaining the substantive claims, reasoning, evidence, assumptions, limitations, and relationships needed for later synthesis without reopening the source.
@@ -62,6 +63,16 @@ Source fidelity concerns both structure and voice. Keeping the original headings
 - A short provenance note may explain retrieval and completeness once. It must not become a second fixed ending or a disclaimer attached to every section.
 - The result should be a readable, unevenly weighted reading record. A source with a long technical section and a short historical aside should not be flattened into equally sized template blocks.
 
+## Figures, diagrams, and source images
+
+Images are part of the source's information architecture when they carry a figure, diagram, screenshot, chart, table, or other substantive content. Handle them during capture rather than leaving image URLs for a later pass:
+
+1. Enumerate Markdown/HTML image references, lazy-loaded variants, X Article media, EPUB image members, and PDF-embedded figures in source order. Ignore tracking pixels, decorative icons, unrelated thumbnails, and avatars unless they are evidence in the source.
+2. Download or extract the original bytes to `_wiki/raw/assets/<raw-stem>/` with stable ordinal names (`001-figure.png`, `002-screenshot.jpg`, …). Check the actual MIME/content before choosing the extension and retain the source's canonical URL. Never archive credentials, cookies, browser state, or signed session URLs.
+3. At the corresponding section, paragraph, page, slide, timestamp, or nearest recoverable block, insert a vault-local embed such as `![[_wiki/raw/assets/<raw-stem>/001-figure.png|原始 alt 或 caption]]`. Preserve captions, figure numbers, alt text, and surrounding prose in place; do not collect figures at the end of the note.
+4. Keep the raw Markdown body image-focused: insert the vault-local embed and source-provided alt text/caption only; never add or display inline HTML provenance comments, and do not print the image source URL beside the image. Store the source URL, source location, local path, extraction result, media type, and byte SHA-256 in `_wiki/raw/assets/<raw-stem>/_provenance.json`. If placement is approximate because the extractor lost the exact anchor, record that in the sidecar, not as a visible source URL or HTML comment. Do not infer a caption or visual claim that was not recoverable from the source.
+5. Validate that every local image is non-empty and decodable, every embed resolves, and every sidecar record matches the archived bytes. If an image fails, retain `[图片未成功归档：原因]` without the original URL in the raw body, record the safe URL and affected source location in the sidecar/private validation output, and mark the capture partial rather than silently omitting it. Recompute `sha256` after all image embeds, failure markers, and the final Mermaid block are finished.
+
 ## Mermaid Visual Summary
 
 Every raw record for an article, paper, report, technical document, transcript, or other structured text must end with a concise, source-local Mermaid `mindmap` after the source-faithful analysis is complete. This visual appendix is the only fixed final section permitted by this rule; it must not flatten the preceding source-specific structure, replace the deep analysis, or introduce cross-source synthesis.
@@ -95,6 +106,8 @@ Before considering a raw record complete, verify:
 - each substantive block is attributable to a source section, page, slide, timestamp, speaker turn, or other location;
 - no generic fixed headings were inserted solely because the skill expected them;
 - source-specific caveats remain next to the evidence they qualify;
+- substantive source images are locally archived and embedded at their source positions, or explicit failure markers and provenance remain where extraction failed;
+- every local image embed resolves to an existing decodable asset and its provenance/hash record matches the archived bytes;
 - the body hash was recomputed after the final edit, including the Mermaid block;
 - the raw body ends with a renderable, source-local Mermaid `mindmap` whose nodes are supported by the preceding analysis and whose uncertainty matches the retrieval boundary;
 - the formal page, not the raw record, carries cross-source synthesis and reusable knowledge-graph interpretation.

@@ -47,15 +47,16 @@ Never infer that an untracked note is disposable. Never treat a broad filename m
    - Do not store the same full body in both `04-Sources/` and `_wiki/raw/`.
 2. Retain title, URL, author, publication date, capture date, original vault path, content hash, and attachment references when available. Never substitute ingestion date for an unknown publication date.
 3. For a URL, retrieve the page from the named source and distinguish publication date from access date. Store a source-faithful deep analysis and structured summary that follows the source's native organization, plus short verification excerpts by default—not a simple abstract or metadata card, and not a full copyrighted page. Follow `references/raw-structure.md`: preserve the source's own headings, order, hierarchy, timestamps, or other native organization instead of applying a universal raw-body template. Do not replace a user-supplied source with third-party web summaries.
-4. Read the source completely enough to identify thesis, claims, evidence, limitations, entities, concepts, comparisons, and durable questions.
-5. Read `_wiki/index.md` and, for X sources, perform exact canonical identity matching by normalized `post_id`/`article_id` before searching synonyms and aliases. A same-author or semantically similar page with a different X ID is only a related source, never an automatic duplicate.
-6. Present or internally form an update map: canonical source, ingestion record if needed, existing pages to revise, justified new pages, contradictions, index entry, and log entry.
-7. Read `references/concept-quality.md` before creating or reshaping concept pages. Update existing canonical concepts before creating new pages; use the matching `_wiki/_templates/` template for justified new pages, but treat its frontmatter/governance as the contract rather than a fixed prose outline. Keep book/report entities, chapter/source bridge pages, canonical concepts, comparisons, and syntheses distinct. A chapter page may map source structure to concepts, but should not become a duplicate canonical concept merely because the source has a chapter heading.
-8. Assign or preserve `page_role` and `evidence_scope` for every formal page touched. If a high-confidence page has one source, mark its scope `source-local` unless comparable cross-source evidence is actually present.
-9. Cite the source from every page whose important claims depend on it. Do not imply that a page was fully verified when only one source supports it.
-10. Update related pages bidirectionally where the relationship is useful; express important relationships in prose instead of a bare `Related` list.
-11. Update the index review queue and append one structured log entry after the content batch.
-12. Validate and report uncertainties.
+4. During retrieval, enumerate substantive source images and extract them into `_wiki/raw/assets/<raw-stem>/` in source order. Replace each original image marker at the same location with a vault-local `![[...]]` embed, preserve caption/alt text and nearby explanation, and store URL/location/local-path/media-type/SHA-256 provenance in `_wiki/raw/assets/<raw-stem>/_provenance.json` rather than in the Markdown body. Do not emit inline HTML provenance comments or print image URLs beside embeds. A failed image must remain visible as a failure marker without its URL in the body, make the capture partial, and record the safe URL/failure details in the sidecar; never silently leave only a remote URL or omit the figure.
+5. Read the source completely enough to identify thesis, claims, evidence, limitations, entities, concepts, comparisons, and durable questions.
+6. Read `_wiki/index.md` and, for X sources, perform exact canonical identity matching by normalized `post_id`/`article_id` before searching synonyms and aliases. A same-author or semantically similar page with a different X ID is only a related source, never an automatic duplicate.
+7. Present or internally form an update map: canonical source, ingestion record if needed, existing pages to revise, justified new pages, contradictions, index entry, and log entry.
+8. Read `references/concept-quality.md` before creating or reshaping concept pages. Update existing canonical concepts before creating new pages; use the matching `_wiki/_templates/` template for justified new pages, but treat its frontmatter/governance as the contract rather than a fixed prose outline. Keep book/report entities, chapter/source bridge pages, canonical concepts, comparisons, and syntheses distinct. A chapter page may map source structure to concepts, but should not become a duplicate canonical concept merely because the source has a chapter heading.
+9. Assign or preserve `page_role` and `evidence_scope` for every formal page touched. If a high-confidence page has one source, mark its scope `source-local` unless comparable cross-source evidence is actually present.
+10. Cite the source from every page whose important claims depend on it. Do not imply that a page was fully verified when only one source supports it.
+11. Update related pages bidirectionally where the relationship is useful; express important relationships in prose instead of a bare `Related` list.
+12. Update the index review queue and append one structured log entry after the content batch.
+13. Validate local image decodability, embed resolution, provenance/hash consistency, raw body hash, and report any failed or approximate image placement.
 
 Prefer a narrow, deep integration over generating many thin placeholder pages.
 
@@ -113,6 +114,7 @@ For a governance audit, additionally enumerate formal pages with missing `page_r
 - Human-authored wording and provenance were preserved.
 - No ambiguous or empty notes were moved or deleted.
 - Sources, dates, and attribution were not invented.
+- Substantive source images were archived and embedded at their source positions, or explicit failure markers and provenance were retained.
 - Formal pages satisfy the live schema and have meaningful links.
 - Exact backlinks, embeds, and renamed paths were checked.
 - `_wiki/index.md` and `_wiki/log.md` match material wiki changes.

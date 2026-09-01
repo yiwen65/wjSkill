@@ -73,6 +73,7 @@ Keep project-specific debugging in `02-Projects/`; extract only reusable conclus
 - Create a non-duplicative `_wiki/raw/` ingestion record only when formal pages need the schema's `raw/...` source reference. Record the original vault path, metadata, hash, and a source-faithful deep analysis and structured summary; follow `references/raw-structure.md` rather than forcing a fixed body template.
 - For user-provided pasted text or an external local attachment not yet in the vault, preserve one canonical copy under the appropriate `_wiki/raw/` folder when ingesting directly into the wiki.
 - For a public web page, store URL, author/date when known, access date, a source-faithful deep analysis and structured summary that follows the page's own heading/narrative order, and only short verification excerpts. Do not archive a full copyrighted article by default.
+- For substantive images in a public web page or X Article, archive the retrieved image bytes under `_wiki/raw/assets/<raw-stem>/` and embed each image at its original position in the raw record with `![[...]]`; keep the raw Markdown body limited to the image and source-provided caption/alt text, store source URL/location/media type/byte-hash provenance in `_wiki/raw/assets/<raw-stem>/_provenance.json`, and mark failed extraction without printing the image URL in the body.
 - Never keep two independently editable full-text copies. If the original moves, update the ingestion record rather than duplicating it.
 - Treat Git ignore as version-control isolation, not encryption. Do not quote or surface `90-Private/` contents unless the user explicitly requests the exact private note.
 
@@ -83,6 +84,7 @@ Keep project-specific debugging in `02-Projects/`; extract only reusable conclus
 - Use lowercase kebab-case slugs for formal `_wiki` pages.
 - Prefer explicit Obsidian links such as `[[03-Knowledge/AI/提示词/提示词优化|提示词优化]]` when basename collisions or cross-layer ambiguity are possible.
 - Preserve embeds such as `![[04-Sources/assets/example.png]]`; distinguish asset-path matches from stale note wikilinks.
+- Raw ingest image embeds should use vault-local paths such as `![[_wiki/raw/assets/<raw-stem>/001-figure.png|caption]]`; verify the referenced asset exists and is decodable before accepting the record.
 - Do not assume a directory is a valid note link.
 
 ## Formal page contract
