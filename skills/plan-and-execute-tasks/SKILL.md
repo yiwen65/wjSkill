@@ -1,13 +1,39 @@
 ---
 name: plan-and-execute-tasks
-description: Turn user requirements, PRDs, or task descriptions into evidence-backed, executable, dependency-aware task plans in docs/tasks, then optionally coordinate authorized implementation with parallel subagents while maintaining verified status. Use when agent is asked to plan, decompose, schedule, track, resume, or execute non-trivial work from a requirement or PRD, especially multi-file or multi-agent work. Do not use for a trivial one-step action that needs no durable plan or to infer permission to execute from a planning request.
+description: Create evidence-backed task plans in docs/tasks and optionally coordinate authorized execution. Assess task complexity before invoking this Skill. Use only when a durable plan adds value through meaningful dependencies, staged deliverables, coordination, or risk and uncertainty requiring recorded checkpoints, or when the user explicitly requests a durable task document or resumes an existing one. Do not use for clearly simple, bounded work with an obvious execution path and straightforward validation, even if it involves several steps or files. Planning keywords, a PRD, or file count alone do not trigger this Skill. Never infer execution permission from a planning request.
 ---
 
 # Plan and Execute Tasks
 
-Create one durable task document that is both the execution contract and the
-only authoritative status record. Keep facts, assumptions, decisions, work,
-and verification evidence traceable to the request and repository.
+For work that passes the applicability check below, create one durable task
+document that is both the execution contract and the only authoritative status
+record. Keep facts, assumptions, decisions, work, and verification evidence
+traceable to the request and repository.
+
+## Decide whether a durable plan is necessary
+
+Assess the work before selecting a mode or creating a task document:
+
+- **Skip for clearly simple work:** the goal and scope are clear, the execution
+  path is obvious, and a small direct check can verify completion. Examples
+  include a wording or configuration edit, a localized change with a known
+  fix, or a mechanical update across several files. Handle it directly within
+  the user's authorization; do not create `docs/tasks` artifacts or invoke
+  this Skill's planning and tracking workflow. If the user merely asks how to
+  approach such work, a concise inline answer is enough.
+- **Use when durable planning has concrete value:** the work has meaningful
+  dependencies between deliverables, staged integration, coordination across
+  owners, or risk and uncertainty that require recorded decisions and
+  verification checkpoints. Identify that value rather than equating
+  complexity with the number of files, commands, or steps, or with words such
+  as "plan", "PRD", or "execute".
+- **Honor an explicit document request:** use this Skill when the user expressly
+  requests a durable task plan or asks to resume an existing task document,
+  even if the remaining work is small. Reuse the existing document on resumption.
+
+If applicability is unclear, inspect only enough context to decide. Do not
+create a plan or ask for confirmation merely to classify complexity. If no
+concrete need for durable planning emerges, use the direct path instead.
 
 ## Select the mode and authority
 
